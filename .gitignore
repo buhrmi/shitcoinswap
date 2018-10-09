@@ -23,7 +23,7 @@ storage/*
 config/initializers/secret_token.rb
 config/master.key
 # Ignore node_modules
-node_modules/
+node_modules/*
 /yarn-error.log
 # Only include if you have production secrets in this file, which is no longer a Rails default
 # config/secrets.yml
