@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Symbol:</strong>
+  <%= @withdrawal.symbol %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @withdrawal.user_id %>
+</p>
+
+<p>
+  <strong>Receiver address:</strong>
+  <%= @withdrawal.receiver_address %>
+</p>
+
+<p>
+  <strong>Transaction:</strong>
+  <%= @withdrawal.transaction_id %>
+</p>
+
+<p>
+  <strong>Submitted at:</strong>
+  <%= @withdrawal.submitted_at %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @withdrawal.amount %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @withdrawal.status %>
+</p>
+
+<p>
+  <strong>Tries:</strong>
+  <%= @withdrawal.tries %>
+</p>
+
+<p>
+  <strong>Error:</strong>
+  <%= @withdrawal.error %>
+</p>
+
+<p>
+  <strong>Error at:</strong>
+  <%= @withdrawal.error_at %>
+</p>
+
+<p>
+  <strong>Signed transaction:</strong>
+  <%= @withdrawal.signed_transaction %>
+</p>
+
+<%= link_to 'Edit', edit_withdrawal_path(@withdrawal) %> |
+<%= link_to 'Back', withdrawals_path %>
