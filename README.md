@@ -1,6 +1,6 @@
-# Token Distribution System
+# Withdrawal System
 
-We are creating Newart Technology's automated token distribution system. We want to give back to the community, so we develop it as an open-source project.
+This is Newart Technology's withdrawal system.
 
 We start with a postgresql database on AWS that authorized people can read and write to.
 
