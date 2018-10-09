@@ -17,8 +17,8 @@ tmp/*
 rerun.txt
 pickle-email-*.html
 # Ignore uploaded files in development
-/storage/*
-!/storage/.keep
+storage/*
+!storage/.keep
 # TODO Comment out this rule if you are OK with secrets being uploaded to the repo
 config/initializers/secret_token.rb
 config/master.key
@@ -62,8 +62,4 @@ bower.json
 # Ignore yarn files
 yarn-debug.log*
 .yarn-integrity
-
-# Ignore uploaded files in development
-/storage/*
-!/storage/.keep
 
