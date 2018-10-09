@@ -1,0 +1,181 @@
+Started GET "/" for 127.0.0.1 at 2018-10-09 13:45:11 +0630
+  
+ActiveRecord::NoDatabaseError (FATAL:  role "bim" does not exist
+):
+  
+activerecord (5.2.1) lib/active_record/connection_adapters/postgresql_adapter.rb:688:in `rescue in connect'
+activerecord (5.2.1) lib/active_record/connection_adapters/postgresql_adapter.rb:683:in `connect'
+activerecord (5.2.1) lib/active_record/connection_adapters/postgresql_adapter.rb:215:in `initialize'
+activerecord (5.2.1) lib/active_record/connection_adapters/postgresql_adapter.rb:40:in `new'
+activerecord (5.2.1) lib/active_record/connection_adapters/postgresql_adapter.rb:40:in `postgresql_connection'
+activerecord (5.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:809:in `new_connection'
+activerecord (5.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:853:in `checkout_new_connection'
+activerecord (5.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:832:in `try_to_checkout_new_connection'
+activerecord (5.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:793:in `acquire_connection'
+activerecord (5.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:521:in `checkout'
+activerecord (5.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:380:in `connection'
+activerecord (5.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:1008:in `retrieve_connection'
+activerecord (5.2.1) lib/active_record/connection_handling.rb:118:in `retrieve_connection'
+activerecord (5.2.1) lib/active_record/connection_handling.rb:90:in `connection'
+activerecord (5.2.1) lib/active_record/migration.rb:554:in `call'
+actionpack (5.2.1) lib/action_dispatch/middleware/callbacks.rb:28:in `block in call'
+activesupport (5.2.1) lib/active_support/callbacks.rb:98:in `run_callbacks'
+actionpack (5.2.1) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (5.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (5.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:61:in `call'
+web-console (3.7.0) lib/web_console/middleware.rb:135:in `call_app'
+web-console (3.7.0) lib/web_console/middleware.rb:30:in `block in call'
+web-console (3.7.0) lib/web_console/middleware.rb:20:in `catch'
+web-console (3.7.0) lib/web_console/middleware.rb:20:in `call'
+actionpack (5.2.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (5.2.1) lib/rails/rack/logger.rb:38:in `call_app'
+railties (5.2.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (5.2.1) lib/active_support/tagged_logging.rb:71:in `block in tagged'
+activesupport (5.2.1) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (5.2.1) lib/active_support/tagged_logging.rb:71:in `tagged'
+railties (5.2.1) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.2.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (5.2.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.0.5) lib/rack/method_override.rb:22:in `call'
+rack (2.0.5) lib/rack/runtime.rb:22:in `call'
+activesupport (5.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (5.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (5.2.1) lib/action_dispatch/middleware/static.rb:127:in `call'
+rack (2.0.5) lib/rack/sendfile.rb:111:in `call'
+webpacker (3.5.5) lib/webpacker/dev_server_proxy.rb:22:in `perform_request'
+rack-proxy (0.6.5) lib/rack/proxy.rb:57:in `call'
+railties (5.2.1) lib/rails/engine.rb:524:in `call'
+puma (3.12.0) lib/puma/configuration.rb:225:in `call'
+puma (3.12.0) lib/puma/server.rb:658:in `handle_request'
+puma (3.12.0) lib/puma/server.rb:472:in `process_client'
+puma (3.12.0) lib/puma/server.rb:332:in `block in run'
+puma (3.12.0) lib/puma/thread_pool.rb:133:in `block in spawn_thread'
+Started GET "/" for 127.0.0.1 at 2018-10-09 13:46:21 +0630
+  
+ActiveRecord::NoDatabaseError (FATAL:  role "bim" does not exist
+):
+  
+activerecord (5.2.1) lib/active_record/connection_adapters/postgresql_adapter.rb:688:in `rescue in connect'
+activerecord (5.2.1) lib/active_record/connection_adapters/postgresql_adapter.rb:683:in `connect'
+activerecord (5.2.1) lib/active_record/connection_adapters/postgresql_adapter.rb:215:in `initialize'
+activerecord (5.2.1) lib/active_record/connection_adapters/postgresql_adapter.rb:40:in `new'
+activerecord (5.2.1) lib/active_record/connection_adapters/postgresql_adapter.rb:40:in `postgresql_connection'
+activerecord (5.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:809:in `new_connection'
+activerecord (5.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:853:in `checkout_new_connection'
+activerecord (5.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:832:in `try_to_checkout_new_connection'
+activerecord (5.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:793:in `acquire_connection'
+activerecord (5.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:521:in `checkout'
+activerecord (5.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:380:in `connection'
+activerecord (5.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:1008:in `retrieve_connection'
+activerecord (5.2.1) lib/active_record/connection_handling.rb:118:in `retrieve_connection'
+activerecord (5.2.1) lib/active_record/connection_handling.rb:90:in `connection'
+activerecord (5.2.1) lib/active_record/migration.rb:554:in `call'
+actionpack (5.2.1) lib/action_dispatch/middleware/callbacks.rb:28:in `block in call'
+activesupport (5.2.1) lib/active_support/callbacks.rb:98:in `run_callbacks'
+actionpack (5.2.1) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (5.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (5.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:61:in `call'
+web-console (3.7.0) lib/web_console/middleware.rb:135:in `call_app'
+web-console (3.7.0) lib/web_console/middleware.rb:30:in `block in call'
+web-console (3.7.0) lib/web_console/middleware.rb:20:in `catch'
+web-console (3.7.0) lib/web_console/middleware.rb:20:in `call'
+actionpack (5.2.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (5.2.1) lib/rails/rack/logger.rb:38:in `call_app'
+railties (5.2.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (5.2.1) lib/active_support/tagged_logging.rb:71:in `block in tagged'
+activesupport (5.2.1) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (5.2.1) lib/active_support/tagged_logging.rb:71:in `tagged'
+railties (5.2.1) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.2.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (5.2.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.0.5) lib/rack/method_override.rb:22:in `call'
+rack (2.0.5) lib/rack/runtime.rb:22:in `call'
+activesupport (5.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (5.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (5.2.1) lib/action_dispatch/middleware/static.rb:127:in `call'
+rack (2.0.5) lib/rack/sendfile.rb:111:in `call'
+webpacker (3.5.5) lib/webpacker/dev_server_proxy.rb:22:in `perform_request'
+rack-proxy (0.6.5) lib/rack/proxy.rb:57:in `call'
+railties (5.2.1) lib/rails/engine.rb:524:in `call'
+puma (3.12.0) lib/puma/configuration.rb:225:in `call'
+puma (3.12.0) lib/puma/server.rb:658:in `handle_request'
+puma (3.12.0) lib/puma/server.rb:472:in `process_client'
+puma (3.12.0) lib/puma/server.rb:332:in `block in run'
+puma (3.12.0) lib/puma/thread_pool.rb:133:in `block in spawn_thread'
+Started GET "/" for 127.0.0.1 at 2018-10-09 14:29:38 +0630
+  
+ActiveRecord::NoDatabaseError (FATAL:  database "withdrawal-system_development" does not exist
+):
+  
+activerecord (5.2.1) lib/active_record/connection_adapters/postgresql_adapter.rb:688:in `rescue in connect'
+activerecord (5.2.1) lib/active_record/connection_adapters/postgresql_adapter.rb:683:in `connect'
+activerecord (5.2.1) lib/active_record/connection_adapters/postgresql_adapter.rb:215:in `initialize'
+activerecord (5.2.1) lib/active_record/connection_adapters/postgresql_adapter.rb:40:in `new'
+activerecord (5.2.1) lib/active_record/connection_adapters/postgresql_adapter.rb:40:in `postgresql_connection'
+activerecord (5.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:809:in `new_connection'
+activerecord (5.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:853:in `checkout_new_connection'
+activerecord (5.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:832:in `try_to_checkout_new_connection'
+activerecord (5.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:793:in `acquire_connection'
+activerecord (5.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:521:in `checkout'
+activerecord (5.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:380:in `connection'
+activerecord (5.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:1008:in `retrieve_connection'
+activerecord (5.2.1) lib/active_record/connection_handling.rb:118:in `retrieve_connection'
+activerecord (5.2.1) lib/active_record/connection_handling.rb:90:in `connection'
+activerecord (5.2.1) lib/active_record/migration.rb:554:in `call'
+actionpack (5.2.1) lib/action_dispatch/middleware/callbacks.rb:28:in `block in call'
+activesupport (5.2.1) lib/active_support/callbacks.rb:98:in `run_callbacks'
+actionpack (5.2.1) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (5.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (5.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:61:in `call'
+web-console (3.7.0) lib/web_console/middleware.rb:135:in `call_app'
+web-console (3.7.0) lib/web_console/middleware.rb:30:in `block in call'
+web-console (3.7.0) lib/web_console/middleware.rb:20:in `catch'
+web-console (3.7.0) lib/web_console/middleware.rb:20:in `call'
+actionpack (5.2.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (5.2.1) lib/rails/rack/logger.rb:38:in `call_app'
+railties (5.2.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (5.2.1) lib/active_support/tagged_logging.rb:71:in `block in tagged'
+activesupport (5.2.1) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (5.2.1) lib/active_support/tagged_logging.rb:71:in `tagged'
+railties (5.2.1) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.2.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (5.2.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.0.5) lib/rack/method_override.rb:22:in `call'
+rack (2.0.5) lib/rack/runtime.rb:22:in `call'
+activesupport (5.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (5.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (5.2.1) lib/action_dispatch/middleware/static.rb:127:in `call'
+rack (2.0.5) lib/rack/sendfile.rb:111:in `call'
+webpacker (3.5.5) lib/webpacker/dev_server_proxy.rb:22:in `perform_request'
+rack-proxy (0.6.5) lib/rack/proxy.rb:57:in `call'
+railties (5.2.1) lib/rails/engine.rb:524:in `call'
+puma (3.12.0) lib/puma/configuration.rb:225:in `call'
+puma (3.12.0) lib/puma/server.rb:658:in `handle_request'
+puma (3.12.0) lib/puma/server.rb:472:in `process_client'
+puma (3.12.0) lib/puma/server.rb:332:in `block in run'
+puma (3.12.0) lib/puma/thread_pool.rb:133:in `block in spawn_thread'
+Started GET "/" for 127.0.0.1 at 2018-10-09 14:30:06 +0630
+Processing by PagesController#welcome as HTML
+  Rendering pages/welcome.html.erb within layouts/application
+  Rendered pages/welcome.html.erb within layouts/application (0.7ms)
+[Webpacker] Compiling…
+Started GET "/" for 127.0.0.1 at 2018-10-09 14:30:09 +0630
+Processing by PagesController#welcome as HTML
+  Rendering pages/welcome.html.erb within layouts/application
+  Rendered pages/welcome.html.erb within layouts/application (0.4ms)
+[Webpacker] Compiling…
+[Webpacker] Compiled all packs in /home/bim/code/withdrawal-system/public/packs
+Completed 200 OK in 3613ms (Views: 3607.2ms | ActiveRecord: 0.0ms)
+
+
+[Webpacker] Compiled all packs in /home/bim/code/withdrawal-system/public/packs
+Completed 200 OK in 2673ms (Views: 2672.7ms | ActiveRecord: 0.0ms)
+
+
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE DATABASE "withdrawal-system_development" ENCODING = 'unicode'[0m
+  ↳ bin/rails:9
+  [1m[35m (874.8ms)[0m  [1m[35mCREATE DATABASE "withdrawal-system_test" ENCODING = 'unicode'[0m
+  ↳ bin/rails:9
