@@ -19,3 +19,14 @@ CREATE TABLE "withdrawals" (
   "error_at" datetime
 );
 ```
+
+## Supported Currencies / Tokens
+
+Symbol  | Contract Address
+--------|------------------
+ETH     | -
+RIK     | 0xECC3A47F5d0AC33db287D8f9DeBf03830853Cbb9
+SMS     | 0x39013f961c378f02c2b82a6e1d31e9812786fd9d
+WHS     | 0x1f77db6ecbce65902d8e27888b40d344f45c337e
+
+More to be added later
