@@ -1,6 +1,6 @@
 # Withdrawal System
 
-This is Newart Technology's withdrawal system.
+We are implementing Newart Technology's withdrawal system to send tokens and coins to our costumers.
 
 We start with a postgresql database on AWS that authorized people can read and write to.
 
