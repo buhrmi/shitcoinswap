@@ -3,9 +3,9 @@ capybara-*.html
 .rspec
 # Ignore all logfiles and tempfiles.
 /log/*
-/tmp/*
+tmp
 !/log/.keep
-!/tmp/.keep
+
 
 /db/*.sqlite3
 /db/*.sqlite3-journal
