@@ -8,11 +8,12 @@ class CreateWithdrawals < ActiveRecord::Migration[5.2]
       t.timestamp :submitted_at, comment: 'The time when the transaction was submitted to the blockchain'
       t.decimal :amount, precision: 50, scale: 20
       t.string :status
-      t.integer :tries
+      t.integer :tries, default: 0
       t.string :error
       t.timestamp :error_at
       t.string :signed_transaction
-
+      t.integer :mined_block
+      
       t.index :symbol
       t.index :user_id
       t.index :transaction_id
