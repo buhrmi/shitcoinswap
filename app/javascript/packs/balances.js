@@ -6,18 +6,13 @@
 // All it does is render <div>Hello Vue</div> at the bottom of the page.
 
 import Vue from 'vue'
-import App from '../app.vue'
+import App from '../balances.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const el = document.body.appendChild(document.createElement('hello'))
   const app = new Vue({
-    el: '#app',
-    data: {
-      message: 'Hello Vue!'
-    }
+    el: "#balances",
+    render: h => h(App)
   })
-
-  console.log(app)
 })
 
 
