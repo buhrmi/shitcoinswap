@@ -8,7 +8,8 @@ class Withdrawal < ApplicationRecord
   validate :check_to_address
 
   after_create do
-    Balance.adjust!(user, coin, -amount, self) if user
+    # This will throw and rollback the transaction in case the balance is not enough
+    user.adjust_balance!(coin, -amount, self) if user
   end
 
   after_update_commit do
@@ -35,8 +36,8 @@ class Withdrawal < ApplicationRecord
   end
 
   def unfunded?
-    # TODO: find a better way to do this
-    self.error == 'insufficient funds for gas * price + value' # This error comes from infura.io
+    # TODO: find a better way to check this
+    self.error == 'insufficient funds for gas * price + value' # This error text comes from infura.io
   end
 
   def tx_url

@@ -4,7 +4,7 @@ class WithdrawalsController < ApplicationController
   # GET /withdrawals
   # GET /withdrawals.json
   def index
-    @withdrawals = Withdrawal.all
+    @withdrawals = current_user.withdrawals
   end
 
   # GET /withdrawals/1
@@ -15,10 +15,6 @@ class WithdrawalsController < ApplicationController
   # GET /withdrawals/new
   def new
     @withdrawal = Withdrawal.new
-  end
-
-  # GET /withdrawals/1/edit
-  def edit
   end
 
   # POST /withdrawals
@@ -37,29 +33,6 @@ class WithdrawalsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /withdrawals/1
-  # PATCH/PUT /withdrawals/1.json
-  def update
-    respond_to do |format|
-      if @withdrawal.update(withdrawal_params)
-        format.html { redirect_to @withdrawal, notice: 'Withdrawal was successfully updated.' }
-        format.json { render :show, status: :ok, location: @withdrawal }
-      else
-        format.html { render :edit }
-        format.json { render json: @withdrawal.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /withdrawals/1
-  # DELETE /withdrawals/1.json
-  def destroy
-    @withdrawal.destroy
-    respond_to do |format|
-      format.html { redirect_to withdrawals_url, notice: 'Withdrawal was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

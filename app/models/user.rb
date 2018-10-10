@@ -35,7 +35,8 @@ class User < ApplicationRecord
     update_attribute(:remember_digest, nil)
   end
 
-  has_many :balance_adjustments
+	has_many :balance_adjustments
+	has_many :withdrawals
 
   def admin?
     true
