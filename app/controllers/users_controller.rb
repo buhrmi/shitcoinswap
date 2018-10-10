@@ -25,6 +25,6 @@ class UsersController < ApplicationController
 	  def user_params
 	    # strong parameters - whitelist of allowed fields #=> permit(:name, :email, ...)
 	    # that can be submitted by a form to the user model #=> require(:user)
-	    params.require(:user).permit(:user_id, :email, :password, :password_confirmation)
+	    params.require(:user).permit(:email, :password, :password_confirmation)
 	  end
 end
