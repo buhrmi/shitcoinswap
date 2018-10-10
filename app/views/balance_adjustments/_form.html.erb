@@ -13,22 +13,12 @@
 
   <div class="field">
     <%= form.label :coin_id %>
-    <%= form.number_field :coin_id %>
+    <%= form.select :coin_id, Coin.all.map { |coin| [coin.symbol, coin.id] } %>
   </div>
 
   <div class="field">
     <%= form.label :user_id %>
-    <%= form.text_field :user_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :change_type %>
-    <%= form.text_field :change_type %>
-  </div>
-
-  <div class="field">
-    <%= form.label :change_id %>
-    <%= form.number_field :change_id %>
+    <%= form.select :user_id, User.all.map { |user| [user.email, user.id] } %>
   </div>
 
   <div class="field">
