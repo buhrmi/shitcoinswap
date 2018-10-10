@@ -1,9 +1,7 @@
 class PagesController < ApplicationController
+  before_action :authorize, only: [:balances]
 
-  # Restrict access so only logged in users can access the secret page:
-  before_action :authorize, only: [:secret]
-
-
-  def secret
+  def balances
+    # TODO: serve binance-compatible JSON format if user requests JSON
   end
 end

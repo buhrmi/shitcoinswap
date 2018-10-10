@@ -10,10 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_10_051918) do
+ActiveRecord::Schema.define(version: 2018_10_10_042620) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "balance_adjustments", force: :cascade do |t|
+    t.integer "coin_id"
+    t.integer "user_id"
+    t.string "change_type"
+    t.integer "change_id"
+    t.string "memo"
+    t.decimal "amount", precision: 50, scale: 20
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["change_id"], name: "index_balance_adjustments_on_change_id"
+    t.index ["change_type"], name: "index_balance_adjustments_on_change_type"
+    t.index ["coin_id", "user_id"], name: "index_balance_adjustments_on_coin_id_and_user_id"
+    t.index ["coin_id"], name: "index_balance_adjustments_on_coin_id"
+    t.index ["user_id"], name: "index_balance_adjustments_on_user_id"
+  end
 
   create_table "coins", force: :cascade do |t|
     t.string "name"
@@ -22,6 +38,7 @@ ActiveRecord::Schema.define(version: 2018_10_10_051918) do
     t.string "platform_id"
     t.string "address"
     t.json "platform_data", default: {}, comment: "Cached information for the coin. Pulled from the platform upon creation"
+    t.boolean "quotable", default: false, comment: "Can this coin be used as quote currency"
     t.datetime "delisted_at"
     t.string "logo_uid"
     t.string "logo_name"
@@ -61,11 +78,10 @@ ActiveRecord::Schema.define(version: 2018_10_10_051918) do
     t.integer "tries", default: 0
     t.string "error"
     t.datetime "error_at"
-    t.string "signed_transaction"
+    t.string "signed_transaction", comment: "The signed (raw) transaction in hex that can be submitted to the blockchain"
     t.integer "mined_block"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "from_address"
     t.index ["symbol"], name: "index_withdrawals_on_symbol"
     t.index ["transaction_id"], name: "index_withdrawals_on_transaction_id"
     t.index ["user_id"], name: "index_withdrawals_on_user_id"

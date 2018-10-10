@@ -34,4 +34,11 @@ class User < ApplicationRecord
   def forget
     update_attribute(:remember_digest, nil)
   end
+
+  has_many :balance_adjustments
+
+  def balances
+    balance_adjustments.group(:coin_id).sum(:amount).as_json
+  end
+
 end
