@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Balance Adjustments</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Coin</th>
+      <th>User</th>
+      <th>Change type</th>
+      <th>Change</th>
+      <th>Memo</th>
+      <th>Amount</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @balance_adjustments.each do |balance_adjustment| %>
+      <tr>
+        <td><%= balance_adjustment.coin_id %></td>
+        <td><%= balance_adjustment.user_id %></td>
+        <td><%= balance_adjustment.change_type %></td>
+        <td><%= balance_adjustment.change_id %></td>
+        <td><%= balance_adjustment.memo %></td>
+        <td><%= balance_adjustment.amount %></td>
+        <td><%= link_to 'Show', balance_adjustment %></td>
+        <td><%= link_to 'Edit', edit_balance_adjustment_path(balance_adjustment) %></td>
+        <td><%= link_to 'Destroy', balance_adjustment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Balance Adjustment', new_balance_adjustment_path %>

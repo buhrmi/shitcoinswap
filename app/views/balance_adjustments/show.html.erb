@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Coin:</strong>
+  <%= @balance_adjustment.coin_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @balance_adjustment.user_id %>
+</p>
+
+<p>
+  <strong>Change type:</strong>
+  <%= @balance_adjustment.change_type %>
+</p>
+
+<p>
+  <strong>Change:</strong>
+  <%= @balance_adjustment.change_id %>
+</p>
+
+<p>
+  <strong>Memo:</strong>
+  <%= @balance_adjustment.memo %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @balance_adjustment.amount %>
+</p>
+
+<%= link_to 'Edit', edit_balance_adjustment_path(@balance_adjustment) %> |
+<%= link_to 'Back', balance_adjustments_path %>
