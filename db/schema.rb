@@ -10,10 +10,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_10_015453) do
+ActiveRecord::Schema.define(version: 2018_10_10_024642) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "coins", force: :cascade do |t|
+    t.string "name"
+    t.string "native_symbol"
+    t.float "cached_rating", default: 0.0
+    t.string "platform_id"
+    t.string "address"
+    t.json "platform_data", default: {}, comment: "Cached information for the coin. Pulled from the platform upon creation"
+    t.boolean "quotable", default: false, comment: "Can this coin be used as quote currency"
+    t.datetime "delisted_at"
+    t.string "logo_uid"
+    t.string "logo_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["address", "platform_id"], name: "index_coins_on_address_and_platform_id", unique: true
+    t.index ["name"], name: "index_coins_on_name"
+  end
+
+  create_table "platforms", force: :cascade do |t|
+    t.string "module"
+    t.string "category", default: "token", comment: "Either \"native\" or \"tokens\""
+    t.string "native_symbol"
+    t.integer "last_scanned_block"
+    t.json "data", default: {}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "user_id"
@@ -34,7 +61,7 @@ ActiveRecord::Schema.define(version: 2018_10_10_015453) do
     t.integer "tries", default: 0
     t.string "error"
     t.datetime "error_at"
-    t.string "signed_transaction"
+    t.string "signed_transaction", comment: "The signed (raw) transaction in hex that can be submitted to the blockchain"
     t.integer "mined_block"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

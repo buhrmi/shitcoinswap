@@ -63,3 +63,5 @@ bower.json
 yarn-debug.log*
 .yarn-integrity
 
+# Ignore hotwallet keys
+hotwallet.*

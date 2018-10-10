@@ -5,12 +5,12 @@ one:
   user_id: 1
   receiver_address: MyString
   transaction_id: MyString
-  submitted_at: 2018-10-09 16:10:10
+  submitted_at: 2018-10-09 18:29:28
   amount: 9.99
   status: MyString
   tries: 1
   error: MyString
-  error_at: 2018-10-09 16:10:10
+  error_at: 2018-10-09 18:29:28
   signed_transaction: MyString
 
 two:
@@ -18,10 +18,10 @@ two:
   user_id: 1
   receiver_address: MyString
   transaction_id: MyString
-  submitted_at: 2018-10-09 16:10:10
+  submitted_at: 2018-10-09 18:29:28
   amount: 9.99
   status: MyString
   tries: 1
   error: MyString
-  error_at: 2018-10-09 16:10:10
+  error_at: 2018-10-09 18:29:28
   signed_transaction: MyString
