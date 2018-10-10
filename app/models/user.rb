@@ -6,6 +6,10 @@ class User < ApplicationRecord
 
 	has_many :balance_adjustments
 
+	def admin?
+		true
+	end
+
 	def balances
 		balance_adjustments.group(:coin_id).sum(:amount).as_json
 	end

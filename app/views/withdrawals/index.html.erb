@@ -35,8 +35,6 @@
         <td><%= withdrawal.error_at %></td>
         <td><%= withdrawal.signed_transaction %></td>
         <td><%= link_to 'Show', withdrawal %></td>
-        <td><%= link_to 'Edit', edit_withdrawal_path(withdrawal) %></td>
-        <td><%= link_to 'Destroy', withdrawal, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
