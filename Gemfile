@@ -18,6 +18,13 @@ gem 'webpacker'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'mini_racer', platforms: :ruby
 
+# Create eth keys etc
+gem 'eth'
+
+# Make HTTP requests easy
+gem 'typhoeus'
+
+# Load .env file
 gem 'dotenv-rails', groups: [:development, :test]
 
 # Use CoffeeScript for .coffee assets and views

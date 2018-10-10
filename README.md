@@ -2,9 +2,24 @@
 
 This is Newart Technology's withdrawal system used to send tokens and coins to our costumers.
 
-## Development
+## Set up for local development
+
+### Configure database
 
 After cloning the repository, update the `.env` file with your local database connection settings.
+
+### Load seed data
+
+Run `rails db:seed` to import the initial seed data into the database.
+
+
+### Generate hot wallet encryption keypair
+
+```
+[ -f config/hotwallet.priv.pem ] || openssl genrsa -out config/hotwallet.priv.pem 2048
+[ -f config/hotwallet.pub.pem ] || openssl rsa -in config/hotwallet.priv.pem -outform PEM -pubout -out config/hotwallet.pub.pem
+```
+
 
 ## Supported Currencies / Tokens
 
