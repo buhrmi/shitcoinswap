@@ -1,4 +1,4 @@
-class BalanceAdjustmentsController < ApplicationController
+class Admin::BalanceAdjustmentsController < ApplicationController
   before_action :set_balance_adjustment, only: [:show, :edit, :update, :destroy]
 
   # GET /balance_adjustments
@@ -28,7 +28,7 @@ class BalanceAdjustmentsController < ApplicationController
 
     respond_to do |format|
       if @balance_adjustment.save
-        format.html { redirect_to @balance_adjustment, notice: 'Balance adjustment was successfully created.' }
+        format.html { redirect_to [:admin, @balance_adjustment], notice: 'Balance adjustment was successfully created.' }
         format.json { render :show, status: :created, location: @balance_adjustment }
       else
         format.html { render :new }

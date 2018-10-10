@@ -24,7 +24,7 @@
         <td><%= balance_adjustment.change_id %></td>
         <td><%= balance_adjustment.memo %></td>
         <td><%= balance_adjustment.amount %></td>
-        <td><%= link_to 'Show', balance_adjustment %></td>
+        <td><%= link_to 'Show', admin_balance_adjustment_path(balance_adjustment) %></td>
       </tr>
     <% end %>
   </tbody>
@@ -32,4 +32,4 @@
 
 <br>
 
-<%= link_to 'New Balance Adjustment', new_balance_adjustment_path %>
+<%= link_to 'New Balance Adjustment', new_admin_balance_adjustment_path %>

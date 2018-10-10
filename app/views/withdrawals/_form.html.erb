@@ -12,13 +12,8 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :symbol %>
-    <%= form.text_field :symbol %>
-  </div>
-
-  <div class="field">
-    <%= form.label :user_id %>
-    <%= form.number_field :user_id %>
+    <%= form.label :coin_id %>
+    <%= form.select :coin_id, Coin.all.map { |coin| [coin.symbol, coin.id] } %>
   </div>
 
   <div class="field">
@@ -26,45 +21,12 @@
     <%= form.text_field :receiver_address %>
   </div>
 
-  <div class="field">
-    <%= form.label :transaction_id %>
-    <%= form.text_field :transaction_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :submitted_at %>
-    <%= form.datetime_select :submitted_at %>
-  </div>
 
   <div class="field">
     <%= form.label :amount %>
     <%= form.text_field :amount %>
   </div>
 
-  <div class="field">
-    <%= form.label :status %>
-    <%= form.text_field :status %>
-  </div>
-
-  <div class="field">
-    <%= form.label :tries %>
-    <%= form.number_field :tries %>
-  </div>
-
-  <div class="field">
-    <%= form.label :error %>
-    <%= form.text_field :error %>
-  </div>
-
-  <div class="field">
-    <%= form.label :error_at %>
-    <%= form.datetime_select :error_at %>
-  </div>
-
-  <div class="field">
-    <%= form.label :signed_transaction %>
-    <%= form.text_field :signed_transaction %>
-  </div>
 
   <div class="actions">
     <%= form.submit %>

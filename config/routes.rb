@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
+  namespace :admin do
+    resources :balance_adjustments
+  end
   
-  resources :balance_adjustments
   resources :withdrawals
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
