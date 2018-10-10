@@ -11,7 +11,7 @@ class CreateWithdrawals < ActiveRecord::Migration[5.2]
       t.integer :tries, default: 0
       t.string :error
       t.timestamp :error_at
-      t.string :signed_transaction
+      t.string :signed_transaction, comment: 'The signed (raw) transaction in hex that can be submitted to the blockchain'
       t.integer :mined_block
       
       t.index :symbol
