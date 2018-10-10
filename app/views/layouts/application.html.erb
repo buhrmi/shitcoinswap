@@ -12,7 +12,7 @@
   </head>
 
   <body>
-    <p>NewArt Technology | Security Token Service Center</p>
+    <p>NewArt Technology</p>
     <% if current_user %>
       <!-- current_user will return true if a user is logged in -->
       <%= "Logged in as #{current_user.email}" %> | <%= link_to 'Home', root_path %> | <%= link_to 'Balances', '/balances' %> | <%= link_to 'Log Out', logout_path, method: :delete %>

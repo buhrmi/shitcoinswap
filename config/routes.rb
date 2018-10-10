@@ -3,16 +3,12 @@ Rails.application.routes.draw do
   resources :balance_adjustments
   resources :withdrawals
 
-
-  get 'pages/secret'
-  get 'pages/welcome'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   # root 'pages#welcome'
 
   # Add a root route if you don't have one...
   # We can use users#new for now, or replace this with the controller and action you want to be the site root:
-  root to: 'users#new'
-  
+  root to: 'pages#welcome'  
   get 'balances', to: 'pages#balances'
 
   # sign up page with form:
