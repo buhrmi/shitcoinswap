@@ -38,7 +38,6 @@ ActiveRecord::Schema.define(version: 2018_10_10_042620) do
     t.string "platform_id"
     t.string "address"
     t.json "platform_data", default: {}, comment: "Cached information for the coin. Pulled from the platform upon creation"
-    t.boolean "quotable", default: false, comment: "Can this coin be used as quote currency"
     t.datetime "delisted_at"
     t.string "logo_uid"
     t.string "logo_name"
@@ -59,18 +58,17 @@ ActiveRecord::Schema.define(version: 2018_10_10_042620) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "user_id"
     t.string "email"
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "remember_digest"
   end
 
   create_table "withdrawals", force: :cascade do |t|
-    t.string "symbol"
+    t.string "coin_id"
     t.integer "user_id"
     t.string "receiver_address"
+    t.string "from_address", comment: "If this is empty, it means that the transaction is sent from some hot wallet"
     t.string "transaction_id", comment: "This is the hash of the transaction"
     t.datetime "submitted_at", comment: "The time when the transaction was submitted to the blockchain"
     t.decimal "amount", precision: 50, scale: 20
@@ -82,7 +80,7 @@ ActiveRecord::Schema.define(version: 2018_10_10_042620) do
     t.integer "mined_block"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["symbol"], name: "index_withdrawals_on_symbol"
+    t.index ["coin_id"], name: "index_withdrawals_on_coin_id"
     t.index ["transaction_id"], name: "index_withdrawals_on_transaction_id"
     t.index ["user_id"], name: "index_withdrawals_on_user_id"
   end
