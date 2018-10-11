@@ -1,23 +1,21 @@
 class Withdrawal < ApplicationRecord
   belongs_to :coin
   belongs_to :user, optional: true
-
+  has_one :balance_adjustment, as: :change
+  
   validates_numericality_of :amount, greater_than: 0
   validate :check_amount
   validates_presence_of :receiver_address
   validate :check_receiver_address
-
-  after_create do
-    # This will throw and rollback the transaction in case the balance is not enough
-    user.adjust_balance!(coin, -amount, self) if user
-  end
+  before_validation :ensure_balance_adjustment_present, if: :has_user?
+  validates_associated :balance_adjustment
 
   after_update_commit do
     if user and status == 'submitted' and [nil, 'error'].include?(attribute_before_last_save('status'))
       UserMailer.with(user: user, withdrawal: self).withdrawal_submitted_email.deliver_later
     end
 
-    # This code will ensure that we have enough native coins in the customer's address to cover the transfer of deposited tokens
+    # The below code will ensure that we have enough native coins in the customer's deposit address to cover the transfer of deposited tokens
     # to our hotwallet after customer deposited tokens
     if unfunded? && was_first_try? && !coin.native? && !from_hotwallet?
       puts "Withdrawal #{id} unfunded. Sending funds from hotwallet."
@@ -29,6 +27,14 @@ class Withdrawal < ApplicationRecord
 
   def from_hotwallet?
     sender_address.nil?
+  end
+
+  def ensure_balance_adjustment_present
+    self.balance_adjustment ||= BalanceAdjustment.new({user: user, coin: coin, amount: -amount})
+  end
+
+  def has_user?
+    user
   end
 
   def was_first_try?
@@ -45,7 +51,7 @@ class Withdrawal < ApplicationRecord
   end
 
   def check_receiver_address
-    errors.add(:receiver_address, 'not valid') unless Eth::Address.new(receiver_address).valid?
+    errors.add(:receiver_address, 'is invalid') unless Eth::Address.new(receiver_address).valid?
   end
 
   def check_amount
