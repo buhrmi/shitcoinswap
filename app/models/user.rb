@@ -5,7 +5,12 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
 
 	has_many :balance_adjustments
-	has_many :withdrawals
+  has_many :withdrawals
+  has_many :sessions
+
+  def create_session!
+    Session.create!(user: self)
+  end
 
   def admin?
     true

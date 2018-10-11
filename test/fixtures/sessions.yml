@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  authorization: MyString
+  expires: 2018-10-11 10:00:40
+
+two:
+  user_id: 1
+  authorization: MyString
+  expires: 2018-10-11 10:00:40
