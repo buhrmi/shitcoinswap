@@ -32,6 +32,7 @@ class SessionsController < ApplicationController
 
   def destroy
     cookies.delete(:authorization)
+    current_session.update_attribute :logged_out_at, Time.now    
     @current_user = nil
     redirect_to login_path, notice: "Logged out!"
   end

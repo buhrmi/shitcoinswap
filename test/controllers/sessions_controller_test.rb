@@ -1,7 +1,15 @@
 require 'test_helper'
 
 class SessionsControllerTest < ActionDispatch::IntegrationTest
-  # test "the truth" do
-  #   assert true
-  # end
+  test "can not create session with wrong password" do
+    assert_no_changes('Session.count') do
+      post login_url, params: { login: { email: 'dude@dude.com', password: 'dude1' } }
+    end
+  end
+
+  test "can create session with wrong password" do
+    assert_changes('Session.count') do
+      post login_url, params: { login: { email: 'dude@dude.com', password: 'dude' } }
+    end
+  end
 end

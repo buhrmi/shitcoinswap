@@ -9,8 +9,11 @@ class ApplicationController < ActionController::Base
   # Define the current_user method:
   def current_user
     # Look up the current user based on user_id in the session cookie:
-    
-    @current_user ||= User.joins(:sessions).find_by(sessions: {authorization: cookies[:authorization]})
+    @current_user ||= current_session.try(:user)
+  end
+
+  def current_session
+    @current_session ||= Session.joins(:user).find_by(authorization: cookies[:authorization])
   end
 
   # authroize method redirects user to login page if not logged in:
