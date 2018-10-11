@@ -10,4 +10,10 @@ class UserMailer < ApplicationMailer
     @withdrawal = params[:withdrawal]
     mail(to: @user.email, subject: "Deposit cancelled: #{@withdrawal.amount} #{@withdrawal.coin.name} have been withdrawn")
   end
+
+
+  def password_reset(user)
+    @user = user
+    mail to: @user.email, subject: "Password reset"
+  end
 end
