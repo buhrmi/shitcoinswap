@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   
   namespace :admin do
     resources :balance_adjustments
+    resources :platforms
   end
   
   resources :withdrawals

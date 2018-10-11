@@ -1,0 +1,21 @@
+<h1>ADMIN / Platforms</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Platform</th>
+      <th>Hot wallet</th>
+      <th>Last scanned block</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @platforms.each do |platform| %>
+      <tr>
+        <td><%= platform.name %></td>
+        <td><%= platform.data['hot_wallet_address'] %></td>
+        <td><%= platform.last_scanned_block %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
