@@ -1,5 +1,5 @@
 desc "This is a never-ending background task that sends requested withdrawals from the hotwallet"
-task send_withdrawals: [:environment] do
+task withdrawals: [:environment] do
   while true
     for withdrawal in Withdrawal.where("status IS NULL or status = 'error' and tries < 10")
       withdrawal.with_lock do
