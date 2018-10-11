@@ -18,7 +18,7 @@
       <%= "Logged in as #{current_user.email}" %> | <%= link_to 'Balances', '/balances' %> | <%= link_to 'Withdrawals', '/withdrawals' %> | <%= link_to 'Log Out', logout_path, method: :delete %>
       <% if current_user.admin? %>
         <div class="admin_bar">
-          Admin Menu: <%= link_to 'Balance Adjustments', admin_balance_adjustments_path %> | <%= link_to 'Platforms', admin_platforms_path %>
+          Admin Menu: <%= link_to 'Balance Adjustments', admin_balance_adjustments_path %> | <%= link_to 'Platforms', admin_platforms_path %> | <%= link_to 'Withdrawals', admin_withdrawals_path %>
         </div>
       <% end %>
     <% else %>

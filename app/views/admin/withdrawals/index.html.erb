@@ -1,0 +1,27 @@
+<h1>ADMIN / Withdrawals</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Coin</th>
+      <th>Amount</th>
+      <th>Status</th>
+      <th>Transaction</th>
+      <th>Error</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @withdrawals.each do |withdrawal| %>
+      <tr>
+        <td><%= withdrawal.user %></td>
+        <td><%= withdrawal.coin %></td>
+        <td><%= withdrawal.amount %></td>
+        <td><%= withdrawal.status %></td>
+        <td><%= withdrawal.transaction_id %></td>
+        <td><%= withdrawal.error %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

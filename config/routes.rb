@@ -4,11 +4,10 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :balance_adjustments
     resources :platforms
+    resources :withdrawals
   end
 
   resources :withdrawals
-
-
   resources :users
 
   resources :password_resets, only: [:new, :create, :edit, :update]

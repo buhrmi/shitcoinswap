@@ -47,7 +47,7 @@ class Withdrawal < ApplicationRecord
   end
 
   def tx_url
-    coin.platform.tx_url(tx_id)
+    coin.platform.tx_url(transaction_id)
   end
 
   def check_receiver_address
@@ -63,8 +63,8 @@ class Withdrawal < ApplicationRecord
 
     platform = coin.platform
     id, hex = platform.build_signed_transfer_tx(coin, amount, receiver_address, sender_address)
-    self.tx_id = id
-    self.signed_tx_hex = hex
+    self.transaction_id = id
+    self.signed_transaction = hex
     self.status = 'pending'
     save!
      
