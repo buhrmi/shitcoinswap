@@ -5,7 +5,10 @@
     <%= f.text_field :email, autofocus: true %>
   </div>
   <div>
-    <%= f.label :password %>
+    <%= f.label :password do %>
+      <span>Password</span>
+      <%= link_to " (forgot password)", new_password_reset_path %>
+    <%end%>
     <%= f.password_field :password %>
   </div>
   <div>
