@@ -82,9 +82,9 @@ module PlatformIntegrations::ETH
   def create_deposits_from_transactions! transactions
     for transaction in transactions
       to_address = transaction['to']
-      from_address = transaction['from']
+      sender_address = transaction['from']
       next unless to_address
-      next if from_address.downcase == hot_wallet_address.downcase # sometimes we need to fund the address to transfer erc20 tokens
+      next if sender_address.downcase == hot_wallet_address.downcase # sometimes we need to fund the address to transfer erc20 tokens
       amount = transaction['value'].last(64).to_i(16).to_f / 10 ** 18
       hash = transaction['hash']
       address = Address.where(platform_id: self.id, address: to_address.downcase).first
@@ -129,8 +129,8 @@ module PlatformIntegrations::ETH
     address.present? && Eth::Address.new(address).valid?
   end
 
-  def build_signed_transfer_tx(coin, amount, to_address, from_address)
-    from_address ||= hot_wallet_address
+  def build_signed_transfer_tx(coin, amount, to_address, sender_address)
+    sender_address ||= hot_wallet_address
     
     if coin == native_coin
       # Eth transfer
@@ -141,9 +141,9 @@ module PlatformIntegrations::ETH
         data: '',
         gas_limit: gas_limit,
         gas_price: gas_price,
-        nonce: get_nonce(from_address),
+        nonce: get_nonce(sender_address),
         to: to_address,
-        from: from_address,
+        from: sender_address,
         value: (amount * coin.unit).to_i - fee
       }
       tx = Eth::Tx.new(params)
@@ -156,21 +156,21 @@ module PlatformIntegrations::ETH
         # TODO: store limits in platform database row
         gas_limit: 100_000,
         gas_price: gas_price,
-        nonce: get_nonce(from_address),
+        nonce: get_nonce(sender_address),
         to: coin.address,
-        from: from_address,
+        from: sender_address,
         value: 0
       })
     end
-    tx.sign(private_key_for(from_address))
+    tx.sign(private_key_for(sender_address))
     return tx.id, tx.hex
   end
 
-  def private_key_for(from_address)
-    if from_address == hot_wallet_address
+  def private_key_for(sender_address)
+    if sender_address == hot_wallet_address
       Eth::Key.new priv: Utils.decrypt_key(enc_hot_wallet_key)
     else
-      enc_private_key = Address.where(address: from_address.downcase).first.try(:enc_private_key)
+      enc_private_key = Address.where(address: sender_address.downcase).first.try(:enc_private_key)
       Eth::Key.new priv: Utils.decrypt_key(enc_private_key)
     end
   end

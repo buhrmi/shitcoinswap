@@ -12,6 +12,10 @@ class User < ApplicationRecord
     Session.create!(user: self)
   end
 
+  def adjust_balance!(coin, amount, change)
+    balance_adjustments.create!({coin: coin, amount: amount, change: change})
+  end
+
   def admin?
     true
   end

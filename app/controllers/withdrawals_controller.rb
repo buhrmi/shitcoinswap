@@ -21,7 +21,7 @@ class WithdrawalsController < ApplicationController
   # POST /withdrawals.json
   def create
     @withdrawal = Withdrawal.new(withdrawal_params)
-
+    @withdrawal.user = current_user
     respond_to do |format|
       if @withdrawal.save
         format.html { redirect_to @withdrawal, notice: 'Withdrawal was successfully created.' }
@@ -42,6 +42,6 @@ class WithdrawalsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def withdrawal_params
-      params.require(:withdrawal).permit(:symbol, :user_id, :receiver_address, :transaction_id, :submitted_at, :amount, :status, :tries, :error, :error_at, :signed_transaction)
+      params.require(:withdrawal).permit(:coin_id, :receiver_address, :amount)
     end
 end

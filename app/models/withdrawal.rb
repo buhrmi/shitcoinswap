@@ -4,8 +4,8 @@ class Withdrawal < ApplicationRecord
 
   validates_numericality_of :amount, greater_than: 0
   validate :check_amount
-  validates_presence_of :to_address
-  validate :check_to_address
+  validates_presence_of :receiver_address
+  validate :check_receiver_address
 
   after_create do
     # This will throw and rollback the transaction in case the balance is not enough
@@ -22,13 +22,13 @@ class Withdrawal < ApplicationRecord
     if unfunded? && was_first_try? && !coin.native? && !from_hotwallet?
       puts "Withdrawal #{id} unfunded. Sending funds from hotwallet."
       native_coin = coin.platform.native_coin
-      # This will create a transfer from the hot wallet to the from_address to cover for the token transfer fee
-      Withdrawal.create!(to_address: from_address, amount: coin.transfer_fee + native_coin.transfer_fee, coin: native_coin)
+      # This will create a transfer from the hot wallet to the sender_address to cover for the token transfer fee
+      Withdrawal.create!(receiver_address: sender_address, amount: coin.transfer_fee + native_coin.transfer_fee, coin: native_coin)
     end
   end
 
   def from_hotwallet?
-    from_address.nil?
+    sender_address.nil?
   end
 
   def was_first_try?
@@ -44,8 +44,8 @@ class Withdrawal < ApplicationRecord
     coin.platform.tx_url(tx_id)
   end
 
-  def check_to_address
-    errors.add(:to_address, 'not valid') unless Eth::Address.new(to_address).valid?
+  def check_receiver_address
+    errors.add(:receiver_address, 'not valid') unless Eth::Address.new(receiver_address).valid?
   end
 
   def check_amount
@@ -56,7 +56,7 @@ class Withdrawal < ApplicationRecord
     return unless status.nil? || status == 'error'
 
     platform = coin.platform
-    id, hex = platform.build_signed_transfer_tx(coin, amount, to_address, from_address)
+    id, hex = platform.build_signed_transfer_tx(coin, amount, receiver_address, sender_address)
     self.tx_id = id
     self.signed_tx_hex = hex
     self.status = 'pending'
