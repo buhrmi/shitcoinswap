@@ -3,7 +3,8 @@ class CreateSessions < ActiveRecord::Migration[5.2]
     create_table :sessions do |t|
       t.integer :user_id
       t.string :authorization
-      t.timestamp :expires
+      t.timestamp :expires_at
+      t.timestamp :logged_out_at
 
       t.timestamps
     end
