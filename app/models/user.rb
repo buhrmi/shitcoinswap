@@ -5,7 +5,8 @@ class User < ApplicationRecord
 
   # Verify that email field is not blank and that it doesn't already exist in the db (prevents duplicates):
   validates :email, presence: true, uniqueness: true
-
+  validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
+  
   has_many :balance_adjustments
   has_many :withdrawals
   has_many :sessions
@@ -20,6 +21,10 @@ class User < ApplicationRecord
 
   def admin?
     true
+  end
+
+  def display_name
+    email.split('@').first
   end
 
   def balances
