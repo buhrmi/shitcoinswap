@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :coins
   end
 
+  resources :orders
   resources :withdrawals
   resources :users
 

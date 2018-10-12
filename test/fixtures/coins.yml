@@ -1,2 +1,3 @@
-lovetoken:
-  name: Token of love
+eth:
+  name: Ethereum
+  native_symbol: ETH

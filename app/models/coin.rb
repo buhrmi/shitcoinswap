@@ -1,20 +1,16 @@
 class Coin < ApplicationRecord
+  ETH = find_by!(native_symbol: 'ETH')
+
   belongs_to :platform, optional: true
   has_many :balance_adjustments
-  
+
   validate :check_address
   validates_uniqueness_of :address, case_sensitive: false, allow_nil: true
-
-  scope :default, lambda { where(quotable: true) }
   
   before_save :fetch_platform_data
 
   before_save do
     self.address.downcase! if self.address
-  end
-
-  def self.default_quote
-    Platform::DEFAULT_PLATFORM.native_coin
   end
    
   # This is the fee paid in native platform shitcoin, for example gas price for transfering erc20 tokens

@@ -1,6 +1,4 @@
 class Platform < ApplicationRecord
-  DEFAULT_PLATFORM = where(native_symbol: 'ETH').first
-
   after_find do
     self.extend "PlatformIntegrations::#{self.module}".constantize
   end
@@ -19,9 +17,5 @@ class Platform < ApplicationRecord
 
   def native_coin
     Coin.find_by(native_symbol: native_symbol)
-  end
-
-  def default?
-    self == DEFAULT_PLATFORM
   end
 end

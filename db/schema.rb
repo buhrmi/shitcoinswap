@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_11_034739) do
+ActiveRecord::Schema.define(version: 2018_10_12_021733) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,29 @@ ActiveRecord::Schema.define(version: 2018_10_11_034739) do
     t.index ["name"], name: "index_coins_on_name"
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "base_coin_id"
+    t.integer "quote_coin_id"
+    t.string "kind", comment: "\"limit\" or \"market\""
+    t.string "side", comment: "\"buy\" or \"sell\""
+    t.decimal "rate", precision: 50, scale: 20, comment: "The exchange rate (1 BASE = X QUOTE) to use for this order"
+    t.decimal "quantity", precision: 50, scale: 20, default: "0.0", comment: "The quantity (number of units) of the coin to purchase for limit or sell-market orders (buy-market orders use the \"total\" field instead)"
+    t.decimal "quantity_filled", precision: 50, scale: 20, default: "0.0", comment: "How many units have been filled."
+    t.decimal "total", precision: 50, scale: 20, default: "0.0", comment: "Only used for buy-market orders. The total amount of quote coin to use."
+    t.decimal "total_used", precision: 50, scale: 20, default: "0.0", comment: "Only used for buy-market orders. The amount of quote coin that has been used."
+    t.datetime "cancelled_at"
+    t.datetime "filled_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["base_coin_id"], name: "index_orders_on_base_coin_id"
+    t.index ["cancelled_at"], name: "index_orders_on_cancelled_at"
+    t.index ["filled_at"], name: "index_orders_on_filled_at"
+    t.index ["quote_coin_id"], name: "index_orders_on_quote_coin_id"
+    t.index ["rate"], name: "index_orders_on_rate"
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
   create_table "platforms", force: :cascade do |t|
     t.string "module"
     t.string "category", default: "token", comment: "Either \"native\" or \"tokens\""
@@ -64,6 +87,24 @@ ActiveRecord::Schema.define(version: 2018_10_11_034739) do
     t.datetime "logged_out_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "trades", force: :cascade do |t|
+    t.integer "buy_order_id"
+    t.integer "sell_order_id"
+    t.integer "seller_id"
+    t.integer "buyer_id"
+    t.integer "base_coin_id"
+    t.integer "quote_coin_id"
+    t.decimal "amount", precision: 50, scale: 20
+    t.decimal "rate", precision: 50, scale: 20
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["base_coin_id"], name: "index_trades_on_base_coin_id"
+    t.index ["buyer_id"], name: "index_trades_on_buyer_id"
+    t.index ["created_at"], name: "index_trades_on_created_at"
+    t.index ["quote_coin_id"], name: "index_trades_on_quote_coin_id"
+    t.index ["seller_id"], name: "index_trades_on_seller_id"
   end
 
   create_table "users", force: :cascade do |t|

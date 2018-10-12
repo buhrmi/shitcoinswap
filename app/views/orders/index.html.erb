@@ -1,0 +1,31 @@
+<h1>OTC Orders</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Buying Coin</th>
+      <th>Selling Coin</th>
+      <th>Amount</th>
+      <th>Rate</th>
+      <th>Filled</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @orders.each do |order| %>
+      <tr>
+        <td><%= order.buying_coin %></td>
+        <td><%= order.selling_coin %></td>
+        <td><%= order.amount %></td>
+        <td><%= order.rate %></td>
+        <td><%= order.filled %></td>
+        <td><%= order.user.display_name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Order', new_order_path %>
