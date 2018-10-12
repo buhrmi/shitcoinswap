@@ -1,6 +1,5 @@
 class PagesController < ApplicationController
-  skip_before_action :require_user, only: [:welcome]
-
+  before_action :require_user!, except: [:welcome]
   def balances
     # TODO: serve binance-compatible JSON format if user requests JSON
   end

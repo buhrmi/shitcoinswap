@@ -1,4 +1,5 @@
 class Admin::BalanceAdjustmentsController < ApplicationController
+  before_action :require_user!
   before_action :set_balance_adjustment, only: [:show, :edit, :update, :destroy]
 
   # GET /balance_adjustments
@@ -22,7 +23,7 @@ class Admin::BalanceAdjustmentsController < ApplicationController
   # POST /balance_adjustments.json
   def create
     @balance_adjustment = BalanceAdjustment.new(balance_adjustment_params)
-    
+
     # XXX: ensure the user has the right to adjustment balance
     @balance_adjustment.change = current_user
 
@@ -38,13 +39,13 @@ class Admin::BalanceAdjustmentsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_balance_adjustment
-      @balance_adjustment = BalanceAdjustment.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_balance_adjustment
+    @balance_adjustment = BalanceAdjustment.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def balance_adjustment_params
-      params.require(:balance_adjustment).permit(:coin_id, :user_id, :memo, :amount)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def balance_adjustment_params
+    params.require(:balance_adjustment).permit(:coin_id, :user_id, :memo, :amount)
+  end
 end

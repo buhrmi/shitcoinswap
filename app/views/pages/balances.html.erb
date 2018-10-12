@@ -1,8 +1,9 @@
 <h1>Your Balances</h1>
-
 <%# TODO: use vuex to store balance in global state and stop render ERB templates %>
-<% for id, balance in current_user.balances %>
-  <div class="balance">
-    <%= Coin.find(id).name %>: <%= balance %>
-  </div>
+<% if current_user %>
+  <% for id, balance in current_user.balances %>
+    <div class="balance">
+      <%= Coin.find(id).name %>: <%= balance %>
+    </div>
+  <% end %>
 <% end %>

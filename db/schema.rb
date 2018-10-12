@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_11_034739) do
+ActiveRecord::Schema.define(version: 2018_10_12_015118) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,21 +47,25 @@ ActiveRecord::Schema.define(version: 2018_10_11_034739) do
     t.index ["name"], name: "index_coins_on_name"
   end
 
+  create_table "passwordless_sessions", force: :cascade do |t|
+    t.string "authenticatable_type"
+    t.bigint "authenticatable_id"
+    t.datetime "timeout_at", null: false
+    t.datetime "expires_at", null: false
+    t.text "user_agent", null: false
+    t.string "remote_addr", null: false
+    t.string "token", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["authenticatable_type", "authenticatable_id"], name: "authenticatable"
+  end
+
   create_table "platforms", force: :cascade do |t|
     t.string "module"
     t.string "category", default: "token", comment: "Either \"native\" or \"tokens\""
     t.string "native_symbol"
     t.integer "last_scanned_block"
     t.json "data", default: {}
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "sessions", force: :cascade do |t|
-    t.integer "user_id"
-    t.string "authorization"
-    t.datetime "expires_at"
-    t.datetime "logged_out_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

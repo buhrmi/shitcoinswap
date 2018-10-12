@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
-  skip_before_action :require_user, only: [:new, :create]
+  include Passwordless::ControllerHelpers
+
+  protect_from_forgery with: :exception
 
   def new
     @user = User.new
@@ -13,11 +15,11 @@ class UsersController < ApplicationController
 
     if @user.save
       # If user saves in the db successfully:
-      flash[:notice] = "Account created successfully!"
-      redirect_to root_path
+      sign_in @user
+      redirect_to root_path, flash:{notice: 'Welcome!'}
     else
       # If user fails model validation - probably a bad password or duplicate email:
-      flash.now.alert = "Oops, couldn't create account. Please make sure you are using a valid email and password and try again."
+      flash.now.alert = "Oops, something wroung and try again."
       render :new
     end
   end

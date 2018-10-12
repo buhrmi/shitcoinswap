@@ -1,4 +1,5 @@
 class WithdrawalsController < ApplicationController
+  before_action :require_user!
   before_action :set_withdrawal, only: [:show, :edit, :update, :destroy]
 
   # GET /withdrawals
@@ -35,13 +36,13 @@ class WithdrawalsController < ApplicationController
 
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_withdrawal
-      @withdrawal = Withdrawal.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_withdrawal
+    @withdrawal = Withdrawal.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def withdrawal_params
-      params.require(:withdrawal).permit(:coin_id, :receiver_address, :amount)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def withdrawal_params
+    params.require(:withdrawal).permit(:coin_id, :receiver_address, :amount)
+  end
 end
