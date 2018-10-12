@@ -15,8 +15,8 @@
   <tbody>
     <% @withdrawals.each do |withdrawal| %>
       <tr>
-        <td><%= withdrawal.user %></td>
-        <td><%= withdrawal.coin %></td>
+        <td><%= withdrawal.user.email %></td>
+        <td><%= withdrawal.coin.name %></td>
         <td><%= withdrawal.amount %></td>
         <td><%= withdrawal.status %></td>
         <td><%= withdrawal.transaction_id %></td>

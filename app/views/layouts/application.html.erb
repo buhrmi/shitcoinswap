@@ -12,15 +12,17 @@
   </head>
 
   <body>
-    <p><%= link_to 'NewArt Technology', root_path %></p>
+    <% if current_user.try(:admin?) %>
+      <div class="admin">
+        Admin Menu: <%= link_to 'Balance Adjustments', admin_balance_adjustments_path %> | <%= link_to 'Platforms', admin_platforms_path %> | <%= link_to 'Withdrawals', admin_withdrawals_path %> | <%= link_to 'Coins', admin_coins_path %>
+      </div>
+    <% end %>
+    <h1><%= link_to 'NewArt Technology', root_path %></h1>
+    <p><%= link_to 'OTC', '/orders' %></p>
     <% if current_user %>
-      <!-- current_user will return true if a user is logged in -->
-      <%= "Logged in as #{current_user.email}" %> | <%= link_to 'OTC', '/orders' %> | <%= link_to 'Balances', '/balances' %> | <%= link_to 'Withdrawals', '/withdrawals' %> | <%= link_to 'Log Out', logout_path, method: :delete %>
-      <% if current_user.admin? %>
-        <div class="admin_bar">
-          Admin Menu: <%= link_to 'Balance Adjustments', admin_balance_adjustments_path %> | <%= link_to 'Platforms', admin_platforms_path %> | <%= link_to 'Withdrawals', admin_withdrawals_path %> | <%= link_to 'Coins', admin_coins_path %>
-        </div>
-      <% end %>
+      <div class="user">
+        <%= "Logged in as #{current_user.email}" %> | <%= link_to 'My Balances', '/balances' %> | <%= link_to 'My Withdrawals', '/withdrawals' %> | <%= link_to 'Log Out', logout_path, method: :delete %>
+      </div>
     <% else %>
       <!-- not logged in -->
       <%= link_to 'Log In', login_path %> or <%= link_to 'Sign Up', new_user_path %>

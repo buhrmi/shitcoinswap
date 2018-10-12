@@ -1,40 +1,29 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Withdrawals</h1>
+<h1>My Withdrawals</h1>
 
 <table>
   <thead>
     <tr>
       <th>Coin</th>
-      <th>User</th>
       <th>Receiver address</th>
       <th>Transaction</th>
-      <th>Submitted at</th>
+      <th>Created at</th>
       <th>Amount</th>
       <th>Status</th>
-      <th>Tries</th>
-      <th>Error</th>
-      <th>Error at</th>
-      <th>Signed transaction</th>
-      <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @withdrawals.each do |withdrawal| %>
       <tr>
-        <td><%= withdrawal.coin_id %></td>
-        <td><%= withdrawal.user_id %></td>
+        <td><%= withdrawal.coin.name %></td>
+
         <td><%= withdrawal.receiver_address %></td>
         <td><%= withdrawal.transaction_id %></td>
-        <td><%= withdrawal.submitted_at %></td>
+        <td><%= withdrawal.created_at %></td>
         <td><%= withdrawal.amount %></td>
         <td><%= withdrawal.status %></td>
-        <td><%= withdrawal.tries %></td>
-        <td><%= withdrawal.error %></td>
-        <td><%= withdrawal.error_at %></td>
-        <td><%= withdrawal.signed_transaction %></td>
-        <td><%= link_to 'Show', withdrawal %></td>
       </tr>
     <% end %>
   </tbody>
