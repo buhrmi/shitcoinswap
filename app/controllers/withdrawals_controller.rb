@@ -14,7 +14,7 @@ class WithdrawalsController < ApplicationController
 
   # GET /withdrawals/new
   def new
-    @withdrawal = Withdrawal.new
+    @withdrawal = Withdrawal.new(withdrawal_params)
   end
 
   # POST /withdrawals

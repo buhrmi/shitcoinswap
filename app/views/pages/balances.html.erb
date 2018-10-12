@@ -4,5 +4,6 @@
 <% for id, balance in current_user.balances %>
   <div class="balance">
     <%= Coin.find(id).name %>: <%= balance %>
+    <%= link_to "Withdraw", new_withdrawal_path(withdrawal: {coin_id: id})%>
   </div>
 <% end %>
