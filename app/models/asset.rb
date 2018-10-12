@@ -1,7 +1,7 @@
 class Asset < ApplicationRecord
   ETH = find_by(native_symbol: 'ETH')
 
-  belongs_to :platform, optional: true
+  belongs_to :platform
   has_many :balance_adjustments
 
   validate :check_address

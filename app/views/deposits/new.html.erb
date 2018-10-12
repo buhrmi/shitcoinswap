@@ -1,0 +1,4 @@
+<h1>Deposit <%= @asset.name %></h1>
+<p>Please deposit <%= @asset.symbol %> to <%= @address.address %></p>
+
+<%= image_tag "https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=#{@address.address}&choe=UTF-8" %>

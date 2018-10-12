@@ -1,15 +1,17 @@
 module PlatformIntegrations::ETH
   REQUIRED_CONFIRMATIONS = 1
 
-  def add_checksum(address)
-    Eth::Utils.format_address address
+  def self.new_address_attributes
+    key = Eth::Key.new
+    return {
+      enc_private_key: Utils.encrypt_key(key.private_hex),
+      public_key: key.public_hex,
+      address: key.address.downcase
+    }
   end
 
-  def init_address(address)
-    key = Eth::Key.new
-    address.enc_private_key = Utils.encrypt_key(key.private_hex)
-    address.public_key = key.public_hex
-    address.address = key.address.downcase
+  def add_checksum(address)
+    Eth::Utils.format_address address
   end
 
   def fetch_new_transfers from_block, to_block

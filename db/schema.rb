@@ -10,25 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_12_021733) do
+ActiveRecord::Schema.define(version: 2018_10_12_073942) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "balance_adjustments", force: :cascade do |t|
-    t.integer "asset_id"
+  create_table "addresses", force: :cascade do |t|
     t.integer "user_id"
-    t.string "change_type"
-    t.integer "change_id"
-    t.string "memo"
-    t.decimal "amount", precision: 50, scale: 20
+    t.string "module"
+    t.string "enc_private_key"
+    t.string "public_key"
+    t.string "address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["change_id"], name: "index_balance_adjustments_on_change_id"
-    t.index ["change_type"], name: "index_balance_adjustments_on_change_type"
-    t.index ["asset_id", "user_id"], name: "index_balance_adjustments_on_asset_id_and_user_id"
-    t.index ["asset_id"], name: "index_balance_adjustments_on_asset_id"
-    t.index ["user_id"], name: "index_balance_adjustments_on_user_id"
+    t.index ["address"], name: "index_addresses_on_address"
+    t.index ["module"], name: "index_addresses_on_module"
+    t.index ["user_id"], name: "index_addresses_on_user_id"
   end
 
   create_table "assets", force: :cascade do |t|
@@ -45,6 +42,34 @@ ActiveRecord::Schema.define(version: 2018_10_12_021733) do
     t.datetime "updated_at", null: false
     t.index ["address", "platform_id"], name: "index_assets_on_address_and_platform_id", unique: true
     t.index ["name"], name: "index_assets_on_name"
+  end
+
+  create_table "balance_adjustments", force: :cascade do |t|
+    t.integer "asset_id"
+    t.integer "user_id"
+    t.string "change_type"
+    t.integer "change_id"
+    t.string "memo"
+    t.decimal "amount", precision: 50, scale: 20
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["asset_id", "user_id"], name: "index_balance_adjustments_on_asset_id_and_user_id"
+    t.index ["asset_id"], name: "index_balance_adjustments_on_asset_id"
+    t.index ["change_id"], name: "index_balance_adjustments_on_change_id"
+    t.index ["change_type"], name: "index_balance_adjustments_on_change_type"
+    t.index ["user_id"], name: "index_balance_adjustments_on_user_id"
+  end
+
+  create_table "deposits", force: :cascade do |t|
+    t.integer "address_id"
+    t.integer "user_id"
+    t.integer "asset_id"
+    t.string "transaction_id"
+    t.decimal "amount", precision: 50, scale: 20
+    t.integer "withdrawal_to_hotwallet", comment: "The withdrawal used for consolidation (withdrawal from deposit address into hot wallet)"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["transaction_id"], name: "index_deposits_on_transaction_id", unique: true
   end
 
   create_table "orders", force: :cascade do |t|

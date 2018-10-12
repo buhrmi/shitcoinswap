@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :balance_adjustments
   has_many :withdrawals
   has_many :sessions
+  has_many :addresses
 
   def create_session!
     Session.create!(user: self)
