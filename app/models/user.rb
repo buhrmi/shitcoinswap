@@ -6,14 +6,14 @@ class User < ApplicationRecord
   # Verify that email field is not blank and that it doesn't already exist in the db (prevents duplicates):
   validates :email, presence: true, uniqueness: true
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
-  
+
   has_many :balance_adjustments
   has_many :withdrawals
-  has_many :sessions
+  # has_many :sessions
 
-  def create_session!
-    Session.create!(user: self)
-  end
+  # def create_session!
+  #   Session.create!(user: self)
+  # end
 
   def available_balance asset
     balance_adjustments.where(asset: asset).sum(:amount)
@@ -32,41 +32,41 @@ class User < ApplicationRecord
   end
 
   # Sets the password reset attributes.
-  def create_reset_digest
-    self.reset_token = User.new_token
-    update_attribute(:reset_digest,  User.digest(reset_token))
-    update_attribute(:reset_sent_at, Time.zone.now)
-  end
+  # def create_reset_digest
+  #   self.reset_token = User.new_token
+  #   update_attribute(:reset_digest,  User.digest(reset_token))
+  #   update_attribute(:reset_sent_at, Time.zone.now)
+  # end
 
   # Sends password reset email.
-  def send_password_reset_email
-    UserMailer.password_reset(self).deliver_now
-  end
+  # def send_password_reset_email
+  #   UserMailer.password_reset(self).deliver_now
+  # end
 
   # Returns true if a password reset has expired.
-  def password_reset_expired?
-    reset_sent_at < 2.hours.ago
-  end
+  # def password_reset_expired?
+  #   reset_sent_at < 2.hours.ago
+  # end
 
 
   # Returns the hash digest of the given string.
-  def self.digest(string)
-    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
-      BCrypt::Engine.cost
-    BCrypt::Password.create(string, cost: cost)
-  end
+  # def self.digest(string)
+  #   cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
+  #     BCrypt::Engine.cost
+  #   BCrypt::Password.create(string, cost: cost)
+  # end
 
   # Returns a random token.
-  def self.new_token
-    SecureRandom.urlsafe_base64
-  end
+  # def self.new_token
+  #   SecureRandom.urlsafe_base64
+  # end
 
   # Returns true if the given token matches the digest.
-  def authenticated?(attribute, token)
-    digest = send("#{attribute}_digest")
-    return false if digest.nil?
-    BCrypt::Password.new(digest).is_password?(token)
-  end
-  private
+  # def authenticated?(attribute, token)
+  #   digest = send("#{attribute}_digest")
+  #   return false if digest.nil?
+  #   BCrypt::Password.new(digest).is_password?(token)
+  # end
+  # private
 
 end
