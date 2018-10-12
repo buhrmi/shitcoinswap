@@ -77,7 +77,7 @@ module PlatformIntegrations::ETH
       hash = transaction['hash']
       address = Address.where(platform_id: self.id, address: to_address.downcase).first
       if address
-        deposit = address.deposits.create!(txhash: hash, amount: amount, asset: self.native_asset)
+        deposit = address.deposits.create!(transaction_id: hash, amount: amount, asset: self.native_asset)
         puts "Deposit: #{deposit}"
       else
         print '.'
@@ -193,7 +193,7 @@ module PlatformIntegrations::ETH
         hash = transaction['transactionHash']
         amount = transaction['data'].last(64).to_i(16).to_f / asset.unit
         address.with_lock do
-          deposit = Deposit.create!(address: address, txhash: hash, amount: amount, asset: asset)
+          deposit = Deposit.create!(address: address, transaction_id: hash, amount: amount, asset: asset)
           puts "Deposit: #{deposit.inspect}"
         end
       else
@@ -260,14 +260,14 @@ module PlatformIntegrations::ETH
     end
   end
 
-  def tx_url(txhash)
-    return '' unless txhash
+  def tx_url(transaction_id)
+    return '' unless transaction_id
     if network == 'mainnet'
-      "https://etherscan.io/tx/#{txhash}"
+      "https://etherscan.io/tx/#{transaction_id}"
     elsif network == 'classic'
-      "https://gastracker.io/tx/#{txhash}"
+      "https://gastracker.io/tx/#{transaction_id}"
     else
-      "https://#{data['network']}.etherscan.io/tx/#{txhash}"
+      "https://#{data['network']}.etherscan.io/tx/#{transaction_id}"
     end
   end
 
