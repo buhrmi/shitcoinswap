@@ -1,6 +1,7 @@
 class Coin < ApplicationRecord
   belongs_to :platform, optional: true
-
+  has_many :balance_adjustments
+  
   validate :check_address
   validates_uniqueness_of :address, case_sensitive: false, allow_nil: true
 
@@ -61,8 +62,11 @@ class Coin < ApplicationRecord
   end
 
   def explorer_url
-    return unless platform
-    platform.explorer_url_for(self)
+    platform.try(:explorer_url_for, self)
+  end
+
+  def wallet_url(wallet)
+    platform.try(:wallet_url_for, self, wallet)
   end
   
   def symbol
@@ -75,6 +79,10 @@ class Coin < ApplicationRecord
 
   def native?
     self.native_symbol
+  end
+
+  def sum_balances
+    balance_adjustments.sum(:amount)
   end
 
   def to_param

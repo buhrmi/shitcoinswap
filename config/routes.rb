@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     resources :balance_adjustments
     resources :platforms
     resources :withdrawals
+    resources :coins
   end
 
   resources :withdrawals

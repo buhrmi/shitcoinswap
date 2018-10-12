@@ -1,18 +1,6 @@
 module PlatformIntegrations::ETH
   REQUIRED_CONFIRMATIONS = 1
 
-  def network
-    data['network']
-  end
-
-  def hot_wallet_address
-    data['hot_wallet_address']
-  end
-
-  def enc_hot_wallet_key
-    data['enc_hot_wallet_key']
-  end
-
   def add_checksum(address)
     Eth::Utils.format_address address
   end
@@ -277,7 +265,7 @@ module PlatformIntegrations::ETH
     if network == 'mainnet'
       "https://etherscan.io/tx/#{txhash}"
     elsif network == 'classic'
-      "https://etherhub.io/tx/#{txhash}"
+      "https://gastracker.io/tx/#{txhash}"
     else
       "https://#{data['network']}.etherscan.io/tx/#{txhash}"
     end
@@ -287,9 +275,29 @@ module PlatformIntegrations::ETH
     if network == 'mainnet'
       "https://etherscan.io/token/#{coin.address}"
     elsif network == 'classic'
-      "https://etherhub.io/token/#{coin.address}"
+      "https://gastracker.io/token/#{coin.address}"
     else
       "https://#{data['network']}.etherscan.io/token/#{coin.address}"
+    end
+  end
+
+  def wallet_url_for(coin, wallet)
+    if coin == native_coin
+      if network == 'mainnet'
+        "https://etherscan.io/address/#{wallet}"
+      elsif network == 'classic'
+        "https://gastracker.io/addr/#{wallet}"
+      else
+        "https://#{data['network']}.etherscan.io/address/#{wallet}"
+      end
+    else
+      if network == 'mainnet'
+        "https://etherscan.io/token/#{coin.address}?a=#{wallet}"
+      elsif network == 'classic'
+        "https://gastracker.io/token/#{coin.address}/#{wallet}"
+      else
+        "https://#{data['network']}.etherscan.io/token/#{coin.address}?a=#{wallet}"
+      end
     end
   end
 
