@@ -5,7 +5,7 @@
 <table>
   <thead>
     <tr>
-      <th>Coin</th>
+      <th>Asset</th>
       <th>User</th>
       <th>Change type</th>
       <th>Change</th>
@@ -18,7 +18,7 @@
   <tbody>
     <% @balance_adjustments.each do |balance_adjustment| %>
       <tr>
-        <td><%= balance_adjustment.coin_id %></td>
+        <td><%= balance_adjustment.asset_id %></td>
         <td><%= balance_adjustment.user_id %></td>
         <td><%= balance_adjustment.change_type %></td>
         <td><%= balance_adjustment.change_id %></td>

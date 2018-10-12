@@ -1,17 +1,17 @@
 class Order < ActiveRecord::Base
   belongs_to :user
   has_many :trades
-  belongs_to :base_coin, class_name: 'Coin'
-  belongs_to :quote_coin, class_name: 'Coin'
+  belongs_to :base_asset, class_name: 'Asset'
+  belongs_to :quote_asset, class_name: 'Asset'
 
   validates_numericality_of :quantity, greater_than: 0, unless: :buy_market?
   validates_numericality_of :total, greater_than: 0, if: :buy_market?
   validates_numericality_of :rate, greater_than: 0, unless: :market?
   validates_inclusion_of :kind, in: ['limit', 'market']
   validates_inclusion_of :side, in: ['sell', 'buy']
-  validates_inclusion_of :quote_coin_id, in: [Coin::ETH.id]
+  validates_inclusion_of :quote_asset_id, in: [Asset::ETH.id]
   
-  validate :ensure_coins_dont_match
+  validate :ensure_assets_dont_match
   
   before_save do
     self.filled_at = Time.now if self.filled? and not self.filled_at
@@ -19,8 +19,8 @@ class Order < ActiveRecord::Base
   
   after_save do
     # This will throw an exception if the available balance is negative and thus roll back the transaction that we are inside
-    user.validate_balance! base_coin
-    user.validate_balance! quote_coin
+    user.validate_balance! base_asset
+    user.validate_balance! quote_asset
   end
   
   after_commit do
@@ -31,17 +31,17 @@ class Order < ActiveRecord::Base
     where(cancelled_at: nil, filled_at: nil)
   end
   
-  def self.base(coin)
-    where(base_coin: coin)
+  def self.base(asset)
+    where(base_asset: asset)
   end
   
-  def self.quote(coin)
-    where(quote_coin: coin)
+  def self.quote(asset)
+    where(quote_asset: asset)
   end
   
   
   def self.matching(order)
-    orders = Order.where(base_coin: order.base_coin, quote_coin: order.quote_coin)
+    orders = Order.where(base_asset: order.base_asset, quote_asset: order.quote_asset)
     orders = orders.where(kind: order.matching_kinds)
     
     if order.sell?
@@ -99,13 +99,13 @@ class Order < ActiveRecord::Base
     other_order.save!
     self.save!
 
-    trade = Trade.create!(quote_coin: quote_coin, base_coin: base_coin, buy_order: buy_order, sell_order: sell_order, buyer: buy_order.user, seller: sell_order.user, quantity: quantity_to_fill, rate: rate)
+    trade = Trade.create!(quote_asset: quote_asset, base_asset: base_asset, buy_order: buy_order, sell_order: sell_order, buyer: buy_order.user, seller: sell_order.user, quantity: quantity_to_fill, rate: rate)
     
     # Adjust balances
-    buy_order.user.adjust_balance!(base_coin,  base_change, trade)
-    sell_order.user.adjust_balance!(quote_coin, quote_change, trade)
-    sell_order.user.adjust_balance!(base_coin,  -base_change, trade)
-    buy_order.user.adjust_balance!(quote_coin, -quote_change, trade)
+    buy_order.user.adjust_balance!(base_asset,  base_change, trade)
+    sell_order.user.adjust_balance!(quote_asset, quote_change, trade)
+    sell_order.user.adjust_balance!(base_asset,  -base_change, trade)
+    buy_order.user.adjust_balance!(quote_asset, -quote_change, trade)
   end
   
   def matching_kinds
@@ -116,20 +116,20 @@ class Order < ActiveRecord::Base
     end
   end
   
-  def buying_coin
-    self.buy? ? base_coin : base_coin
+  def buying_asset
+    self.buy? ? base_asset : base_asset
   end
 
-  def selling_coin
-    self.sell? ? base_coin : quote_coin
+  def selling_asset
+    self.sell? ? base_asset : quote_asset
   end
 
   def base_unit
-    base_coin.unit
+    base_asset.unit
   end
   
   def quote_unit
-    quote_coin.unit
+    quote_asset.unit
   end
   
   def limit?
@@ -152,7 +152,7 @@ class Order < ActiveRecord::Base
     buy? && market?
   end
 
-  def ensure_coins_dont_match
-    errors.add(:base_coin, "cant be the same as quote coin") if base_coin_id == quote_coin_id
+  def ensure_assets_dont_match
+    errors.add(:base_asset, "cant be the same as quote asset") if base_asset_id == quote_asset_id
   end
 end

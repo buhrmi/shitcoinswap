@@ -1,0 +1,23 @@
+<h1>ADMIN / Assets</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Asset</th>
+      <th>Symbol</th>
+      <th>User's balances</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @assets.each do |asset| %>
+      <tr>
+        <td><%= asset.name %></td>
+        <td><%= asset.symbol %></td>
+        <td><%= asset.sum_balances %></td>
+        <td><%= link_to 'Check hot wallet balance', asset.wallet_url(asset.platform.hot_wallet_address), target: '_blank' %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

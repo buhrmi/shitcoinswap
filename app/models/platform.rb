@@ -15,7 +15,7 @@ class Platform < ApplicationRecord
     data['enc_hot_wallet_key']
   end
 
-  def native_coin
-    Coin.find_by(native_symbol: native_symbol)
+  def native_asset
+    Asset.find_by(native_symbol: native_symbol)
   end
 end

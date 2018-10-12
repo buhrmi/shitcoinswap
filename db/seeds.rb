@@ -8,7 +8,7 @@ eth_hot_wallet_address = hot_wallet.address
 eth_platform_main    = Platform.where(native_symbol: 'ETH').first_or_create!(module: 'ETH', data: {network: 'mainnet', hot_wallet_address: eth_hot_wallet_address, enc_hot_wallet_key: eth_hot_wallet_key})
 eth_platform_classic = Platform.where(native_symbol: 'ETC').first_or_create!(module: 'ETH', data: {network: 'classic', hot_wallet_address: eth_hot_wallet_address, enc_hot_wallet_key: eth_hot_wallet_key})
 
-supported_coins= [{
+supported_assets= [{
   address: '0xECC3A47F5d0AC33db287D8f9DeBf03830853Cbb9',
   platform_id: eth_platform_main.id
 },
@@ -45,19 +45,19 @@ supported_coins= [{
   platform_id: eth_platform_main.id
 }]
 
-eth = Coin.where(native_symbol: 'ETH').first_or_create!(name: 'Ethereum', platform: eth_platform_main, platform_data: {decimals: 18, symbol: 'ETH', name: 'Ethereum'}) 
-etc = Coin.where(native_symbol: 'ETC').first_or_create!(name: 'Ethereum (classic)', platform: eth_platform_classic, platform_data: {decimals: 18, symbol: 'ETC', name: 'Ethereum Classic'})
+eth = Asset.where(native_symbol: 'ETH').first_or_create!(name: 'Ethereum', platform: eth_platform_main, platform_data: {decimals: 18, symbol: 'ETH', name: 'Ethereum'}) 
+etc = Asset.where(native_symbol: 'ETC').first_or_create!(name: 'Ethereum (classic)', platform: eth_platform_classic, platform_data: {decimals: 18, symbol: 'ETC', name: 'Ethereum Classic'})
 
 unless Rails.env.production?
   eth_platform_rinkeby = Platform.where(native_symbol: 'ETH(rinkeby)').first_or_create!(module: 'ETH', data: {network: 'rinkeby', hot_wallet_address: eth_hot_wallet_address, enc_hot_wallet_key: eth_hot_wallet_key})
-  supported_coins << {
+  supported_assets << {
     address: '0x1c15fb22128f06888963a12441e917c059f53e2b',
     platform_id: eth_platform_rinkeby.id
   }
-  ethrinkeby = Coin.where(native_symbol: 'ETH(rinkeby)').first_or_create!(name: 'Ethereum (rinkeby)', platform: eth_platform_rinkeby, platform_data: {decimals: 18, symbol: 'ETH(rinkeby)', name: 'Ethereum (Rinkeby)'})
+  ethrinkeby = Asset.where(native_symbol: 'ETH(rinkeby)').first_or_create!(name: 'Ethereum (rinkeby)', platform: eth_platform_rinkeby, platform_data: {decimals: 18, symbol: 'ETH(rinkeby)', name: 'Ethereum (Rinkeby)'})
 end
 
-for coin_info in supported_coins
-  coin_info[:address].downcase!
-  Coin.where(coin_info).first_or_create!
+for asset_info in supported_assets
+  asset_info[:address].downcase!
+  Asset.where(asset_info).first_or_create!
 end

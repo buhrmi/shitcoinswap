@@ -5,7 +5,7 @@
 <table>
   <thead>
     <tr>
-      <th>Coin</th>
+      <th>Asset</th>
       <th>Receiver address</th>
       <th>Transaction</th>
       <th>Created at</th>
@@ -17,7 +17,7 @@
   <tbody>
     <% @withdrawals.each do |withdrawal| %>
       <tr>
-        <td><%= withdrawal.coin.name %></td>
+        <td><%= withdrawal.asset.name %></td>
 
         <td><%= withdrawal.receiver_address %></td>
         <td><%= withdrawal.transaction_id %></td>

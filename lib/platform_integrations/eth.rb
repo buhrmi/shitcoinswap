@@ -77,7 +77,7 @@ module PlatformIntegrations::ETH
       hash = transaction['hash']
       address = Address.where(platform_id: self.id, address: to_address.downcase).first
       if address
-        deposit = address.deposits.create!(txhash: hash, amount: amount, coin: self.native_coin)
+        deposit = address.deposits.create!(txhash: hash, amount: amount, asset: self.native_asset)
         puts "Deposit: #{deposit}"
       else
         print '.'
@@ -97,17 +97,17 @@ module PlatformIntegrations::ETH
     30_000_000_000 # lets make it nice and fast
   end
 
-  def transfer_fee_for(coin)
-    if coin == native_coin
-      (21000 * gas_price).to_f / native_coin.unit
+  def transfer_fee_for(asset)
+    if asset == native_asset
+      (21000 * gas_price).to_f / native_asset.unit
     else
-      (105000 * gas_price).to_f / native_coin.unit
+      (105000 * gas_price).to_f / native_asset.unit
     end
   end
 
-  def user_transfer_fee_for(coin)
-    if coin == native_coin
-      (21000 * gas_price).to_f / native_coin.unit
+  def user_transfer_fee_for(asset)
+    if asset == native_asset
+      (21000 * gas_price).to_f / native_asset.unit
     else
       0
     end
@@ -117,10 +117,10 @@ module PlatformIntegrations::ETH
     address.present? && Eth::Address.new(address).valid?
   end
 
-  def build_signed_transfer_tx(coin, amount, to_address, sender_address)
+  def build_signed_transfer_tx(asset, amount, to_address, sender_address)
     sender_address ||= hot_wallet_address
     
-    if coin == native_coin
+    if asset == native_asset
       # Eth transfer
       gas_limit = 21000
       fee = gas_limit * gas_price
@@ -132,20 +132,20 @@ module PlatformIntegrations::ETH
         nonce: get_nonce(sender_address),
         to: to_address,
         from: sender_address,
-        value: (amount * coin.unit).to_i - fee
+        value: (amount * asset.unit).to_i - fee
       }
       tx = Eth::Tx.new(params)
     else
       # Token transfer
       # '0xa9059cbb' == Eth::Utils.bin_to_hex(Eth::Utils.keccak256('transfer(address,uint256)')).first(8)
-      data = '0xa9059cbb' + hex_to_param(to_address) + int_to_param((amount * coin.unit).to_i)
+      data = '0xa9059cbb' + hex_to_param(to_address) + int_to_param((amount * asset.unit).to_i)
       tx = Eth::Tx.new({
         data: data,
         # TODO: store limits in platform database row
         gas_limit: 100_000,
         gas_price: gas_price,
         nonce: get_nonce(sender_address),
-        to: coin.address,
+        to: asset.address,
         from: sender_address,
         value: 0
       })
@@ -188,12 +188,12 @@ module PlatformIntegrations::ETH
       to_address = '0x' + transaction['topics'][2].last(40)
       address = Address.where(platform: self.id, address: to_address.downcase).first
       if address
-        # create coin if it doesnt exist
-        coin = coin.where(platform: self.id, address: contract.downcase).first_or_create!
+        # create asset if it doesnt exist
+        asset = asset.where(platform: self.id, address: contract.downcase).first_or_create!
         hash = transaction['transactionHash']
-        amount = transaction['data'].last(64).to_i(16).to_f / coin.unit
+        amount = transaction['data'].last(64).to_i(16).to_f / asset.unit
         address.with_lock do
-          deposit = Deposit.create!(address: address, txhash: hash, amount: amount, coin: coin)
+          deposit = Deposit.create!(address: address, txhash: hash, amount: amount, asset: asset)
           puts "Deposit: #{deposit.inspect}"
         end
       else
@@ -202,18 +202,18 @@ module PlatformIntegrations::ETH
     end
   end
 
-  def fetch_total_supply(coin)
-    total_supply = hydra_eth_call(coin.address, 'totalSupply()').run
-    coin.platform_data[:total_supply] = eth_result_to_number(JSON.parse(total_supply.response_body)['result'])
+  def fetch_total_supply(asset)
+    total_supply = hydra_eth_call(asset.address, 'totalSupply()').run
+    asset.platform_data[:total_supply] = eth_result_to_number(JSON.parse(total_supply.response_body)['result'])
   end
 
-  def fetch_platform_data_for(coin)
+  def fetch_platform_data_for(asset)
     # Using hydra to run all these requests in parallel
     hydra = Typhoeus::Hydra.hydra
-    symbol = hydra_eth_call(coin.address, 'symbol()')
-    name = hydra_eth_call(coin.address, 'name()')
-    decimals = hydra_eth_call(coin.address, 'decimals()')
-    total_supply = hydra_eth_call(coin.address, 'totalSupply()')
+    symbol = hydra_eth_call(asset.address, 'symbol()')
+    name = hydra_eth_call(asset.address, 'name()')
+    decimals = hydra_eth_call(asset.address, 'decimals()')
+    total_supply = hydra_eth_call(asset.address, 'totalSupply()')
     hydra.queue(symbol)
     hydra.queue(name)
     hydra.queue(decimals)
@@ -225,8 +225,8 @@ module PlatformIntegrations::ETH
       decimals: eth_result_to_number(JSON.parse(decimals.response.body)['result']),
       total_supply: eth_result_to_number(JSON.parse(total_supply.response.body)['result'])
     }
-    coin.platform_data = platform_data
-    coin.name = platform_data[:name]
+    asset.platform_data = platform_data
+    asset.name = platform_data[:name]
     platform_data
   end
 
@@ -271,18 +271,18 @@ module PlatformIntegrations::ETH
     end
   end
 
-  def explorer_url_for(coin)
+  def explorer_url_for(asset)
     if network == 'mainnet'
-      "https://etherscan.io/token/#{coin.address}"
+      "https://etherscan.io/token/#{asset.address}"
     elsif network == 'classic'
-      "https://gastracker.io/token/#{coin.address}"
+      "https://gastracker.io/token/#{asset.address}"
     else
-      "https://#{data['network']}.etherscan.io/token/#{coin.address}"
+      "https://#{data['network']}.etherscan.io/token/#{asset.address}"
     end
   end
 
-  def wallet_url_for(coin, wallet)
-    if coin == native_coin
+  def wallet_url_for(asset, wallet)
+    if asset == native_asset
       if network == 'mainnet'
         "https://etherscan.io/address/#{wallet}"
       elsif network == 'classic'
@@ -292,11 +292,11 @@ module PlatformIntegrations::ETH
       end
     else
       if network == 'mainnet'
-        "https://etherscan.io/token/#{coin.address}?a=#{wallet}"
+        "https://etherscan.io/token/#{asset.address}?a=#{wallet}"
       elsif network == 'classic'
-        "https://gastracker.io/token/#{coin.address}/#{wallet}"
+        "https://gastracker.io/token/#{asset.address}/#{wallet}"
       else
-        "https://#{data['network']}.etherscan.io/token/#{coin.address}?a=#{wallet}"
+        "https://#{data['network']}.etherscan.io/token/#{asset.address}?a=#{wallet}"
       end
     end
   end

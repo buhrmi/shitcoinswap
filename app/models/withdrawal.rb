@@ -1,5 +1,5 @@
 class Withdrawal < ApplicationRecord
-  belongs_to :coin
+  belongs_to :asset
   belongs_to :user, optional: true
   has_one :balance_adjustment, as: :change
   
@@ -15,13 +15,13 @@ class Withdrawal < ApplicationRecord
       UserMailer.with(user: user, withdrawal: self).withdrawal_submitted_email.deliver_later
     end
 
-    # The below code will ensure that we have enough native coins in the customer's deposit address to cover the transfer of deposited tokens
+    # The below code will ensure that we have enough native assets in the customer's deposit address to cover the transfer of deposited tokens
     # to our hotwallet after customer deposited tokens
-    if unfunded? && was_first_try? && !coin.native? && !from_hotwallet?
+    if unfunded? && was_first_try? && !asset.native? && !from_hotwallet?
       puts "Withdrawal #{id} unfunded. Sending funds from hotwallet."
-      native_coin = coin.platform.native_coin
+      native_asset = asset.platform.native_asset
       # This will create a transfer from the hot wallet to the sender_address to cover for the token transfer fee
-      Withdrawal.create!(receiver_address: sender_address, amount: coin.transfer_fee + native_coin.transfer_fee, coin: native_coin)
+      Withdrawal.create!(receiver_address: sender_address, amount: asset.transfer_fee + native_asset.transfer_fee, asset: native_asset)
     end
   end
 
@@ -30,7 +30,7 @@ class Withdrawal < ApplicationRecord
   end
 
   def ensure_balance_adjustment_present
-    self.balance_adjustment ||= BalanceAdjustment.new({user: user, coin: coin, amount: -amount})
+    self.balance_adjustment ||= BalanceAdjustment.new({user: user, asset: asset, amount: -amount})
   end
 
   def has_user?
@@ -47,7 +47,7 @@ class Withdrawal < ApplicationRecord
   end
 
   def tx_url
-    coin.platform.tx_url(transaction_id)
+    asset.platform.tx_url(transaction_id)
   end
 
   def check_receiver_address
@@ -55,14 +55,14 @@ class Withdrawal < ApplicationRecord
   end
 
   def check_amount
-    errors.add(:amount, 'must be higher than transfer fee') if amount < coin.user_transfer_fee
+    errors.add(:amount, 'must be higher than transfer fee') if amount < asset.user_transfer_fee
   end
 
   def execute!
     return unless status.nil? || status == 'error'
 
-    platform = coin.platform
-    id, hex = platform.build_signed_transfer_tx(coin, amount, receiver_address, sender_address)
+    platform = asset.platform
+    id, hex = platform.build_signed_transfer_tx(asset, amount, receiver_address, sender_address)
     self.transaction_id = id
     self.signed_transaction = hex
     self.status = 'pending'

@@ -15,8 +15,8 @@ class User < ApplicationRecord
     Session.create!(user: self)
   end
 
-  def available_balance coin
-    balance_adjustments.where(coin: coin).sum(:amount)
+  def available_balance asset
+    balance_adjustments.where(asset: asset).sum(:amount)
   end
 
   def admin?
@@ -28,7 +28,7 @@ class User < ApplicationRecord
   end
 
   def balances
-    balance_adjustments.group(:coin_id).sum(:amount).as_json
+    balance_adjustments.group(:asset_id).sum(:amount).as_json
   end
 
   # Sets the password reset attributes.

@@ -1,7 +1,7 @@
 class CreateWithdrawals < ActiveRecord::Migration[5.2]
   def change
     create_table :withdrawals do |t|
-      t.string :coin_id
+      t.string :asset_id
       t.integer :user_id
       t.string :receiver_address
       t.string :sender_address, comment: 'If this is empty, it means that the transaction is sent from some hot wallet'
@@ -15,7 +15,7 @@ class CreateWithdrawals < ActiveRecord::Migration[5.2]
       t.string :signed_transaction, comment: 'The signed (raw) transaction in hex that can be submitted to the blockchain'
       t.integer :mined_block
       
-      t.index :coin_id
+      t.index :asset_id
       t.index :user_id
       t.index :transaction_id
       

@@ -1,5 +1,5 @@
-class Coin < ApplicationRecord
-  ETH = find_by!(native_symbol: 'ETH')
+class Asset < ApplicationRecord
+  ETH = find_by(native_symbol: 'ETH')
 
   belongs_to :platform, optional: true
   has_many :balance_adjustments
@@ -13,7 +13,7 @@ class Coin < ApplicationRecord
     self.address.downcase! if self.address
   end
    
-  # This is the fee paid in native platform shitcoin, for example gas price for transfering erc20 tokens
+  # This is the fee paid in native platform shitasset, for example gas price for transfering erc20 tokens
   def transfer_fee
     if platform
       platform.transfer_fee_for(self).to_f

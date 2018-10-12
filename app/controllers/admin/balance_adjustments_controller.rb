@@ -45,6 +45,6 @@ class Admin::BalanceAdjustmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def balance_adjustment_params
-      params.require(:balance_adjustment).permit(:coin_id, :user_id, :memo, :amount)
+      params.require(:balance_adjustment).permit(:asset_id, :user_id, :memo, :amount)
     end
 end

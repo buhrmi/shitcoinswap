@@ -12,8 +12,8 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :coin_id %>
-    <%= form.select :coin_id, Coin.all.map { |coin| [coin.symbol, coin.id] } %>
+    <%= form.label :asset_id %>
+    <%= form.select :asset_id, Asset.all.map { |asset| [asset.symbol, asset.id] } %>
   </div>
 
   <div class="field">

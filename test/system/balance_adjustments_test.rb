@@ -17,7 +17,7 @@ class BalanceAdjustmentsTest < ApplicationSystemTestCase
     fill_in "Amount", with: @balance_adjustment.amount
     fill_in "Change", with: @balance_adjustment.change_id
     fill_in "Change Type", with: @balance_adjustment.change_type
-    fill_in "Coin", with: @balance_adjustment.coin_id
+    fill_in "Asset", with: @balance_adjustment.asset_id
     fill_in "Memo", with: @balance_adjustment.memo
     fill_in "User", with: @balance_adjustment.user_id
     click_on "Create Balance adjustment"
@@ -33,7 +33,7 @@ class BalanceAdjustmentsTest < ApplicationSystemTestCase
     fill_in "Amount", with: @balance_adjustment.amount
     fill_in "Change", with: @balance_adjustment.change_id
     fill_in "Change Type", with: @balance_adjustment.change_type
-    fill_in "Coin", with: @balance_adjustment.coin_id
+    fill_in "Asset", with: @balance_adjustment.asset_id
     fill_in "Memo", with: @balance_adjustment.memo
     fill_in "User", with: @balance_adjustment.user_id
     click_on "Update Balance adjustment"

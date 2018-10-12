@@ -14,7 +14,7 @@
   <body>
     <% if current_user.try(:admin?) %>
       <div class="admin">
-        Admin Menu: <%= link_to 'Balance Adjustments', admin_balance_adjustments_path %> | <%= link_to 'Platforms', admin_platforms_path %> | <%= link_to 'Withdrawals', admin_withdrawals_path %> | <%= link_to 'Coins', admin_coins_path %>
+        Admin Menu: <%= link_to 'Balance Adjustments', admin_balance_adjustments_path %> | <%= link_to 'Platforms', admin_platforms_path %> | <%= link_to 'Withdrawals', admin_withdrawals_path %> | <%= link_to 'Assets', admin_assets_path %>
       </div>
     <% end %>
     <h1><%= link_to 'NewArt Technology', root_path %></h1>

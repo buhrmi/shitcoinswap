@@ -1,6 +1,6 @@
-class CreateCoins < ActiveRecord::Migration[5.2]
+class CreateAssets < ActiveRecord::Migration[5.2]
   def change
-    create_table :coins do |t|
+    create_table :assets do |t|
       t.string :name
       t.string :native_symbol
 
@@ -8,7 +8,7 @@ class CreateCoins < ActiveRecord::Migration[5.2]
       t.string :platform_id
       t.string :address
       
-      t.json :platform_data, default: {}, comment: 'Cached information for the coin. Pulled from the platform upon creation'
+      t.json :platform_data, default: {}, comment: 'Cached information for the asset. Pulled from the platform upon creation'
 
       t.timestamp :delisted_at
       

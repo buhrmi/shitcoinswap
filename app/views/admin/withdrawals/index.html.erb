@@ -4,7 +4,7 @@
   <thead>
     <tr>
       <th>User</th>
-      <th>Coin</th>
+      <th>Asset</th>
       <th>Amount</th>
       <th>Status</th>
       <th>Transaction</th>
@@ -16,7 +16,7 @@
     <% @withdrawals.each do |withdrawal| %>
       <tr>
         <td><%= withdrawal.user.email %></td>
-        <td><%= withdrawal.coin.name %></td>
+        <td><%= withdrawal.asset.name %></td>
         <td><%= withdrawal.amount %></td>
         <td><%= withdrawal.status %></td>
         <td><%= withdrawal.transaction_id %></td>
