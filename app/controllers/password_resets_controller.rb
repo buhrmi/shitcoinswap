@@ -29,8 +29,8 @@ class PasswordResetsController < ApplicationController
       render 'edit'
     elsif @user.update_attributes(user_params)          # Case (4)
       # @user
-      session = @user.create_session!
-      cookies[:authorization] = {value: session.authorization, http_only: true}
+      access_token = @user.create_access_token!
+      cookies[:access_token] = {value: access_token.token, http_only: true}
       flash[:success] = "Password has been reset."
       redirect_to root_path
     else

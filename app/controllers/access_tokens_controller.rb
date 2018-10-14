@@ -1,4 +1,4 @@
-class SessionsController < ApplicationController
+class AccessTokensController < ApplicationController
   skip_before_action :require_user, only: [:new, :create]
 
   def new
@@ -15,11 +15,11 @@ class SessionsController < ApplicationController
     # method to see if the password submitted on the login form was correct:
     if user && user.authenticate(params[:login][:password])
       
-      session = user.create_session!
+      access_token = user.create_access_token!
       if params[:login][:remember_me] == '1'
-        cookies.permanent[:authorization] = {value: session.authorization, http_only: true}
+        cookies.permanent[:access_token] = {value: access_token.access_token, http_only: true}
       else
-        cookies[:authorization] = {value: session.authorization, http_only: true}
+        cookies[:access_token] = {value: access_token.token, http_only: true}
       end
       
       redirect_to cookies.delete(:continue_to) || root_path, notice: 'Successfully logged in!'
@@ -31,8 +31,8 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    cookies.delete(:authorization)
-    current_session.update_attribute :logged_out_at, Time.now    
+    cookies.delete(:access_token)
+    current_access_token.update_attribute :logged_out_at, Time.now    
     @current_user = nil
     redirect_to login_path, notice: "Logged out!"
   end

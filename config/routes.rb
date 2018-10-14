@@ -16,9 +16,9 @@ Rails.application.routes.draw do
 
   resources :password_resets, only: [:new, :create, :edit, :update]
 
-  post '/login'    => 'sessions#create'
-  get '/login'     => 'sessions#new'
-  delete '/logout' => 'sessions#destroy'
+  post '/login'    => 'access_tokens#create'
+  get '/login'     => 'access_tokens#new'
+  delete '/logout' => 'access_tokens#destroy'
 
   get 'balances', to: 'pages#balances'
 

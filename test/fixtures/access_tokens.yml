@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 alice:
-  authorization: i_am_alice
+  token: i_am_alice
   user: alice
 
 bob:
-  authorization: i_am_bob
+  token: i_am_bob
   user: bob

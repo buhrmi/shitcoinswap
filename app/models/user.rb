@@ -9,11 +9,11 @@ class User < ApplicationRecord
   
   has_many :balance_adjustments
   has_many :withdrawals
-  has_many :sessions
+  has_many :access_tokens
   has_many :addresses
 
-  def create_session!
-    Session.create!(user: self)
+  def create_access_token!
+    AccessToken.create!(user: self)
   end
 
   def available_balance asset

@@ -105,9 +105,9 @@ ActiveRecord::Schema.define(version: 2018_10_12_073942) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "sessions", force: :cascade do |t|
+  create_table "access_tokens", force: :cascade do |t|
     t.integer "user_id"
-    t.string "authorization"
+    t.string "token"
     t.datetime "expires_at"
     t.datetime "logged_out_at"
     t.datetime "created_at", null: false
