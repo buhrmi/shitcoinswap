@@ -1,0 +1,5 @@
+To login click the link below:
+
+<%= create_session_url(@user.login_digest, email: @user.email) %>
+
+This link will expire in two hours.
