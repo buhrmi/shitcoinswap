@@ -11,9 +11,14 @@ class UserMailer < ApplicationMailer
     mail(to: @user.email, subject: "Deposit cancelled: #{@withdrawal.amount} #{@withdrawal.asset.name} have been withdrawn")
   end
 
+  # def password_reset(user)
+  #   @user = user
+  #   mail to: @user.email, subject: "Password reset"
+  # end
 
-  def password_reset(user)
+  def login_link(user)
     @user = user
-    mail to: @user.email, subject: "Password reset"
+
+    mail to: @user.email, subject: 'Sign-in into app.'
   end
 end

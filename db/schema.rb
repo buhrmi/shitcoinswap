@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_12_064946) do
+ActiveRecord::Schema.define(version: 2018_10_12_084228) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,11 @@ ActiveRecord::Schema.define(version: 2018_10_12_064946) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["transaction_id"], name: "index_deposits_on_transaction_id", unique: true
+  end
+
+  create_table "null_users", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "orders", force: :cascade do |t|
@@ -115,8 +120,8 @@ ActiveRecord::Schema.define(version: 2018_10_12_064946) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "reset_digest"
-    t.datetime "reset_sent_at"
+    t.string "login_digest"
+    t.datetime "login_token_valid_until"
   end
 
   create_table "withdrawals", force: :cascade do |t|

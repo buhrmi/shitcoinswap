@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   # skip_before_action :require_user, only: [:new, :create]
+  before_action :authenticate_user!, only: [:edit, :update]
 
   def new
     @user = User.new
@@ -22,11 +23,26 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  def update
+    User.find(params[:id]).update!(name: params[:user][:name])
+    redirect_to users_path
+  end
+
   private
 
   def user_params
     # strong parameters - whitelist of allowed fields #=> permit(:name, :email, ...)
     # that can be submitted by a form to the user model #=> require(:user)
     params.require(:user).permit(:email, :password, :password_confirmation)
+  end
+
+  def authenticate_user!
+    if current_user.anonymous?
+      redirect_to root_path, alert: 'Not authenticated'
+    end
   end
 end

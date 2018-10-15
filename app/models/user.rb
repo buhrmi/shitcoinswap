@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  attr_accessor :reset_token
+  # attr_accessor :reset_token
 
   has_secure_password
 
@@ -29,6 +29,10 @@ class User < ApplicationRecord
 
   def balances
     balance_adjustments.group(:asset_id).sum(:amount).as_json
+  end
+
+  def anonymous?
+    false
   end
 
   # Sets the password reset attributes.

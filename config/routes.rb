@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  # get 'sessions/create'
+  # get 'sessions/destroy'
+  # get 'logins/create'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   namespace :admin do
@@ -10,13 +13,14 @@ Rails.application.routes.draw do
 
   resources :orders
   resources :withdrawals
+
+  # resources :password_resets, only: [:new, :create, :edit, :update]
+
+  # get 'logins/create'
+  post '/logins'    => 'logins#create'
+  get '/sessions/create'     => 'sessions#create'
+  delete '/sessions/destroy' => 'sessions#destroy'
   resources :users
-
-  resources :password_resets, only: [:new, :create, :edit, :update]
-
-  post '/login'    => 'sessions#create'
-  get '/login'     => 'sessions#new'
-  delete '/logout' => 'sessions#destroy'
 
   get 'balances', to: 'pages#balances'
 
