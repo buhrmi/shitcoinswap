@@ -58,6 +58,7 @@ module PlatformIntegrations::ETH
     check_transfers_for_deposits(new_transactions)
 
     self.last_scanned_block = latest_block
+    self.last_scan_at = Time.now
     save!
   end
 
@@ -96,14 +97,14 @@ module PlatformIntegrations::ETH
   end
 
   def gas_price
-    30_000_000_000 # lets make it nice and fast
+    25_000_000_000 # lets make it nice and fast
   end
 
   def transfer_fee_for(asset)
     if asset == native_asset
       (21000 * gas_price).to_f / native_asset.unit
     else
-      (105000 * gas_price).to_f / native_asset.unit
+      (125000 * gas_price).to_f / native_asset.unit
     end
   end
 
