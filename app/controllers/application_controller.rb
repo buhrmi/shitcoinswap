@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
+  before_action :check_auth_code
   before_action :require_user
 
   protect_from_forgery with: :exception
@@ -22,5 +25,11 @@ class ApplicationController < ActionController::Base
       cookies[:continue_to] = request.path
       redirect_to login_path, alert: 'You must be logged in to access this page.'
     end
+  end
+
+  # check if auth_code & email in url
+  def check_auth_code
+    return true if params[:auth_code].nil? || params[:email].nil?
+    redirect_to edit_authorization_code_url(params[:auth_code], email: params[:email])
   end
 end

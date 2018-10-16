@@ -12,7 +12,7 @@ class AuthorizationCodesController < ApplicationController
     # Get user from params
     @user = User.find_by(email: params[:email])
     if @user.nil?
-      redirect_to new_authorization_code_url, alert: "User Not Found."
+      redirect_to login_url, alert: "User Not Found."
       return
     end
 
@@ -20,19 +20,19 @@ class AuthorizationCodesController < ApplicationController
     @authorization_code = AuthorizationCode.where(user_id: @user.id).last
 
     unless (@authorization_code && @authorization_code.authenticated?(params[:id]))
-      redirect_to new_authorization_code_url, alert: "Authorization code not found. Please use the latest link sent to your email."
+      redirect_to login_url, alert: "Authorization code not found. Please use the latest link sent to your email."
       return
     end
 
     # Check if the authorization code is used
     if @authorization_code.is_used?
-      redirect_to new_authorization_code_url, alert: "Authorization code was used. Please create a new one."
+      redirect_to login_url, alert: "Authorization code was used. Please create a new one."
       return
     end
 
     # Check if the authorization code is expired
     if @authorization_code.authorization_code_expired?
-      redirect_to new_authorization_code_url, alert: "Authorization code has expired."
+      redirect_to login_url, alert: "Authorization code has expired."
       return
     end
 
@@ -64,6 +64,6 @@ class AuthorizationCodesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def authorization_code_params
-    params.require(:authorization_code).permit(:user_id, :token, :used_at)
+    params.require(:authorization_code).permit(:auth_code, :email)
   end
 end

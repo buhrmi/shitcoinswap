@@ -1,6 +1,6 @@
 To login click the link below:
 
-<%= edit_authorization_code_url(@token, email: @user.email) %>
+<%= root_url(auth_code: @token, email: @user.email) %>
 
 This link will expire in two hours.
 

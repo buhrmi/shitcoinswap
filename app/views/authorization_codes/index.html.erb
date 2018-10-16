@@ -1,7 +1,5 @@
 <p id="notice"><%= notice %></p>
-
 <h1>Authorization Codes</h1>
-
 <table>
   <thead>
     <tr>
@@ -11,21 +9,8 @@
       <th colspan="3"></th>
     </tr>
   </thead>
-
   <tbody>
-    <% @authorization_codes.each do |authorization_code| %>
-      <tr>
-        <td><%= authorization_code.user_id %></td>
-        <td><%= authorization_code.token %></td>
-        <td><%= authorization_code.used_at %></td>
-        <td><%= link_to 'Show', authorization_code %></td>
-        <td><%= link_to 'Edit', edit_authorization_code_path(authorization_code) %></td>
-        <td><%= link_to 'Destroy', authorization_code, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
   </tbody>
 </table>
-
 <br>
-
-<%= link_to 'New Authorization Code', new_authorization_code_path %>
+<%= link_to 'New Authorization Code', login_url %>

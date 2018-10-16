@@ -1,19 +1,15 @@
 <p id="notice"><%= notice %></p>
-
 <p>
   <strong>User:</strong>
   <%= @authorization_code.user_id %>
 </p>
-
 <p>
   <strong>Token:</strong>
   <%= @authorization_code.token %>
 </p>
-
 <p>
   <strong>Used at:</strong>
   <%= @authorization_code.used_at %>
 </p>
-
-<%= link_to 'Edit', edit_authorization_code_path(@authorization_code) %> |
-<%= link_to 'Back', authorization_codes_path %>
+<%= link_to 'Edit', root_url %> |
+<%= link_to 'Back', root_url %>
