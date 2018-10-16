@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 2018_10_15_031440) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "access_tokens", id: :bigint, default: -> { "nextval('sessions_id_seq'::regclass)" }, force: :cascade do |t|
+  create_table "access_tokens", force: :cascade do |t|
     t.integer "user_id"
     t.string "token"
     t.datetime "expires_at"
@@ -118,10 +118,10 @@ ActiveRecord::Schema.define(version: 2018_10_15_031440) do
     t.string "category", default: "token", comment: "Either \"native\" or \"tokens\""
     t.string "native_symbol"
     t.integer "last_scanned_block"
+    t.datetime "last_scan_at"
     t.json "data", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "last_scan_at", precision: 6
   end
 
   create_table "trades", force: :cascade do |t|
@@ -147,8 +147,6 @@ ActiveRecord::Schema.define(version: 2018_10_15_031440) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "reset_digest"
-    t.datetime "reset_sent_at"
   end
 
   create_table "withdrawals", force: :cascade do |t|

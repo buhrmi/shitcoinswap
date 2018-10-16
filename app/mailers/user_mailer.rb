@@ -13,7 +13,7 @@ class UserMailer < ApplicationMailer
 
   def authorization_code
     @user = params[:user]
-    @token = params[:token]
+    @auth_code = params[:auth_code]
     mail to: @user.email, subject: "Login email"
   end
 end
