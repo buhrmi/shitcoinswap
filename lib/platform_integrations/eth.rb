@@ -263,7 +263,7 @@ module PlatformIntegrations::ETH
     end
   end
 
-  def tx_url(transaction_id)
+  def transaction_url(transaction_id)
     return '' unless transaction_id
     if network == 'mainnet'
       "https://etherscan.io/tx/#{transaction_id}"

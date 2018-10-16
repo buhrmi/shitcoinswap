@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Account History</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Asset</th>
+      <th>Change type</th>
+      <th>Memo</th>
+      <th>Amount</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @balance_adjustments.each do |balance_adjustment| %>
+      <tr>
+        <td><%= balance_adjustment.asset_id %></td>
+        <td><%= balance_adjustment.change_type %></td>
+        <td><%= balance_adjustment.memo %></td>
+        <td><%= balance_adjustment.amount %></td>
+        <td><%= link_to 'Check transaction', balance_adjustment.transaction_url, target: '_blank' if balance_adjustment.transaction_url %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

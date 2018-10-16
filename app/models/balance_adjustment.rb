@@ -8,4 +8,8 @@ class BalanceAdjustment < ApplicationRecord
       errors.add(:amount, "would make balance negative")
     end
   end
+
+  def transaction_url
+    change.transaction_url if change.respond_to?(:transaction_url)
+  end
 end

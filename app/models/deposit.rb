@@ -15,7 +15,7 @@ class Deposit < ApplicationRecord
     UserMailer.with(user: user, deposit: self).deposit_email.deliver_later
   end
 
-  def tx_url
-    asset.platform.tx_url(transaction_id)
+  def transaction_url
+    asset.platform.transaction_url(transaction_id)
   end
 end

@@ -12,7 +12,8 @@
       <td><%= current_user.balances[asset.id] || 0 %></td>
       <td>
         <%= link_to "Withdraw", new_withdrawal_path(withdrawal: {asset_id: asset.id})%> |
-        <%= link_to "Deposit", new_deposit_path(asset_id: asset.id)%>
+        <%= link_to "Deposit", new_deposit_path(asset_id: asset.id)%> |
+        <%= link_to "History", balance_adjustments_path(asset_id: asset.id)%>
       </td>
     </tr>
   <% end %>

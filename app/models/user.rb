@@ -27,6 +27,6 @@ class User < ApplicationRecord
   end
 
   def balances
-    balance_adjustments.group(:asset_id).sum(:amount).as_json
+    balance_adjustments.group(:asset_id).sum(:amount).to_hash
   end
 end

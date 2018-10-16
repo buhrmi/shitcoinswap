@@ -46,8 +46,8 @@ class Withdrawal < ApplicationRecord
     self.error == 'insufficient funds for gas * price + value' # This error text comes from infura.io
   end
 
-  def tx_url
-    asset.platform.tx_url(transaction_id)
+  def transaction_url
+    asset.platform.transaction_url(transaction_id)
   end
 
   def check_receiver_address
