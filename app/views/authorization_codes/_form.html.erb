@@ -1,0 +1,19 @@
+<%= form_with(model: authorization_code, local: true) do |form| %>
+  <% if authorization_code.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(authorization_code.errors.count, "error") %> prohibited this authorization_code from being saved:</h2>
+      <ul>
+        <% authorization_code.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.text_field :email %>
+  </div>
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

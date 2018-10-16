@@ -16,4 +16,11 @@ class UserMailer < ApplicationMailer
     @user = user
     mail to: @user.email, subject: "Password reset"
   end
+
+
+  def authorization_code
+    @user = params[:user]
+    @token = params[:token]
+    mail to: @user.email, subject: "Login email"
+  end
 end
