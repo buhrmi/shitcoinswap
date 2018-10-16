@@ -77,7 +77,7 @@ module PlatformIntegrations::ETH
       next if sender_address.downcase == hot_wallet_address.downcase # sometimes we need to fund the address to transfer erc20 tokens
       amount = transaction['value'].last(64).to_i(16).to_f / 10 ** 18
       hash = transaction['hash']
-      address = Address.where(platform_id: self.id, address: to_address.downcase).first
+      address = Address.where(module: self.module, address: to_address.downcase).first
       if address
         deposit = address.deposits.create!(transaction_id: hash, amount: amount, asset: self.native_asset)
         puts "Deposit: #{deposit}"
@@ -188,10 +188,10 @@ module PlatformIntegrations::ETH
       contract = transaction['address']
       next unless transaction['topics'].length == 3 # require that from and to are indexed
       to_address = '0x' + transaction['topics'][2].last(40)
-      address = Address.where(platform: self.id, address: to_address.downcase).first
+      address = Address.where(module: self.module, address: to_address.downcase).first
       if address
         # create asset if it doesnt exist
-        asset = asset.where(platform: self.id, address: contract.downcase).first_or_create!
+        asset = asset.where(module: self.module, address: contract.downcase).first_or_create!
         hash = transaction['transactionHash']
         amount = transaction['data'].last(64).to_i(16).to_f / asset.unit
         address.with_lock do

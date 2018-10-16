@@ -1,5 +1,5 @@
 desc "Run deposit scanner in background"
-task scan_for_deposits: [:environment] do
+task deposits: [:environment] do
   while true
     Platform.all.each do |platform|
       puts "Scanning blocks on #{platform.name}"
