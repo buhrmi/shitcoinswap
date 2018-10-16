@@ -6,6 +6,7 @@ class CreatePlatforms < ActiveRecord::Migration[5.2]
       t.string :category, default: 'token', comment: 'Either "native" or "tokens"'
       t.string :native_symbol
       t.integer :last_scanned_block
+      t.timestamp :last_scan_at
 
       t.json :data, default: {}
       

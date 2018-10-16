@@ -3,7 +3,9 @@ task deposits: [:environment] do
   while true
     Platform.all.each do |platform|
       puts "Scanning blocks on #{platform.name}"
-      platform.scan_for_deposits!
+      platform.with_lock do
+        platform.scan_for_deposits!
+      end
     end
     
     # Create withdrawals from deposit address to hotwallet for every new deposit
