@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  
+
+  resources :authorization_codes
+  get 'authorization_codes/new'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   namespace :admin do

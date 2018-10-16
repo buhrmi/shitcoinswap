@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_12_073942) do
+ActiveRecord::Schema.define(version: 2018_10_15_100911) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "access_tokens", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "token"
+    t.datetime "expires_at"
+    t.datetime "logged_out_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "addresses", force: :cascade do |t|
     t.integer "user_id"
@@ -42,6 +51,14 @@ ActiveRecord::Schema.define(version: 2018_10_12_073942) do
     t.datetime "updated_at", null: false
     t.index ["address", "platform_id"], name: "index_assets_on_address_and_platform_id", unique: true
     t.index ["name"], name: "index_assets_on_name"
+  end
+
+  create_table "authorization_codes", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "token"
+    t.datetime "used_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "balance_adjustments", force: :cascade do |t|
@@ -101,15 +118,6 @@ ActiveRecord::Schema.define(version: 2018_10_12_073942) do
     t.string "native_symbol"
     t.integer "last_scanned_block"
     t.json "data", default: {}
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "access_tokens", force: :cascade do |t|
-    t.integer "user_id"
-    t.string "token"
-    t.datetime "expires_at"
-    t.datetime "logged_out_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
