@@ -2,10 +2,10 @@
 
 one:
   user_id: 1
-  token: MyString
+  code: MyString
   used_at: 2018-10-15 09:44:40
 
 two:
   user_id: 1
-  token: MyString
+  code: MyString
   used_at: 2018-10-15 09:44:40

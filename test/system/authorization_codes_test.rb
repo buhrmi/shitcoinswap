@@ -14,7 +14,7 @@ class AuthorizationCodesTest < ApplicationSystemTestCase
     visit authorization_codes_url
     click_on "New Authorization Code"
 
-    fill_in "Token", with: @authorization_code.token
+    fill_in "Code", with: @authorization_code.code
     fill_in "Used At", with: @authorization_code.used_at
     fill_in "User", with: @authorization_code.user_id
     click_on "Create Authorization code"
