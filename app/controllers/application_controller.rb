@@ -29,7 +29,30 @@ class ApplicationController < ActionController::Base
 
   # check if auth_code & email in url
   def check_auth_code
-    return true if params[:auth_code].nil? || params[:email].nil?
-    redirect_to edit_authorization_code_url(params[:auth_code], email: params[:email])
+    return unless auth_code = params[:auth_code]
+    
+    @authorization_code = AuthorizationCode.find_by(code: auth_code)
+
+    unless @authorization_code
+      redirect_to login_url, alert: "Authorization code not found. Please use the latest link sent to your email."
+      return
+    end
+
+    # Check if the authorization code is used
+    if @authorization_code.used?
+      redirect_to login_url, alert: "Authorization code was used. Please create a new one."
+      return
+    end
+
+    # Check if the authorization code is expired
+    if @authorization_code.expired?
+      redirect_to login_url, alert: "Authorization code has expired."
+      return
+    end
+
+    # Check if the authorization code is valid
+    access_token = @authorization_code.trade_for_token!
+    cookies[:access_token] = {value: access_token.token, http_only: true}
+    redirect_to root_path, notice: "Logged in!"
   end
 end

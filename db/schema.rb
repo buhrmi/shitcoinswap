@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_15_100911) do
+ActiveRecord::Schema.define(version: 2018_10_15_031440) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "access_tokens", force: :cascade do |t|
+  create_table "access_tokens", id: :bigint, default: -> { "nextval('sessions_id_seq'::regclass)" }, force: :cascade do |t|
     t.integer "user_id"
     t.string "token"
     t.datetime "expires_at"
@@ -55,10 +55,11 @@ ActiveRecord::Schema.define(version: 2018_10_15_100911) do
 
   create_table "authorization_codes", force: :cascade do |t|
     t.integer "user_id"
-    t.string "token"
+    t.string "code"
     t.datetime "used_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_authorization_codes_on_code"
   end
 
   create_table "balance_adjustments", force: :cascade do |t|
@@ -83,7 +84,7 @@ ActiveRecord::Schema.define(version: 2018_10_15_100911) do
     t.integer "asset_id"
     t.string "transaction_id"
     t.decimal "amount", precision: 50, scale: 20
-    t.integer "withdrawal_to_hotwallet", comment: "The withdrawal used for consolidation (withdrawal from deposit address into hot wallet)"
+    t.integer "withdrawal_to_hotwallet_id", comment: "The withdrawal used for consolidation (withdrawal from deposit address into hot wallet)"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["transaction_id"], name: "index_deposits_on_transaction_id", unique: true
@@ -120,6 +121,7 @@ ActiveRecord::Schema.define(version: 2018_10_15_100911) do
     t.json "data", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "last_scan_at", precision: 6
   end
 
   create_table "trades", force: :cascade do |t|

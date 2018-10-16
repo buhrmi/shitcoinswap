@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :authorization_codes, only:[:new, :create, :edit]
+  resources :authorization_codes, only:[:new, :create]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   namespace :admin do
@@ -13,11 +13,7 @@ Rails.application.routes.draw do
   resources :orders
   resources :withdrawals
   resources :deposits
-  resources :users
 
-  resources :password_resets, only: [:new, :create, :edit, :update]
-
-  post '/login'    => 'access_tokens#create'
   get '/login'     => 'authorization_codes#new'
   delete '/logout' => 'access_tokens#destroy'
 
