@@ -28,10 +28,10 @@ class AuthorizationCodesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get edit" do
-    get edit_authorization_code_url(@authorization_code)
-    assert_response :success
-  end
+  # test "should get edit" do
+  #   get edit_authorization_code_url(@authorization_code)
+  #   assert_response :success
+  # end
 
   test "should update authorization_code" do
     patch authorization_code_url(@authorization_code), params: { authorization_code: { token: @authorization_code.token, used_at: @authorization_code.used_at, user_id: @authorization_code.user_id } }
