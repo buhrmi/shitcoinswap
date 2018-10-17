@@ -10,19 +10,7 @@ class AuthFlowsTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     follow_redirect!
     assert_response :success
-    assert_select "body", "Admin Menu: Balance Adjustments | Platforms | Withdrawals | Assets
-      
-    NewArt Technology
-    OTC
-      
-        Logged in as alice@example.com | My Balances | Account History | Log Out
-      
-    
-    
-      Logged in!
-
-
-    Welcome to NewArt Technology"
+    assert_select "body", /Logged in!/
 
     delete "/logout"
     assert_response :redirect
@@ -41,26 +29,7 @@ class AuthFlowsTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     follow_redirect!
     assert_response :success
-    assert_select "body", "NewArt Technology
-    OTC
-      
-      Log In
-    
-    
-
-      Authorization code not found. Please use the latest link sent to your email.
-
-    New Authorization Code
-
-  
-    Email
-    
-  
-  
-    
-  
-
-Back"
+    assert_select "body", /Authorization code not found/
 
   end
 end
