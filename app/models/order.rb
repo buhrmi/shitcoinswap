@@ -9,22 +9,33 @@ class Order < ActiveRecord::Base
   validates_numericality_of :rate, greater_than: 0, unless: :market?
   validates_inclusion_of :kind, in: ['limit', 'market']
   validates_inclusion_of :side, in: ['sell', 'buy']
-  validates_inclusion_of :quote_asset_id, in: [Asset::ETH.try(:id)]
+  validates_inclusion_of :quote_asset_id, in: [Asset::ETH.try(:id), Asset::JPY.try(:id)]
   
   validate :ensure_assets_dont_match
-  
+  validate :ensure_asset_available
+
   before_save do
     self.filled_at = Time.now if self.filled? and not self.filled_at
   end
   
   after_save do
-    # This will throw an exception if the available balance is negative and thus roll back the transaction that we are inside
-    user.validate_balance! base_asset
-    user.validate_balance! quote_asset
+    CachedBalance.cache!(user, base_asset)
+    CachedBalance.cache!(user, quote_asset)
   end
-  
+
   after_commit do
     # TODO: push realtime updates to users
+  end
+
+  def ensure_asset_available
+    return if cancelled?
+    if buy_market?
+      errors.add(:total, 'is higher than available balance') if user.available_balance(quote_asset) < total
+    elsif buy?
+      errors.add(:quantity, 'is higher than available balance') if user.available_balance(quote_asset) < quantity * rate
+    else
+      errors.add(:quantity, 'is higher than available balance') if user.available_balance(base_asset) < quantity
+    end
   end
   
   def self.open
@@ -63,6 +74,10 @@ class Order < ActiveRecord::Base
       self.fill!(matching_order)
     end
   end
+
+  def cancel!
+    update_attributes!(cancelled_at: Time.now) if open?
+  end
   
   def filled?
     if self.buy_market?
@@ -77,6 +92,14 @@ class Order < ActiveRecord::Base
       (self.total - self.total_used) / rate
     else
       self.quantity - self.quantity_filled
+    end
+  end
+  
+  def percent_filled
+    if self.buy_market?
+      100.0 * self.total_used / self.total
+    else
+      100.0 * self.quantity_filled / self.quantity
     end
   end
   
@@ -99,13 +122,13 @@ class Order < ActiveRecord::Base
     other_order.save!
     self.save!
 
-    trade = Trade.create!(quote_asset: quote_asset, base_asset: base_asset, buy_order: buy_order, sell_order: sell_order, buyer: buy_order.user, seller: sell_order.user, quantity: quantity_to_fill, rate: rate)
+    trade = Trade.create!(quote_asset: quote_asset, base_asset: base_asset, buy_order: buy_order, sell_order: sell_order, buyer: buy_order.user, seller: sell_order.user, amount: quantity_to_fill, rate: rate)
     
     # Adjust balances
-    buy_order.user.adjust_balance!(base_asset,  base_change, trade)
-    sell_order.user.adjust_balance!(quote_asset, quote_change, trade)
-    sell_order.user.adjust_balance!(base_asset,  -base_change, trade)
-    buy_order.user.adjust_balance!(quote_asset, -quote_change, trade)
+    trade.balance_adjustments.create!(user: buy_order.user, asset: base_asset, amount: base_change)
+    trade.balance_adjustments.create!(user: sell_order.user, asset: quote_asset, amount: quote_change)
+    trade.balance_adjustments.create!(user: sell_order.user, asset: base_asset, amount: -base_change)
+    trade.balance_adjustments.create!(user: buy_order.user, asset: quote_asset, amount: -quote_change)
   end
   
   def matching_kinds
@@ -150,6 +173,18 @@ class Order < ActiveRecord::Base
   
   def buy_market?
     buy? && market?
+  end
+
+  def cancelled?
+    cancelled_at
+  end
+
+  def open?
+    !cancelled? && !filled? && !expired?
+  end
+
+  def expired?
+    false # currently orders dont expire
   end
 
   def ensure_assets_dont_match

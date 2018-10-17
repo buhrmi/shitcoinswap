@@ -274,12 +274,22 @@ module PlatformIntegrations::ETH
   end
 
   def explorer_url_for(asset)
-    if network == 'mainnet'
-      "https://etherscan.io/token/#{asset.address}"
-    elsif network == 'classic'
-      "https://gastracker.io/token/#{asset.address}"
+    if asset == native_asset
+      if network == 'mainnet'
+        "https://etherscan.io"
+      elsif network == 'classic'
+        "https://gastracker.io"
+      else
+        "https://#{data['network']}.etherscan.io"
+      end
     else
-      "https://#{data['network']}.etherscan.io/token/#{asset.address}"
+      if network == 'mainnet'
+        "https://etherscan.io/token/#{asset.address}"
+      elsif network == 'classic'
+        "https://gastracker.io/token/#{asset.address}"
+      else
+        "https://#{data['network']}.etherscan.io/token/#{asset.address}"
+      end
     end
   end
 

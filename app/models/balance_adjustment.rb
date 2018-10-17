@@ -9,6 +9,10 @@ class BalanceAdjustment < ApplicationRecord
     end
   end
 
+  after_save do
+    CachedBalance.cache!(user, asset)
+  end
+
   def transaction_url
     change.transaction_url if change.respond_to?(:transaction_url)
   end

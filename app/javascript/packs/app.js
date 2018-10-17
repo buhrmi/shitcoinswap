@@ -6,13 +6,23 @@
 // All it does is render <div>Hello Vue</div> at the bottom of the page.
 
 import Vue from 'vue'
-import App from '../balances.vue'
 
-document.addEventListener('DOMContentLoaded', () => {
-  const app = new Vue({
-    el: "#balances",
+import store from '../src/store.js'
+import router from '../src/routes.js'
+
+import App from '../src/components/app'
+
+document.addEventListener('turbolinks:load', () => {
+  const el = document.getElementById('app')
+  if (!el) return
+
+  new Vue({
+    store: store,
+    router: router,
+    el: el,
     render: h => h(App)
   })
+
 })
 
 

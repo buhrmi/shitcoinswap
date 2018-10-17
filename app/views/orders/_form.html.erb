@@ -1,0 +1,44 @@
+<%= form_with(model: order, local: true) do |form| %>
+  <% if order.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(order.errors.count, "error") %> prohibited this order from being saved:</h2>
+
+      <ul>
+      <% order.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form.hidden_field :quote_asset_id, value: Asset::ETH.id %>
+
+  <div class="field">
+    <%= form.label :side %>
+    <%= form.select :side, [['Buy', 'buy'], ['Sell', 'sell']] %>
+  </div>
+
+  <div class="field">
+    <%= form.label :quantity %>
+    <%= form.text_field :quantity %>
+  </div>
+
+  <div class="field">
+    <%= form.label :base_asset_id %>
+    <%= form.select :base_asset_id, Asset.all.map { |asset| [asset.symbol, asset.id] } %>
+  </div>
+
+  <div class="field">
+    <%= form.label :kind %>
+    <%= form.select :kind, [['Market', 'market'], ['Limit', 'limit']] %>
+  </div>
+
+  <div class="field">
+    <%= form.label :rate %>
+    <%= form.text_field :rate %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

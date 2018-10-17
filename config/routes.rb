@@ -15,8 +15,10 @@ Rails.application.routes.draw do
 
   get '/login'     => 'authorization_codes#new'
   delete '/logout' => 'access_tokens#destroy'
-
-  get 'balances', to: 'pages#balances'
-
+  
+  # get '/balances' => 'pages#balances'
   root to: 'pages#welcome'
+  
+  # Vue app
+  get '/:page' => 'pages#app'
 end

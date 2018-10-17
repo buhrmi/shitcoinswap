@@ -2,13 +2,26 @@
 <html>
   <head>
     <title>NewArt Technology</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
-    <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag 'application', integrity: true %>
 
-    <%#= javascript_pack_tag 'balances' %>
+    <%= javascript_tag do %>
+      __INITIAL_STATE__= {
+        assets: <%= raw Asset.all.to_json(only: [:id, :name], methods: [:symbol, :explorer_url]) %>,
+        <% if current_user %>
+          balances: <%= raw current_user.cached_balances_json %>
+        <% end %>
+      }
+    <% end %>
+
+    <%= javascript_pack_tag 'app', integrity: true %>
+
   </head>
 
   <body>

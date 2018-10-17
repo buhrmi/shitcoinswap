@@ -1,3 +1,7 @@
 eth:
   name: Ethereum
   native_symbol: ETH
+
+jpy:
+  name: Japanese Yen
+  native_symbol: JPY

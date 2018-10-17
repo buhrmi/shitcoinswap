@@ -5,3 +5,21 @@ eth_for_alice_from_bob:
   user: alice
   change: bob (User)
   amount: 100
+
+jpy_for_alice_from_bob:
+  asset: jpy
+  user: alice
+  change: bob (User)
+  amount: 100
+
+eth_for_bob:
+  asset: eth
+  user: bob
+  change: bob (User)
+  amount: 100
+
+jpy_for_bob:
+  asset: jpy
+  user: bob
+  change: bob (User)
+  amount: 100

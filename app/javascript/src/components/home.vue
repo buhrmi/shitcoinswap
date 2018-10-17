@@ -1,6 +1,6 @@
 <template>
-  <div id="balances">
-    <p>Your balance:</p>
+  <div>
+    <p>Welcome to NewArt Technology</p>
   </div>
 </template>
 

@@ -1,7 +1,42 @@
 class OrdersController < ApplicationController
-  skip_before_action :require_user
+  skip_before_action :require_user, only: [:index]
 
   def index
     @orders = Order.open
+  end
+
+  def new
+    @order = Order.new
+  end
+
+  def create
+    @order = Order.new(order_params)
+    @order.user = current_user
+
+    respond_to do |format|
+      if @order.save
+        format.html { redirect_to orders_path, notice: 'Order was successfully created.' }
+        format.json { render :show, status: :created, location: @order }
+      else
+        format.html { render :new }
+        format.json { render json: @order.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def destroy
+    @order = current_user.orders.find(params[:id])
+    @order.cancel!
+
+    respond_to do |format|
+      format.html { redirect_to orders_path, notice: 'Order was successfully cancelled.' }
+      format.json { render :show, status: :destroyed, location: @order }    
+    end
+  end
+
+  private
+
+  def order_params
+    params.require(:order).permit(:base_asset_id, :quote_asset_id, :side, :kind, :quantity, :rate)
   end
 end

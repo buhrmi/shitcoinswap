@@ -5,7 +5,7 @@
     <tr>
       <th>Buying Asset</th>
       <th>Selling Asset</th>
-      <th>Amount</th>
+      <th>Quantity</th>
       <th>Rate</th>
       <th>Filled</th>
       <th></th>
@@ -15,12 +15,13 @@
   <tbody>
     <% @orders.each do |order| %>
       <tr>
-        <td><%= order.buying_asset %></td>
-        <td><%= order.selling_asset %></td>
-        <td><%= order.amount %></td>
+        <td><%= order.buying_asset.name %></td>
+        <td><%= order.selling_asset.name %></td>
+        <td><%= order.quantity %></td>
         <td><%= order.rate %></td>
-        <td><%= order.filled %></td>
+        <td><%= order.percent_filled %>%</td>
         <td><%= order.user.display_name %></td>
+        <td><%= link_to 'Cancel', order, method: 'delete' %>
       </tr>
     <% end %>
   </tbody>
