@@ -36,6 +36,15 @@
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
       <h5 class="my-0 mr-md-auto font-weight-normal"><%= link_to 'NewArt Technology', root_path %></h5>
       <nav class="my-2 my-md-0 mr-md-3">
+        <% if current_user %>
+          <%= "Logged in as #{current_user.email}" %>
+          <%= link_to 'My Balances', '/balances', class: 'p-2 text-dark' %>
+          <%= link_to 'Account History', '/balance_adjustments', class: 'p-2 text-dark' %>
+          <%= link_to 'Log Out', logout_path, method: :delete, class: 'p-2 text-dark' %>
+        <% else %>
+          <!-- not logged in -->
+          <%= link_to 'Log In', login_path %>
+        <% end %>
         <%# = link_to 'Orders', '/orders', class: 'p-2 text-dark' %>
         <%# <a class="p-2 text-dark" href="#">Enterprise</a> %>
         <%# <a class="p-2 text-dark" href="#">Support</a> %>
@@ -44,24 +53,44 @@
       <%# <a class="btn btn-outline-primary" href="#">Create Token</a> %>
     </div>
     
-    <% if current_user %>
-      <div class="user">
-        <%= "Logged in as #{current_user.email}" %> | <%= link_to 'My Balances', '/balances' %> | <%= link_to 'Account History', '/balance_adjustments' %> | <%= link_to 'Log Out', logout_path, method: :delete %>
-      </div>
-    <% else %>
-      <!-- not logged in -->
-      <%= link_to 'Log In', login_path %>
-    <% end %>
-    <hr>
+    <div class="container">
     
-    <% if notice %>
-      <%= notice %>
-    <% end %>
+      <% if notice %>
+        <%= notice %>
+      <% end %>
 
-    <% if alert %>
-      <%= alert %>
-    <% end %>
+      <% if alert %>
+        <%= alert %>
+      <% end %>
 
-    <%= yield %>
+      <%= yield %>
+
+      <footer class="pt-4 my-md-5 pt-md-5 border-top">
+        <div class="row">
+          <div class="col-12 col-md">
+            <img class="mb-2" src="../../assets/brand/bootstrap-solid.svg" alt="" width="24" height="24">
+            <small class="d-block mb-3 text-muted">© 2018</small>
+          </div>
+          <div class="col-6 col-md">
+            <h5>Platform</h5>
+            <ul class="list-unstyled text-small">
+              <li><a class="text-muted" href="#">Submit Token</a></li>
+            </ul>
+          </div>
+          <div class="col-6 col-md">
+            <h5>Resources</h5>
+            <ul class="list-unstyled text-small">
+              
+            </ul>
+          </div>
+          <div class="col-6 col-md">
+            <h5>About</h5>
+            <ul class="list-unstyled text-small">
+              
+            </ul>
+          </div>
+        </div>
+      </footer>
+    </div>
   </body>
 </html>
