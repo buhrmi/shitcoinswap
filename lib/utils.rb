@@ -3,6 +3,14 @@ module Utils
     pubkey.public_encrypt(hex_key).unpack('H*').first
   end
 
+  def self.private_encrypt memo
+    privkey.private_encrypt(hex_key).unpack('H*').first
+  end
+
+  def self.public_decrypt hex
+    pubkey.public_decrypt([hex_key].pack('H*'))
+  end
+
   def self.decrypt_key hex_key
     privkey.private_decrypt([hex_key].pack('H*'))
   end

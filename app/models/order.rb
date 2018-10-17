@@ -9,7 +9,7 @@ class Order < ActiveRecord::Base
   validates_numericality_of :rate, greater_than: 0, unless: :market?
   validates_inclusion_of :kind, in: ['limit', 'market']
   validates_inclusion_of :side, in: ['sell', 'buy']
-  validates_inclusion_of :quote_asset_id, in: [Asset::ETH.id]
+  validates_inclusion_of :quote_asset_id, in: [Asset::ETH.try(:id)]
   
   validate :ensure_assets_dont_match
   

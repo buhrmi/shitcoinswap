@@ -62,14 +62,13 @@ class Withdrawal < ApplicationRecord
     return unless status.nil? || status == 'error'
 
     platform = asset.platform
-    id, hex = platform.build_signed_transfer_tx(asset, amount, receiver_address, sender_address)
-    self.transaction_id = id
-    self.signed_transaction = hex
-    self.status = 'pending'
+    tx_id, raw_tx_hex = platform.create_raw_tx(asset, amount, receiver_address, sender_address)
+    self.transaction_id = tx_id
+    self.signed_transaction = raw_tx_hex
     save!
      
     self.tries += 1
-    platform.submit_signed_tx!(hex)
+    platform.submit_raw_tx!(raw_tx_hex)
     self.submitted_at = Time.now
     self.status = 'submitted'
     self.error = nil

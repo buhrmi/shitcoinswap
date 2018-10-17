@@ -120,7 +120,7 @@ module PlatformIntegrations::ETH
     address.present? && Eth::Address.new(address).valid?
   end
 
-  def build_signed_transfer_tx(asset, amount, to_address, sender_address)
+  def create_raw_tx(asset, amount, to_address, sender_address)
     sender_address ||= hot_wallet_address
     
     if asset == native_asset
@@ -161,13 +161,12 @@ module PlatformIntegrations::ETH
     if sender_address == hot_wallet_address
       Eth::Key.new priv: Utils.decrypt_key(enc_hot_wallet_key)
     else
-      enc_private_key = Address.where(address: sender_address.downcase).first.try(:enc_private_key)
+      enc_private_key = Address.find_by(address: sender_address.downcase).try(:enc_private_key)
       Eth::Key.new priv: Utils.decrypt_key(enc_private_key)
     end
   end
 
-  # Rule of thumb: only throw on IO error. we do not care whether or not the tx is mined within a given time
-  def submit_signed_tx!(hex)
+  def submit_raw_tx!(hex)
     body = jsonrpc('eth_sendRawTransaction', [hex])
     raise body['error']['message'] if body['error']
   end
