@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  user_id: 1
-  code: MyString
-  used_at: 2018-10-15 09:44:40
+  user_id: 663665735
+  code: MyString1
+  used_at: 
 
 two:
-  user_id: 1
-  code: MyString
-  used_at: 2018-10-15 09:44:40
+  user_id: 902541635
+  code: MyString2
+  used_at: 
