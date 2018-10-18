@@ -32,16 +32,29 @@ class AssetsController < ApplicationController
     send_data ERB.new(template).result(binding), filename: @name.parameterize(separator: '_').camelcase + '.sol'  
   end
 
+  def new
+    @asset = Asset.new
+  end
+
+  def index
+    @assets = Asset.all
+  end
+
   def show
     @asset = Asset.find(params[:id])
   end
 
   def create
-    asset = Asset.new(asset_params)
-    if asset.save
-      redirect_to asset
-    else
-      redirect_back fallback_location: '/assets/new', notice: asset.errors
+    @asset = Asset.new(asset_params)
+
+    respond_to do |format|
+      if @asset.save
+        format.html { redirect_to @asset, notice: 'Asset was successfully created.' }
+        format.json { render :show, status: :created, location: @asset }
+      else
+        format.html { render :new }
+        format.json { render json: @asset.errors, status: :unprocessable_entity }
+      end
     end
   end
 

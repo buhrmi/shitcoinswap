@@ -3,6 +3,8 @@ class CreateAssets < ActiveRecord::Migration[5.2]
     create_table :assets do |t|
       t.string :name
       t.string :native_symbol
+      
+      t.integer :submitter_id, comment: 'User ID of user who submitted this token. He should be made admin of this token.'
 
       t.float :cached_rating, default: 0
       t.string :platform_id

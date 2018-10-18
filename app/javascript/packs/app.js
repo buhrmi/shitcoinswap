@@ -15,7 +15,6 @@ import App from '../src/components/app'
 document.addEventListener('turbolinks:load', () => {
   const el = document.getElementById('app')
   if (!el) return
-
   new Vue({
     store: store,
     router: router,
