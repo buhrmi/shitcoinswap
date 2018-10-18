@@ -4,7 +4,7 @@ class Asset < ApplicationRecord
 
   belongs_to :platform
   has_many :balance_adjustments
-  belongs_to :submitter, class_name: 'User'
+  belongs_to :submitter, class_name: 'User', optional: true
 
   validate :check_address
   validates_uniqueness_of :address, case_sensitive: false, allow_nil: true
