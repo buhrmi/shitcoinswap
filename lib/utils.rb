@@ -17,11 +17,11 @@ module Utils
 
   private
   def self.pubkey
-    @pubkey ||= OpenSSL::PKey::RSA.new File.read Rails.root.join('config/hotwallet.pub.pem')
+    @pubkey ||= OpenSSL::PKey::RSA.new File.read Rails.root.join('config/keys/hotwallet.pub.pem')
   end
 
   def self.privkey
-    @privkey ||= OpenSSL::PKey::RSA.new File.read Rails.root.join('config/hotwallet.priv.pem')
+    @privkey ||= OpenSSL::PKey::RSA.new File.read Rails.root.join('config/keys/hotwallet.priv.pem')
   end
 end
 

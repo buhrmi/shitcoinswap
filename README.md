@@ -16,8 +16,8 @@ Run `rails db:seed` to import the initial seed data into the database.
 ### Generate hot wallet encryption keypair
 
 ```
-[ -f config/hotwallet.priv.pem ] || openssl genrsa -out config/hotwallet.priv.pem 2048
-[ -f config/hotwallet.pub.pem ] || openssl rsa -in config/hotwallet.priv.pem -outform PEM -pubout -out config/hotwallet.pub.pem
+[ -f config/keys/hotwallet.priv.pem ] || openssl genrsa -out config/keys/hotwallet.priv.pem 2048
+[ -f config/keys/hotwallet.pub.pem ] || openssl rsa -in config/keys/hotwallet.priv.pem -outform PEM -pubout -out config/keys/hotwallet.pub.pem
 ```
 
 
