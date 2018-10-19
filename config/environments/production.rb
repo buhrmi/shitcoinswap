@@ -101,4 +101,11 @@ Rails.application.configure do
     :password       => ENV['SMTP_PASSWORD'],
     :port           => ENV['SMTP_PORT']
   }
+
+  # Exception notification
+  config.middleware.use ExceptionNotification::Rack,
+    :email => {
+      :sender_address => %{"NewArt Technology Background Job" <rake@newart.tech>},
+      :exception_recipients => %w{errors@newart.tech}
+    }
 end

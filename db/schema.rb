@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_17_044539) do
+ActiveRecord::Schema.define(version: 2018_10_19_064333) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -132,6 +132,13 @@ ActiveRecord::Schema.define(version: 2018_10_17_044539) do
     t.integer "last_scanned_block"
     t.datetime "last_scan_at"
     t.json "data", default: {}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "statuses", force: :cascade do |t|
+    t.datetime "last_deposits_ran_at", default: "2018-10-19 06:52:41"
+    t.datetime "last_withdrawals_ran_at", default: "2018-10-19 06:52:41"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

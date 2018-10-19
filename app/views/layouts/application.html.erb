@@ -72,21 +72,22 @@
             <small class="d-block mb-3 text-muted">© 2018</small>
           </div>
           <div class="col-6 col-md">
-            <h5>Platform</h5>
+            <h5>About</h5>
             <ul class="list-unstyled text-small">
-              <li><a class="text-muted" href="#">Submit Token</a></li>
             </ul>
           </div>
           <div class="col-6 col-md">
             <h5>Resources</h5>
             <ul class="list-unstyled text-small">
-              
+              <li><a class="text-muted" href="/token_studio">Create Token</a></li>
+              <li><a class="text-muted" href="/assets/new">Submit Token</a></li>
             </ul>
           </div>
           <div class="col-6 col-md">
-            <h5>About</h5>
+            <h5>Status</h5>
             <ul class="list-unstyled text-small">
-              
+              <li class="text-muted">Deposits: <%= Status.first.last_deposits_ran_at > 2.minutes.ago ? 'OK' : 'Stopped' %></li>
+              <li class="text-muted">Withdrawals: <%= Status.first.last_withdrawals_ran_at > 2.minutes.ago ? 'OK' : 'Stopped' %></li>
             </ul>
           </div>
         </div>

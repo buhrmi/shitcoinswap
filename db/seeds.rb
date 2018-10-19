@@ -61,3 +61,6 @@ for asset_info in supported_assets
   asset_info[:address].downcase!
   Asset.where(asset_info).first_or_create!
 end
+
+# Create a status record
+Status.first_or_create!

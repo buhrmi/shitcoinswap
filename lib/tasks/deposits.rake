@@ -17,5 +17,6 @@ task deposits: [:environment] do
       deposit.update_attribute :withdrawal_to_hotwallet, withdrawal
     end
     sleep 69
+    Status.update_all last_deposits_ran_at: Time.now
   end
 end

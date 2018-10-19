@@ -10,5 +10,6 @@ task withdrawals: [:environment] do
       # TODO: check confirmations on the blockchain
     end
     sleep 15
+    Status.update_all last_withdrawals_ran_at: Time.now
   end
 end
