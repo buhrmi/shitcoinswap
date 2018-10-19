@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  get 'static_pages/login_email'
   namespace :admin do
     resources :balance_adjustments
     resources :platforms
