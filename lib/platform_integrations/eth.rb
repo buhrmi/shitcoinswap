@@ -75,7 +75,8 @@ module PlatformIntegrations::ETH
       to_address = transaction['to']
       sender_address = transaction['from']
       next unless to_address
-      next if sender_address.downcase == hot_wallet_address.downcase # sometimes we need to fund the address to transfer erc20 tokens
+      # If the deposit comes from our own hotwallet address, ignore it. It is probably a transfer to fund the fee for erc20-to-hotwallet transfer
+      next if sender_address.downcase == hot_wallet_address.downcase
       amount = transaction['value'].last(64).to_i(16).to_f / 10 ** 18
       hash = transaction['hash']
       address = Address.where(module: self.module, address: to_address.downcase).first
