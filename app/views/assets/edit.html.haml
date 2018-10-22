@@ -1,7 +1,6 @@
-%h1 Editing asset
-
-= render 'form'
-
-= link_to 'Show', @asset
-\|
-= link_to 'Back', assets_path
+= form_for @asset do |f|
+  .form-group
+    = f.label :description, class: 'col-sm-2 col-form-label'
+    = f.text_area :description
+  
+  = f.submit 'Save changes', class: 'btn btn-primary'

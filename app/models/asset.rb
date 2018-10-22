@@ -2,6 +2,8 @@ class Asset < ApplicationRecord
   ETH = find_by(native_symbol: 'ETH')
   JPY = find_by(native_symbol: 'JPY')
 
+  translates :description
+
   belongs_to :platform
   has_many :balance_adjustments
   belongs_to :submitter, class_name: 'User', optional: true

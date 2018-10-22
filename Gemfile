@@ -18,6 +18,8 @@ gem 'bootstrap', '~> 4.1.3'
 gem 'jquery-rails'
 gem 'haml'
 gem 'haml-rails'
+gem 'globalize', git: 'https://github.com/globalize/globalize'
+gem 'activemodel-serializers-xml'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'

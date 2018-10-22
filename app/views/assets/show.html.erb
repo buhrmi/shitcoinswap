@@ -1,1 +1,6 @@
 <h1><%= @asset.name %></h1>
+<%= link_to @asset.address, @asset.explorer_url %>
+<p>
+<%= @asset.description %>
+</p>
+<%= link_to 'Edit', edit_asset_path(@asset), class: 'btn btn-primary'%>

@@ -1,13 +1,28 @@
 <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
   <h1 class="display-4">Welcome to NewArt Technology</h1>
-  <p class="lead">Introducing the world's first self-regulating cross-platform security token exchange.</p>
-  <a href="/token_studio" class="btn btn-lg btn-outline-primary">Create Security Token</a>
+  <p class="lead">Introducing the world's first self-regulating cross-platform token exchange and fulfillment center.</p>
+  <a href="/token_studio" class="btn btn-lg btn-outline-primary">Create Token</a>
   
     or <%= link_to 'submit existing token', new_asset_path %>
   
 </div>
 
-<div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-  <h1 class="display-4">Featured Assets</h1>
-  <a href="/assets" class="btn btn-lg btn-outline-primary">Browse all assets</a>
+<div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto">
+  <h1 class="display-4 text-center">Featured Assets</h1>
+  <% @featured_assets.in_groups_of(3) do %>
+  <div class="row">
+    <% for asset in @featured_assets %>
+      <div class="col-lg-4">
+        <h2><%= asset.name %></h2>
+        <p><%= asset.description %></p>
+        <p>
+          <%= link_to 'View details »', asset, class: 'btn btn-primary' %>
+        </p>
+      </div>
+    <% end %>
+  </div>
+  <% end %>
+  <div class="text-center">
+    <a href="/assets" class="btn btn-lg btn-outline-primary">Browse all assets</a>
+  </div>
 </div>

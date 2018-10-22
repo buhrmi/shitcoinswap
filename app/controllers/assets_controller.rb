@@ -32,6 +32,10 @@ class AssetsController < ApplicationController
     send_data ERB.new(template).result(binding), filename: @name.parameterize(separator: '_').camelcase + '.sol'  
   end
 
+  def edit
+    @asset = Asset.find(params[:id])
+  end
+
   def new
     @asset = Asset.new
   end
@@ -42,6 +46,13 @@ class AssetsController < ApplicationController
 
   def show
     @asset = Asset.find(params[:id])
+  end
+
+  def update
+    @asset = Asset.find(params[:id])
+    return unless @asset.submitter == current_user || current_user.admin?
+    @asset.update(update_params)
+    redirect_to @asset, notice: 'Asset was successfully updated.'
   end
 
   def create
@@ -59,6 +70,9 @@ class AssetsController < ApplicationController
   end
 
   private
+  def update_params
+    params.require(:asset).permit(:description)
+  end
 
   def asset_params
     params.require(:asset).permit(:platform_id, :address)

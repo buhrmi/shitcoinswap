@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   
-  get 'static_pages/login_email'
   namespace :admin do
     resources :balance_adjustments
     resources :platforms
@@ -13,6 +12,7 @@ Rails.application.routes.draw do
   resources :deposits
   resources :balance_adjustments
   resources :authorization_codes
+  resources :pages
 
   resources :assets do
     get 'contract', on: :collection

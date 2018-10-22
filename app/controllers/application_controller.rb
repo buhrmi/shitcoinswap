@@ -3,6 +3,7 @@
 class ApplicationController < ActionController::Base
   before_action :check_auth_code
   before_action :require_user
+  before_action :set_locale
 
   protect_from_forgery with: :exception
 
@@ -27,6 +28,26 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def set_locale
+    if params[:locale]
+      cookies.permanent[:locale] = params[:locale]
+      current_user.update_attributes(:preferred_locale => params[:locale]) if current_user.try(:persisted?)
+      return redirect_back fallback_location: root_url
+    elsif params[:fb_locale]
+      locale = params[:fb_locale]
+    elsif current_user && current_user.locale
+      locale = current_user.locale
+    elsif cookies[:locale]
+      locale = cookies[:locale]
+    else
+      locale = request.headers['Accept-Language'][0..1]
+    end
+
+    if I18n.config.available_locales.include?(locale)
+      I18n.locale = locale
+    end
+  end
+
   # check if auth_code & email in url
   def check_auth_code
     return unless auth_code = params[:auth_code]
@@ -34,23 +55,22 @@ class ApplicationController < ActionController::Base
     @authorization_code = AuthorizationCode.find_by(code: auth_code)
 
     unless @authorization_code
-      redirect_to login_url, alert: "Authorization code not found. Please use the latest link sent to your email."
+      redirect_to login_url, alert: "This link has already been used or is invalid. Please request a new link."
       return
     end
 
     # Check if the authorization code is used
     if @authorization_code.used?
-      redirect_to login_url, alert: "Authorization code was used. Please create a new one."
+      redirect_to login_url, alert: "This link has already been used or is invalid. Please request a new link."
       return
     end
 
     # Check if the authorization code is expired
     if @authorization_code.expired?
-      redirect_to login_url, alert: "Authorization code has expired."
+      redirect_to login_url, alert: "This link is expired. Please request a new link."
       return
     end
 
-    # Check if the authorization code is valid
     access_token = @authorization_code.trade_for_token!
     cookies[:access_token] = {value: access_token.token, http_only: true}
     redirect_to root_path, notice: "Logged in!"

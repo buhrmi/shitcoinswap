@@ -13,7 +13,7 @@ class CreateAssets < ActiveRecord::Migration[5.2]
       t.json :platform_data, default: {}, comment: 'Cached information for the asset. Pulled from the platform upon creation'
 
       t.timestamp :delisted_at
-      
+      t.timestamp :featured_at
       
       t.string :logo_uid
       t.string :logo_name
@@ -22,6 +22,16 @@ class CreateAssets < ActiveRecord::Migration[5.2]
 
       t.index [:address, :platform_id], unique: true
       t.index :name
+    end
+
+    reversible do |dir|
+      dir.up do
+        Asset.create_translation_table! description: :text
+      end
+
+      dir.down do
+        Asset.drop_translation_table!
+      end
     end
   end
 end

@@ -39,7 +39,7 @@
             .col-sm-10
               .form-check
                 input#pausable.form-check-input(type="checkbox" name="pausable" v-model="newAsset.pausable")
-                label.form-check-label(for="pausable") Enable option to stop/restart trading
+                label.form-check-label(for="pausable") Enable option to suspend trading
           .row.form-group(v-if="newAsset.mintable")
             .col-sm-2
             .col-sm-10

@@ -11,7 +11,7 @@ class AuthorizationCodesController < ApplicationController
   def create
     user = User.find_or_create_by!(email: params[:authorization_code][:email].downcase)
     AuthorizationCode.create!(user: user)
-    redirect_to static_pages_login_email_url
+    redirect_to page_url(:link_sent)
   end
 
   private
