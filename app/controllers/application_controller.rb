@@ -35,8 +35,8 @@ class ApplicationController < ActionController::Base
       return redirect_back fallback_location: root_url
     elsif params[:fb_locale]
       locale = params[:fb_locale]
-    elsif current_user && current_user.locale
-      locale = current_user.locale
+    elsif current_user && current_user.preferred_locale
+      locale = current_user.preferred_locale
     elsif cookies[:locale]
       locale = cookies[:locale]
     else
