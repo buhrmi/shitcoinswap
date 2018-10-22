@@ -1,11 +1,11 @@
-<h1>ADMIN / Assets</h1>
+<h1><%= t '.admin_assets' %></h1>
 
 <table>
   <thead>
     <tr>
-      <th>Asset</th>
-      <th>Symbol</th>
-      <th>User's balances</th>
+      <th><%= t '.asset_1' %></th>
+      <th><%= t '.symbol' %></th>
+      <th><%= t '.user_s' %></th>
       <th></th>
     </tr>
   </thead>
@@ -16,7 +16,7 @@
         <td><%= asset.name %></td>
         <td><%= asset.symbol %></td>
         <td><%= asset.sum_balances %></td>
-        <td><%= link_to 'Check hot wallet balance', asset.wallet_url(asset.platform.hot_wallet_address), target: '_blank' %>
+        <td><%= link_to (t '.check_hot'), asset.wallet_url(asset.platform.hot_wallet_address), target: '_blank' %>
       </tr>
     <% end %>
   </tbody>

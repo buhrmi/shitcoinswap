@@ -1,16 +1,16 @@
 <p id="notice"><%= notice %></p>
 
-<h1>My Withdrawals</h1>
+<h1><%= t '.my_withdrawals' %></h1>
 
 <table>
   <thead>
     <tr>
-      <th>Asset</th>
-      <th>Receiver address</th>
-      <th>Transaction</th>
-      <th>Created at</th>
-      <th>Amount</th>
-      <th>Status</th>
+      <th><%= t '.asset_3' %></th>
+      <th><%= t '.receiver' %></th>
+      <th><%= t '.transaction_1' %></th>
+      <th><%= t '.created_at' %></th>
+      <th><%= t '.amount_2' %></th>
+      <th><%= t '.status_2' %></th>
     </tr>
   </thead>
 
@@ -31,4 +31,4 @@
 
 <br>
 
-<%= link_to 'New Withdrawal', new_withdrawal_path %>
+<%= link_to (t '.new_withdrawal'), new_withdrawal_path %>

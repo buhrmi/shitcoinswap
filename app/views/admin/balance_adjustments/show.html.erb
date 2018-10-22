@@ -1,33 +1,27 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Asset:</strong>
-  <%= @balance_adjustment.asset_id %>
+  <%= t '.asset_3_html', :balance => (@balance_adjustment.asset_id) %>
 </p>
 
 <p>
-  <strong>User:</strong>
-  <%= @balance_adjustment.user_id %>
+  <%= t '.user_2_html', :balance => (@balance_adjustment.user_id) %>
 </p>
 
 <p>
-  <strong>Change type:</strong>
-  <%= @balance_adjustment.change_type %>
+  <%= t '.change_type_1_html', :balance => (@balance_adjustment.change_type) %>
 </p>
 
 <p>
-  <strong>Change:</strong>
-  <%= @balance_adjustment.change_id %>
+  <%= t '.change_1_html', :balance => (@balance_adjustment.change_id) %>
 </p>
 
 <p>
-  <strong>Memo:</strong>
-  <%= @balance_adjustment.memo %>
+  <%= t '.memo_1_html', :balance => (@balance_adjustment.memo) %>
 </p>
 
 <p>
-  <strong>Amount:</strong>
-  <%= @balance_adjustment.amount %>
+  <%= t '.amount_2_html', :balance => (@balance_adjustment.amount) %>
 </p>
 
-<%= link_to 'Back', admin_balance_adjustments_path %>
+<%= link_to (t '.back'), admin_balance_adjustments_path %>

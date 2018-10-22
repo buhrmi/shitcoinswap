@@ -1,7 +1,7 @@
 <%= form_with(model: withdrawal, local: true) do |form| %>
   <% if withdrawal.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(withdrawal.errors.count, "error") %> prohibited this withdrawal from being saved:</h2>
+      <h2><%= t '.prohibited_1', :withdrawal => (pluralize(withdrawal.errors.count, "error") ) %></h2>
 
       <ul>
       <% withdrawal.errors.full_messages.each do |message| %>

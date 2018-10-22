@@ -1,7 +1,7 @@
 <%= form_with(model: [:admin, balance_adjustment], local: true) do |form| %>
   <% if balance_adjustment.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(balance_adjustment.errors.count, "error") %> prohibited this balance_adjustment from being saved:</h2>
+      <h2><%= t '.prohibited', :balance => (pluralize(balance_adjustment.errors.count, "error") ) %></h2>
 
       <ul>
       <% balance_adjustment.errors.full_messages.each do |message| %>

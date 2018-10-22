@@ -1,58 +1,47 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Asset:</strong>
-  <%= @withdrawal.asset_id %>
+  <%= t '.asset_4_html', :withdrawal => (@withdrawal.asset_id) %>
 </p>
 
 <p>
-  <strong>User:</strong>
-  <%= @withdrawal.user_id %>
+  <%= t '.user_2_html', :withdrawal => (@withdrawal.user_id) %>
 </p>
 
 <p>
-  <strong>Receiver address:</strong>
-  <%= @withdrawal.receiver_address %>
+  <%= t '.receiver_1_html', :withdrawal => (@withdrawal.receiver_address) %>
 </p>
 
 <p>
-  <strong>Transaction:</strong>
-  <%= @withdrawal.transaction_id %>
+  <%= t '.transaction_2_html', :withdrawal => (@withdrawal.transaction_id) %>
 </p>
 
 <p>
-  <strong>Submitted at:</strong>
-  <%= @withdrawal.submitted_at %>
+  <%= t '.submitted_at_html', :withdrawal => (@withdrawal.submitted_at) %>
 </p>
 
 <p>
-  <strong>Amount:</strong>
-  <%= @withdrawal.amount %>
+  <%= t '.amount_3_html', :withdrawal => (@withdrawal.amount) %>
 </p>
 
 <p>
-  <strong>Status:</strong>
-  <%= @withdrawal.status %>
+  <%= t '.status_3_html', :withdrawal => (@withdrawal.status) %>
 </p>
 
 <p>
-  <strong>Tries:</strong>
-  <%= @withdrawal.tries %>
+  <%= t '.tries_html', :withdrawal => (@withdrawal.tries) %>
 </p>
 
 <p>
-  <strong>Error:</strong>
-  <%= @withdrawal.error %>
+  <%= t '.error_1_html', :withdrawal => (@withdrawal.error) %>
 </p>
 
 <p>
-  <strong>Error at:</strong>
-  <%= @withdrawal.error_at %>
+  <%= t '.error_at_html', :withdrawal => (@withdrawal.error_at) %>
 </p>
 
 <p>
-  <strong>Signed transaction:</strong>
-  <%= @withdrawal.signed_transaction %>
+  <%= t '.signed_html', :withdrawal => (@withdrawal.signed_transaction) %>
 </p>
 
-<%= link_to 'Back', withdrawals_path %>
+<%= link_to (t '.back_2'), withdrawals_path %>

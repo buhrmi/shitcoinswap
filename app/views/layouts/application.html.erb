@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>NewArt Technology</title>
+    <title><%= t '.newart' %></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -29,31 +29,28 @@
   <body>
     <% if current_user.try(:admin?) %>
       <div class="admin">
-        Admin Menu: <%= link_to 'Balance Adjustments', admin_balance_adjustments_path %> | <%= link_to 'Platforms', admin_platforms_path %> | <%= link_to 'Withdrawals', admin_withdrawals_path %> | <%= link_to 'Assets', admin_assets_path %>
+        <%= t '.admin_menu', :link_to => (link_to (t '.balance_1'), admin_balance_adjustments_path), :link_to_1 => (link_to (t '.platforms'), admin_platforms_path), :link_to_2 => (link_to (t '.withdrawals'), admin_withdrawals_path), :link_to_assets => (link_to (t '.assets'), admin_assets_path) %>
       </div>
     <% end %>
 
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-      <h5 class="my-0 mr-md-auto font-weight-normal"><%= link_to 'NewArt Technology', root_path %></h5>
+      <h5 class="my-0 mr-md-auto font-weight-normal"><%= link_to (t '.newart_1'), root_path %></h5>
       <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <%= I18n.locale %>
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <%= link_to 'English', {locale: 'en'}, class: 'dropdown-item' %>
-          <%= link_to 'Japanese', {locale: 'ja'}, class: 'dropdown-item' %>
+          <%= link_to (t '.english'), {locale: 'en'}, class: 'dropdown-item' %>
+          <%= link_to (t '.japanese'), {locale: 'ja'}, class: 'dropdown-item' %>
         </div>
       </div>
       </script>
       <nav class="my-2 my-md-0 mr-md-3">
         <% if current_user %>
-          <%= "Logged in as #{current_user.email}" %>
-          <%= link_to 'My Balances', '/balances', class: 'p-2 text-dark' %>
-          <%= link_to 'Account History', '/balance_adjustments', class: 'p-2 text-dark' %>
-          <%= link_to 'Log Out', logout_path, method: :delete, class: 'p-2 text-dark' %>
+          <%= t '.logged_in_as', :current_user => (current_user.email), :link_to_my => (link_to (t '.my_balances'), '/balances', class: 'p-2 text-dark'), :link_to => (link_to (t '.account'), '/balance_adjustments', class: 'p-2 text-dark'), :link_to_log => (link_to (t '.log_out'), logout_path, method: :delete, class: 'p-2 text-dark') %>
         <% else %>
           <!-- not logged in -->
-          <%= link_to 'Log In', login_path %>
+          <%= link_to (t '.log_in'), login_path %>
         <% end %>
         <%# = link_to 'Orders', '/orders', class: 'p-2 text-dark' %>
         <%# <a class="p-2 text-dark" href="#">Enterprise</a> %>
@@ -79,26 +76,26 @@
         <div class="row">
           <div class="col-12 col-md">
             <%= image_tag 'logo.png', class: 'mb-2', width: 24, height: 24 %>
-            <small class="d-block mb-3 text-muted">Coypright © 2018 NewArt Technology Co., Ltd.</small>
+            <small class="d-block mb-3 text-muted"><%= t '.coypright_2018' %></small>
           </div>
           <div class="col-6 col-md">
-            <h5>Company</h5>
+            <h5><%= t '.company' %></h5>
             <ul class="list-unstyled text-small">
-              <li><%= link_to 'Contact', page_url(:contact), class: 'text-muted' %></li>
+              <li><%= link_to (t '.contact'), page_url(:contact), class: 'text-muted' %></li>
             </ul>
           </div>
           <div class="col-6 col-md">
-            <h5>Resources</h5>
+            <h5><%= t '.resources' %></h5>
             <ul class="list-unstyled text-small">
-              <li><a class="text-muted" href="/token_studio">Create Token</a></li>
-              <li><a class="text-muted" href="/assets/new">Submit Token</a></li>
+              <li><a class="text-muted" href="/token_studio"><%= t '.create_token' %></a></li>
+              <li><a class="text-muted" href="/assets/new"><%= t '.submit_token' %></a></li>
             </ul>
           </div>
           <div class="col-6 col-md">
-            <h5>Status</h5>
+            <h5><%= t '.status_1' %></h5>
             <ul class="list-unstyled text-small">
-              <li class="text-muted">Deposits: <%= Status.first.last_deposits_ran_at > 2.minutes.ago ? 'OK' : 'Stopped' %></li>
-              <li class="text-muted">Withdrawals: <%= Status.first.last_withdrawals_ran_at > 2.minutes.ago ? 'OK' : 'Stopped' %></li>
+              <li class="text-muted"><%= t '.deposits', :status_first => (Status.first.last_deposits_ran_at > 2.minutes.ago ? 'OK' : 'Stopped') %></li>
+              <li class="text-muted"><%= t '.withdrawals_1', :status_first => (Status.first.last_withdrawals_ran_at > 2.minutes.ago ? 'OK' : 'Stopped') %></li>
             </ul>
           </div>
         </div>

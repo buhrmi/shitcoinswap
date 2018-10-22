@@ -1,13 +1,13 @@
-<h1>OTC Orders</h1>
+<h1><%= t '.otc_orders' %></h1>
 
 <table>
   <thead>
     <tr>
-      <th>Buying Asset</th>
-      <th>Selling Asset</th>
-      <th>Quantity</th>
-      <th>Rate</th>
-      <th>Filled</th>
+      <th><%= t '.buying_asset' %></th>
+      <th><%= t '.selling_asset' %></th>
+      <th><%= t '.quantity' %></th>
+      <th><%= t '.rate' %></th>
+      <th><%= t '.filled' %></th>
       <th></th>
     </tr>
   </thead>
@@ -21,7 +21,7 @@
         <td><%= order.rate %></td>
         <td><%= order.percent_filled %>%</td>
         <td><%= order.user.display_name %></td>
-        <td><%= link_to 'Cancel', order, method: 'delete' %>
+        <td><%= link_to (t '.cancel'), order, method: 'delete' %>
       </tr>
     <% end %>
   </tbody>
@@ -29,4 +29,4 @@
 
 <br>
 
-<%= link_to 'New Order', new_order_path %>
+<%= link_to (t '.new_order'), new_order_path %>

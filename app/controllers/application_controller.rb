@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
       locale = request.headers['Accept-Language'][0..1]
     end
 
-    if I18n.config.available_locales.include?(locale)
+    if I18n.config.available_locales.include?(locale.intern)
       I18n.locale = locale
     end
   end

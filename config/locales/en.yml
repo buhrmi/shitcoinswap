@@ -1,33 +1,156 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   'true': 'foo'
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
 en:
-  hello: "Hello world"
+  admin:
+    platforms:
+      index:
+        admin: "ADMIN / Platforms"
+        platform: "Platform"
+        hot_wallet: "Hot wallet"
+        last_scanned: "Last scanned block"
+    withdrawals:
+      index:
+        admin_1: "ADMIN / Withdrawals"
+        user: "User"
+        asset: "Asset"
+        amount: "Amount"
+        status: "Status"
+        transaction: "Transaction"
+        error: "Error"
+    assets:
+      index:
+        admin_assets: "ADMIN / Assets"
+        asset_1: "Asset"
+        symbol: "Symbol"
+        user_s: "User's balances"
+        check_hot: "Check hot wallet balance"
+    balance_adjustments:
+      index:
+        balance: "Balance Adjustments"
+        asset_2: "Asset"
+        user_1: "User"
+        change_type: "Change type"
+        change: "Change"
+        memo: "Memo"
+        amount_1: "Amount"
+        show: "Show"
+        new_balance: "New Balance Adjustment"
+      show:
+        asset_3_html: "<strong>Asset:</strong>\n  %{balance}"
+        user_2_html: "<strong>User:</strong>\n  %{balance}"
+        change_type_1_html: "<strong>Change type:</strong>\n  %{balance}"
+        change_1_html: "<strong>Change:</strong>\n  %{balance}"
+        memo_1_html: "<strong>Memo:</strong>\n  %{balance}"
+        amount_2_html: "<strong>Amount:</strong>\n  %{balance}"
+        back: "Back"
+      form:
+        prohibited: "%{balance} prohibited this balance_adjustment from being saved:"
+      new:
+        new_balance_1: "New Balance Adjustment"
+        back_1: "Back"
+  deposits:
+    new:
+      deposit: "Deposit %{asset_name}"
+      please_deposit: "Please deposit %{asset_symbol} to %{address}"
+  layouts:
+    application:
+      newart: "NewArt Technology"
+      balance_1: "Balance Adjustments"
+      platforms: "Platforms"
+      withdrawals: "Withdrawals"
+      assets: "Assets"
+      admin_menu: "Admin Menu: %{link_to} | %{link_to_1} | %{link_to_2} | %{link_to_assets}"
+      newart_1: "NewArt Technology"
+      english: "English"
+      japanese: "Japanese"
+      my_balances: "My Balances"
+      account: "Account History"
+      log_out: "Log Out"
+      logged_in_as: "Logged in as %{current_user}\n          %{link_to_my}\n          %{link_to}\n          %{link_to_log}"
+      log_in: "Log In"
+      coypright_2018: "Coypright © 2018 NewArt Technology Co., Ltd."
+      company: "Company"
+      contact: "Contact"
+      resources: "Resources"
+      create_token: "Create Token"
+      submit_token: "Submit Token"
+      status_1: "Status"
+      deposits: "Deposits: %{status_first}"
+      withdrawals_1: "Withdrawals: %{status_first}"
+    mailer:
+      email_styles: "Email styles need to be inline */"
+  users:
+    new:
+      sign_up: "Sign Up"
+  withdrawals:
+    index:
+      my_withdrawals: "My Withdrawals"
+      asset_3: "Asset"
+      receiver: "Receiver address"
+      transaction_1: "Transaction"
+      created_at: "Created at"
+      amount_2: "Amount"
+      status_2: "Status"
+      new_withdrawal: "New Withdrawal"
+    show:
+      asset_4_html: "<strong>Asset:</strong>\n  %{withdrawal}"
+      user_2_html: "<strong>User:</strong>\n  %{withdrawal}"
+      receiver_1_html: "<strong>Receiver address:</strong>\n  %{withdrawal}"
+      transaction_2_html: "<strong>Transaction:</strong>\n  %{withdrawal}"
+      submitted_at_html: "<strong>Submitted at:</strong>\n  %{withdrawal}"
+      amount_3_html: "<strong>Amount:</strong>\n  %{withdrawal}"
+      status_3_html: "<strong>Status:</strong>\n  %{withdrawal}"
+      tries_html: "<strong>Tries:</strong>\n  %{withdrawal}"
+      error_1_html: "<strong>Error:</strong>\n  %{withdrawal}"
+      error_at_html: "<strong>Error at:</strong>\n  %{withdrawal}"
+      signed_html: "<strong>Signed transaction:</strong>\n  %{withdrawal}"
+      back_2: "Back"
+    form:
+      prohibited_1: "%{withdrawal} prohibited this withdrawal from being saved:"
+    new:
+      new_withdrawal_1: "New Withdrawal"
+      back_3: "Back"
+  authorization_codes:
+    form:
+      prohibited_2: "%{authorization} prohibited this authorization_code from being saved:"
+    new:
+      please_enter: "Please enter your email address"
+      we_will_send: "We will send you a private link to your dashboard."
+  orders:
+    index:
+      otc_orders: "OTC Orders"
+      buying_asset: "Buying Asset"
+      selling_asset: "Selling Asset"
+      quantity: "Quantity"
+      rate: "Rate"
+      filled: "Filled"
+      cancel: "Cancel"
+      new_order: "New Order"
+    form:
+      prohibited_3: "%{order_errors} prohibited this order from being saved:"
+  assets:
+    show:
+      edit: "Edit"
+  pages:
+    welcome:
+      welcome_to: "Welcome to NewArt Technology"
+      introducing: "Introducing the world's first self-regulating cross-platform token exchange and fulfillment center."
+      submit: "submit existing token"
+      create_token_1_html: "<a href=\"/token_studio\" class=\"btn btn-lg btn-outline-primary\">Create Token</a>\n  \n    or %{link_to_submit}"
+      featured: "Featured Assets"
+      view_details: "View details »"
+      browse_all: "Browse all assets"
+    contact:
+      contact_1: "Contact"
+      feel_free_to: "Feel free to call us at any time."
+      address: "Address"
+      f: "F"
+      google_maps: "Google Maps"
+      phone: "Phone"
+      fax: "Fax"
+  balance_adjustments:
+    index:
+      account_1: "Account History"
+      asset_4: "Asset"
+      change_type_1: "Change type"
+      memo_1: "Memo"
+      amount_3: "Amount"
+      check: "Check transaction"
