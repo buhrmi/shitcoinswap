@@ -29,7 +29,7 @@
   <body>
     <% if current_user.try(:admin?) %>
       <div class="admin">
-        <%= t '.admin_menu', :link_to => (link_to (t '.balance_1'), admin_balance_adjustments_path), :link_to_1 => (link_to (t '.platforms'), admin_platforms_path), :link_to_2 => (link_to (t '.withdrawals'), admin_withdrawals_path), :link_to_assets => (link_to (t '.assets'), admin_assets_path) %>
+        Admin Menu: <%= link_to 'Balance Adjustments', admin_balance_adjustments_path %> | <%= link_to 'Platforms', admin_platforms_path %> | <%= link_to 'Withdrawals', admin_withdrawals_path %> | <%= link_to 'Assets', admin_assets_path %>
       </div>
     <% end %>
 
@@ -44,10 +44,13 @@
           <%= link_to (t '.japanese'), {locale: 'ja'}, class: 'dropdown-item' %>
         </div>
       </div>
-      </script>
+
       <nav class="my-2 my-md-0 mr-md-3">
         <% if current_user %>
-          <%= t '.logged_in_as', :current_user => (current_user.email), :link_to_my => (link_to (t '.my_balances'), '/balances', class: 'p-2 text-dark'), :link_to => (link_to (t '.account'), '/balance_adjustments', class: 'p-2 text-dark'), :link_to_log => (link_to (t '.log_out'), logout_path, method: :delete, class: 'p-2 text-dark') %>
+          <%= "Logged in as #{current_user.email}" %>
+          <%= link_to 'My Balances', '/balances', class: 'p-2 text-dark' %>	
+          <%= link_to 'Account History', '/balance_adjustments', class: 'p-2 text-dark' %>	
+          <%= link_to 'Log Out', logout_path, method: :delete, class: 'p-2 text-dark' %>
         <% else %>
           <!-- not logged in -->
           <%= link_to (t '.log_in'), login_path %>
