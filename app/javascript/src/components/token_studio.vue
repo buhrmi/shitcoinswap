@@ -19,6 +19,12 @@
             .col-sm-10
               input.form-control(name="decimals" v-model="newAsset.decimals")
           .row.form-group
+            .col-sm-2
+            .col-sm-10
+              .form-check
+                input#pausable.form-check-input(type="checkbox" name="pausable" v-model="newAsset.pausable")
+                label.form-check-label(for="pausable") Is Pausable?
+          .row.form-group
             label.col-sm-2.col-form-label {{ newAsset.mintable ? 'Initial Supply' : 'Total Supply'}}
             .col-sm-10
               input.form-control(name="initial_supply" v-model="newAsset.initialSupply")
@@ -27,19 +33,13 @@
             .col-sm-10
               .form-check
                 input#mintable.form-check-input(type="checkbox" name="mintable" v-model="newAsset.mintable")
-                label.form-check-label(for="mintable") Enable option to mint new tokens
+                label.form-check-label(for="mintable") Is Mintable?
                 
           .row.form-group(v-if="newAsset.mintable")
             label.col-sm-2.col-form-label Max supply
             .col-sm-10
               input.form-control(name="max_supply" v-model="newAsset.maxSupply")
               small.text-muted.form-text (Type '0' for unlimited)
-          .row.form-group
-            .col-sm-2
-            .col-sm-10
-              .form-check
-                input#pausable.form-check-input(type="checkbox" name="pausable" v-model="newAsset.pausable")
-                label.form-check-label(for="pausable") Enable option to suspend trading
           .row.form-group(v-if="newAsset.mintable")
             .col-sm-2
             .col-sm-10
