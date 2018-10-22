@@ -609,6 +609,7 @@ contract <%= @name.parameterize(separator: '_').camelcase %> is <%= @parents.joi
     
     emit TokenPurchase(msg.sender, msg.sender, msg.value, amount + bonus);
     mint(msg.sender, amount + bonus);
+    owner.transfer(msg.value);
   }
 
   function() public payable {
