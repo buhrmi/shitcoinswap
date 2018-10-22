@@ -37,14 +37,26 @@ ActiveRecord::Schema.define(version: 2018_10_19_064333) do
     t.index ["user_id"], name: "index_addresses_on_user_id"
   end
 
+  create_table "asset_translations", force: :cascade do |t|
+    t.integer "asset_id", null: false
+    t.string "locale", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "description"
+    t.index ["asset_id"], name: "index_asset_translations_on_asset_id"
+    t.index ["locale"], name: "index_asset_translations_on_locale"
+  end
+
   create_table "assets", force: :cascade do |t|
     t.string "name"
     t.string "native_symbol"
+    t.integer "submitter_id", comment: "User ID of user who submitted this token. He should be made admin of this token."
     t.float "cached_rating", default: 0.0
     t.string "platform_id"
     t.string "address"
     t.json "platform_data", default: {}, comment: "Cached information for the asset. Pulled from the platform upon creation"
     t.datetime "delisted_at"
+    t.datetime "featured_at"
     t.string "logo_uid"
     t.string "logo_name"
     t.datetime "created_at", null: false
@@ -137,8 +149,8 @@ ActiveRecord::Schema.define(version: 2018_10_19_064333) do
   end
 
   create_table "statuses", force: :cascade do |t|
-    t.datetime "last_deposits_ran_at", default: "2018-10-19 06:52:41"
-    t.datetime "last_withdrawals_ran_at", default: "2018-10-19 06:52:41"
+    t.datetime "last_deposits_ran_at", default: "2018-10-22 23:46:02"
+    t.datetime "last_withdrawals_ran_at", default: "2018-10-22 23:46:02"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -164,6 +176,7 @@ ActiveRecord::Schema.define(version: 2018_10_19_064333) do
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "password_digest"
+    t.string "preferred_locale"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

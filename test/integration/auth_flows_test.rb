@@ -29,7 +29,7 @@ class AuthFlowsTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     follow_redirect!
     assert_response :success
-    assert_select "body", /Authorization code not found/
+    assert_select "body", /is invalid/
 
   end
 end

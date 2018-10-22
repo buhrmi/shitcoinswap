@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
   def set_locale
     if params[:locale]
       cookies.permanent[:locale] = params[:locale]
-      current_user.update_attributes(:preferred_locale => params[:locale]) if current_user.try(:persisted?)
+      current_user.update_attributes(preferred_locale: params[:locale]) if current_user.try(:persisted?)
       return redirect_back fallback_location: root_url
     elsif params[:fb_locale]
       locale = params[:fb_locale]
@@ -40,10 +40,10 @@ class ApplicationController < ActionController::Base
     elsif cookies[:locale]
       locale = cookies[:locale]
     else
-      locale = request.headers['Accept-Language'][0..1]
+      locale = request.headers['Accept-Language'][0..1] if request.headers['Accept-Language']
     end
 
-    if I18n.config.available_locales.include?(locale.intern)
+    if locale && I18n.config.available_locales.include?(locale.intern)
       I18n.locale = locale
     end
   end
