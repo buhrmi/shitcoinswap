@@ -9,7 +9,7 @@ class CreateDeposits < ActiveRecord::Migration[5.2]
 
       t.index :transaction_id, unique: true
 
-      t.integer :withdrawal_to_hotwallet_id, comment: 'The withdrawal used for consolidation (withdrawal from deposit address into hot wallet)'
+      t.integer :withdrawal_to_wallet_id, comment: 'The withdrawal used for consolidation (withdrawal from deposit address into hot wallet)'
       t.timestamps
     end
   end

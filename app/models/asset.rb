@@ -9,9 +9,10 @@ class Asset < ApplicationRecord
   belongs_to :submitter, class_name: 'User', optional: true
 
   validate :check_address
+  validates_presence_of :name
   validates_uniqueness_of :address, case_sensitive: false, allow_nil: true
   
-  before_save :fetch_platform_data
+  before_validation :fetch_platform_data
 
   before_save do
     self.address.downcase! if self.address
@@ -38,6 +39,14 @@ class Asset < ApplicationRecord
   def check_address
     return if native?
     errors.add(:address, 'not valid') unless platform.valid_address?(address)
+  end
+
+  def in_wallet
+    platform.balance_of self, platform.wallet_address
+  end
+
+  def sum_balances
+    balance_adjustments.sum(:amount)
   end
 
   def total_supply

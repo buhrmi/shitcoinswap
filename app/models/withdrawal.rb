@@ -16,16 +16,16 @@ class Withdrawal < ApplicationRecord
     end
 
     # The below code will ensure that we have enough native assets in the customer's deposit address to cover the transfer of deposited tokens
-    # to our hotwallet after customer deposited tokens
-    if unfunded? && was_first_try? && !asset.native? && !from_hotwallet?
-      puts "Withdrawal #{id} unfunded. Sending funds from hotwallet."
+    # to our wallet after customer deposited tokens
+    if unfunded? && was_first_try? && !asset.native? && !from_wallet?
+      puts "Withdrawal #{id} unfunded. Sending funds from wallet."
       native_asset = asset.platform.native_asset
       # This will create a transfer from the hot wallet to the sender_address to cover for the token transfer fee
       Withdrawal.create!(receiver_address: sender_address, amount: asset.transfer_fee + native_asset.transfer_fee, asset: native_asset)
     end
   end
 
-  def from_hotwallet?
+  def from_wallet?
     sender_address.nil?
   end
 

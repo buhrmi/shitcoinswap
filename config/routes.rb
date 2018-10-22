@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   resources :assets do
     get 'contract', on: :collection
+    post 'airdrop', on: :member
   end
 
   get '/login'     => 'authorization_codes#new'

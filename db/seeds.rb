@@ -1,12 +1,12 @@
 ###
 # CREATE ETHEREUM PLATFORMS AND KEYS AND INITIAL SUPPORTED TOKENS
 #
-hot_wallet = Eth::Key.new
-eth_hot_wallet_key = Utils.encrypt_key(hot_wallet.private_hex)
-eth_hot_wallet_address = hot_wallet.address
+wallet = Eth::Key.new
+eth_wallet_key = Utils.encrypt_key(wallet.private_hex)
+eth_wallet_address = wallet.address
 
-eth_platform_main    = Platform.where(native_symbol: 'ETH').first_or_create!(module: 'ETH', data: {network: 'mainnet', hot_wallet_address: eth_hot_wallet_address, enc_hot_wallet_key: eth_hot_wallet_key})
-eth_platform_classic = Platform.where(native_symbol: 'ETC').first_or_create!(module: 'ETH', data: {network: 'classic', hot_wallet_address: eth_hot_wallet_address, enc_hot_wallet_key: eth_hot_wallet_key})
+eth_platform_main    = Platform.where(native_symbol: 'ETH').first_or_create!(module: 'ETH', data: {network: 'mainnet', wallet_address: eth_wallet_address, enc_wallet_key: eth_wallet_key})
+eth_platform_classic = Platform.where(native_symbol: 'ETC').first_or_create!(module: 'ETH', data: {network: 'classic', wallet_address: eth_wallet_address, enc_wallet_key: eth_wallet_key})
 
 admin = User.where(email: 'dj@shitcoin.jp').first_or_create!
 
@@ -62,7 +62,7 @@ eth = Asset.where(native_symbol: 'ETH').first_or_create!(name: 'Ethereum', platf
 etc = Asset.where(native_symbol: 'ETC').first_or_create!(name: 'Ethereum (classic)', platform: eth_platform_classic, platform_data: {decimals: 18, symbol: 'ETC', name: 'Ethereum Classic'})
 
 unless Rails.env.production?
-  eth_platform_rinkeby = Platform.where(native_symbol: 'ETH(rinkeby)').first_or_create!(module: 'ETH', data: {network: 'rinkeby', hot_wallet_address: eth_hot_wallet_address, enc_hot_wallet_key: eth_hot_wallet_key})
+  eth_platform_rinkeby = Platform.where(native_symbol: 'ETH(rinkeby)').first_or_create!(module: 'ETH', data: {network: 'rinkeby', wallet_address: eth_wallet_address, enc_wallet_key: eth_wallet_key})
   supported_assets << {
     address: '0x1c15fb22128f06888963a12441e917c059f53e2b',
     platform_id: eth_platform_rinkeby.id

@@ -33,7 +33,7 @@
             label.col-sm-2.col-form-label Max supply
             .col-sm-10
               input.form-control(name="max_supply" v-model="newAsset.maxSupply")
-              |  (0 for unlimited)
+              small.text-muted.form-text (Type '0' for unlimited)
           .row.form-group
             .col-sm-2
             .col-sm-10

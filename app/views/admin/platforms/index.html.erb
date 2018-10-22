@@ -4,7 +4,7 @@
   <thead>
     <tr>
       <th><%= t '.platform' %></th>
-      <th><%= t '.hot_wallet' %></th>
+      <th><%= t '.wallet' %></th>
       <th><%= t '.last_scanned' %></th>
     </tr>
   </thead>
@@ -13,7 +13,7 @@
     <% @platforms.each do |platform| %>
       <tr>
         <td><%= platform.name %></td>
-        <td><%= platform.data['hot_wallet_address'] %></td>
+        <td><%= platform.data['wallet_address'] %></td>
         <td><%= platform.last_scanned_block %></td>
       </tr>
     <% end %>

@@ -96,7 +96,7 @@ ActiveRecord::Schema.define(version: 2018_10_19_064333) do
     t.integer "asset_id"
     t.string "transaction_id"
     t.decimal "amount", precision: 50, scale: 20
-    t.integer "withdrawal_to_hotwallet_id", comment: "The withdrawal used for consolidation (withdrawal from deposit address into hot wallet)"
+    t.integer "withdrawal_to_wallet_id", comment: "The withdrawal used for consolidation (withdrawal from deposit address into hot wallet)"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["transaction_id"], name: "index_deposits_on_transaction_id", unique: true

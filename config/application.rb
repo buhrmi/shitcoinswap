@@ -19,7 +19,14 @@ module Shitcoins
 
     config.assets.prefix = '/build'
     config.i18n.fallbacks = [:en]
-    
+
+    ActionMailer::Base.smtp_settings = {
+      :address        => ENV['SMTP_SERVER'],
+      :user_name      => ENV['SMTP_USER'],
+      :password       => ENV['SMTP_PASSWORD'],
+      :port           => ENV['SMTP_PORT']
+    }
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading

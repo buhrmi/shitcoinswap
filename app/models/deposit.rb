@@ -4,7 +4,7 @@ class Deposit < ApplicationRecord
   belongs_to :user
   has_one :balance_adjustment, as: :change
 
-  belongs_to :withdrawal_to_hotwallet, class_name: 'Withdrawal', optional: true
+  belongs_to :withdrawal_to_wallet, class_name: 'Withdrawal', optional: true
 
   before_validation do
     self.user ||= address.user

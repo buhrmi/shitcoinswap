@@ -16,7 +16,7 @@
         <td><%= asset.name %></td>
         <td><%= asset.symbol %></td>
         <td><%= asset.sum_balances %></td>
-        <td><%= link_to (t '.check_hot'), asset.wallet_url(asset.platform.hot_wallet_address), target: '_blank' %>
+        <td><%= link_to (t '.check_hot'), asset.wallet_url(asset.platform.wallet_address), target: '_blank' %>
       </tr>
     <% end %>
   </tbody>

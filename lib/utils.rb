@@ -1,7 +1,7 @@
 # This module depends on the existence of an RSA keypair. To create this keypair, you can use the following commands
 # ```
-# -[ -f config/keys/hotwallet.priv.pem ] || openssl genrsa -out config/keys/hotwallet.priv.pem 2048
-# -[ -f config/keys/hotwallet.pub.pem ] || openssl rsa -in config/keys/hotwallet.priv.pem -outform PEM -pubout -out config/keys/hotwallet.pub.pem
+# -[ -f config/keys/wallet.priv.pem ] || openssl genrsa -out config/keys/wallet.priv.pem 2048
+# -[ -f config/keys/wallet.pub.pem ] || openssl rsa -in config/keys/wallet.priv.pem -outform PEM -pubout -out config/keys/wallet.pub.pem
 # ```
 
 module Utils
@@ -23,11 +23,11 @@ module Utils
 
   private
   def self.pubkey
-    @pubkey ||= OpenSSL::PKey::RSA.new File.read Rails.root.join('config/keys/hotwallet.pub.pem')
+    @pubkey ||= OpenSSL::PKey::RSA.new File.read Rails.root.join('config/keys/wallet.pub.pem')
   end
 
   def self.privkey
-    @privkey ||= OpenSSL::PKey::RSA.new File.read Rails.root.join('config/keys/hotwallet.priv.pem')
+    @privkey ||= OpenSSL::PKey::RSA.new File.read Rails.root.join('config/keys/wallet.priv.pem')
   end
 end
 

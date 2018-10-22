@@ -11,9 +11,15 @@ class UserMailer < ApplicationMailer
     mail(to: @user.email, subject: "Deposit cancelled: #{@withdrawal.amount} #{@withdrawal.asset.name} have been withdrawn")
   end
 
+  def airdrop
+    @user = params[:user]
+    @adjustment = params[:adjustment]
+    mail(to: @user.email, subject: "#{@adjustment.amount} #{@adjustment.asset.name} have been airdropped into your account")
+  end
+
   def authorization_code
     @user = params[:user]
     @auth_code = params[:auth_code]
-    mail to: @user.email, subject: "Login email"
+    mail to: @user.email, subject: "Your private log-in link"
   end
 end

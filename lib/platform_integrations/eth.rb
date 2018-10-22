@@ -14,6 +14,19 @@ module PlatformIntegrations::ETH
     Eth::Utils.format_address address
   end
 
+  def balance_of(asset, address)
+    signature = Eth::Utils.bin_to_hex(Eth::Utils.keccak256('balanceOf(address)')).first(8)
+    data = '0x' + signature + hex_to_param(address)
+    params = [
+      {
+        to: asset.address,
+        data: data
+      },
+      'latest'
+    ]
+    eth_result_to_number(jsonrpc('eth_call', params)['result'])
+  end
+
   def fetch_new_transfers from_block, to_block
     topic = '0x' + Eth::Utils.bin_to_hex(Eth::Utils.keccak256('Transfer(address,address,uint256)'))
     params = [{
@@ -75,8 +88,8 @@ module PlatformIntegrations::ETH
       to_address = transaction['to']
       sender_address = transaction['from']
       next unless to_address
-      # If the deposit comes from our own hotwallet address, ignore it. It is probably a transfer to fund the fee for erc20-to-hotwallet transfer
-      next if sender_address.downcase == hot_wallet_address.downcase
+      # If the deposit comes from our own wallet address, ignore it. It is probably a transfer to fund the fee for erc20-to-wallet transfer
+      next if sender_address.downcase == wallet_address.downcase
       amount = transaction['value'].last(64).to_i(16).to_f / 10 ** 18
       hash = transaction['hash']
       address = Address.where(module: self.module, address: to_address.downcase).first
@@ -88,6 +101,8 @@ module PlatformIntegrations::ETH
       end
     end
   end
+
+  
 
   def int_to_param(int)
     int.to_s(16).rjust(64, '0')
@@ -122,7 +137,7 @@ module PlatformIntegrations::ETH
   end
 
   def create_raw_tx(asset, amount, to_address, sender_address)
-    sender_address ||= hot_wallet_address
+    sender_address ||= wallet_address
     
     if asset == native_asset
       # Eth transfer
@@ -159,8 +174,8 @@ module PlatformIntegrations::ETH
   end
 
   def private_key_for(sender_address)
-    if sender_address == hot_wallet_address
-      Eth::Key.new priv: Utils.decrypt_key(enc_hot_wallet_key)
+    if sender_address == wallet_address
+      Eth::Key.new priv: Utils.decrypt_key(enc_wallet_key)
     else
       enc_private_key = Address.find_by(address: sender_address.downcase).try(:enc_private_key)
       Eth::Key.new priv: Utils.decrypt_key(enc_private_key)
