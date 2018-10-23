@@ -1,6 +1,6 @@
 en:
-  app_name: "NewArt Technology"
-  from_mail: "NewArt Technology <support@newart.tech>"
+  app_name: "TokenStudio"
+  from_mail: "TokenStudio <dj@shitcoin.jp>"
   user_mailer:
     deposit_email:
       subject: "New Deposit: %{amount} %{asset_name} have been deposited"
@@ -73,7 +73,7 @@ en:
       account: "Account History"
       log_out: "Log Out"
       log_in: "Log In"
-      coypright_2018: "Coypright © 2018 NewArt Technology Co., Ltd."
+      coypright_2018: "Coypright © 2018 Shitcoin Japan"
       company: "Company"
       contact: "Contact"
       resources: "Resources"
@@ -138,7 +138,7 @@ en:
       edit: "Edit"
   pages:
     welcome:
-      welcome_to: "Welcome to NewArt Technology"
+      welcome_to: "Welcome to TokenStudio"
       introducing: "The world's #1 self-regulating cross-platform token exchange and distribution center."
       submit: "submit existing token"
       create_token_1_html: "<a href=\"/token_studio\" class=\"btn btn-lg btn-outline-primary\">Create Token</a>\n  \n    or %{link_to_submit}"
