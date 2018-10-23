@@ -1,7 +1,4 @@
 class Asset < ApplicationRecord
-  ETH = find_by(native_symbol: 'ETH')
-  JPY = find_by(native_symbol: 'JPY')
-
   translates :description
 
   belongs_to :platform
@@ -17,7 +14,15 @@ class Asset < ApplicationRecord
   before_save do
     self.address.downcase! if self.address
   end
-   
+  
+  def self.eth
+    find_by(native_symbol: 'ETH')
+  end
+
+  def self.quotable_ids
+    where(native_symbol: ['ETH', 'JPY']).pluck(:id)
+  end
+
   # This is the fee paid in native platform shitasset, for example gas price for transfering erc20 tokens
   def transfer_fee
     if platform

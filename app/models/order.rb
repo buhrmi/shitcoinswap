@@ -9,13 +9,13 @@ class Order < ActiveRecord::Base
   validates_numericality_of :rate, greater_than: 0, unless: :market?
   validates_inclusion_of :kind, in: ['limit', 'market']
   validates_inclusion_of :side, in: ['sell', 'buy']
-  validates_inclusion_of :quote_asset_id, in: [Asset::ETH.try(:id), Asset::JPY.try(:id)]
+  validates_inclusion_of :quote_asset_id, in: lambda { |order| Asset.quotable_ids }
   
-  validate :ensure_assets_dont_match
-  validate :ensure_asset_available
+  validate :validate_assets_dont_match
+  validate :validate_asset_available
 
   before_save do
-    self.filled_at = Time.now if self.filled? and not self.filled_at
+    self.filled_at ||= Time.now if self.filled?
   end
   
   after_save do
@@ -27,7 +27,7 @@ class Order < ActiveRecord::Base
     # TODO: push realtime updates to users
   end
 
-  def ensure_asset_available
+  def validate_asset_available
     return if cancelled?
     if buy_market?
       errors.add(:total, 'is higher than available balance') if user.available_balance(quote_asset) < total
@@ -187,7 +187,7 @@ class Order < ActiveRecord::Base
     false # currently orders dont expire
   end
 
-  def ensure_assets_dont_match
+  def validate_assets_dont_match
     errors.add(:base_asset, "cant be the same as quote asset") if base_asset_id == quote_asset_id
   end
 end
