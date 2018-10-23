@@ -37,10 +37,6 @@ class User < ApplicationRecord
     BigDecimal.new(pending_sell.to_s) + pending_buy_limit + pending_buy_market
   end
 
-  def admin?
-    true
-  end
-
   def display_name
     email.split('@').first
   end
