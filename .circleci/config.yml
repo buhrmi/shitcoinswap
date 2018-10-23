@@ -38,7 +38,7 @@ jobs:
       - run: bundle exec rake db:schema:load
 
       - run:
-          command: bundle exec rake test
+          command: bundle exec rails test
           when: always
 
       - store_test_results:
