@@ -37,6 +37,10 @@ class User < ApplicationRecord
     BigDecimal.new(pending_sell.to_s) + pending_buy_limit + pending_buy_market
   end
 
+  def locale
+    preferred_locale || I18n.default_locale
+  end
+
   def display_name
     email.split('@').first
   end
