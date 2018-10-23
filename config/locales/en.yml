@@ -1,4 +1,13 @@
 en:
+  user_mailer:
+    deposit_email:
+      subject: "New Deposit: %{amount} %{asset_name} have been deposited"
+    withdrawal_submitted_email:
+      subject: "%{amount} %{asset_name} have been withdrawn"
+    airdrop:
+      subject: "#{amount} #{asset_name} have been airdropped into your account"
+    authorization_code:
+      subject: "Your private log-in link"
   admin:
     platforms:
       index:
