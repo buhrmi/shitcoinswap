@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'NewArt Technology <support@newart.tech>'
+  default from: I18n.t 'from_mail'
   layout 'mailer'
 end

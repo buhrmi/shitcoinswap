@@ -1,26 +1,28 @@
-# Withdrawal System
+# myTokenStudio
 
-A very simple and extendable platform to support all kinds of coins and tokens.
+myTokenStudio automates every aspect of your ICO, ITO or STO across many supported platforms. Make money in your sleep 👍
 
-## Set up for local development
+## Features
 
-### Configure database
+* [x] Automatic Smart-Contract generation
+* [x] Airdrops to email addresses (no wallet or account needed)
+* [x] Deposits / Withdrawals
+* [x] Easily rebrandable
+* [x] Multiple languages and locales
+* [ ] Integrated exchange (WIP)
+* [ ] Token reviews
+* [ ] CSV / XLS data export
+* [ ] Private sales dashboard
+* [ ] Binance-compatible API
+* [ ] SWIFT / EMV integration
+* [ ] myTokenStudio-apps (like Shopify Apps)
 
-After cloning the repository, update the `.env` file with your local database connection settings.
+## Support
 
-### Load seed data
+Currently there is no documentation available. If you require assistance, please open a GitHub issue or send an email to dj@shitcoin.jp.
 
-Run `rails db:seed` to import the initial seed data into the database.
+## Credits
 
+This project would not be possible without support from
 
-### Generate hot wallet encryption keypair
-
-```
-[ -f config/keys/wallet.priv.pem ] || openssl genrsa -out config/keys/wallet.priv.pem 2048
-[ -f config/keys/wallet.pub.pem ] || openssl rsa -in config/keys/wallet.priv.pem -outform PEM -pubout -out config/keys/wallet.pub.pem
-```
-
-
-## Background Jobs
-
-The `Procfile` defines several processes that have to run in the background.
+* [NewArt Technology](https://newart-tech.com)

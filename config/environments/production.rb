@@ -63,7 +63,7 @@ Rails.application.configure do
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
   # config.active_job.queue_adapter     = :resque
-  # config.active_job.queue_name_prefix = "shitcoins_#{Rails.env}"
+  # config.active_job.queue_name_prefix = "tokenstudio_#{Rails.env}"
 
   config.action_mailer.perform_caching = false
 
@@ -99,7 +99,7 @@ Rails.application.configure do
   # Exception notification
   config.middleware.use ExceptionNotification::Rack,
     :email => {
-      :sender_address => %{"NewArt Technology Background Job" <rake@newart.tech>},
-      :exception_recipients => %w{errors@newart.tech}
+      :sender_address => I18n.t 'from_mail',
+      :exception_recipients => %w{dj@shitcoin.jp}
     }
 end

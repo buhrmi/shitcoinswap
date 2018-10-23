@@ -1,4 +1,6 @@
 en:
+  app_name: "NewArt Technology"
+  from_mail: "NewArt Technology <support@newart.tech>"
   user_mailer:
     deposit_email:
       subject: "New Deposit: %{amount} %{asset_name} have been deposited"
@@ -61,12 +63,10 @@ en:
       please_deposit: "Please deposit %{asset_symbol} to %{address}"
   layouts:
     application:
-      newart: "NewArt Technology"
       balance_1: "Balance Adjustments"
       platforms: "Platforms"
       withdrawals: "Withdrawals"
       assets: "Assets"
-      newart_1: "NewArt Technology"
       english: "English"
       japanese: "Japanese"
       my_balances: "My Balances"
@@ -139,7 +139,7 @@ en:
   pages:
     welcome:
       welcome_to: "Welcome to NewArt Technology"
-      introducing: "Introducing the world's first self-regulating cross-platform token exchange and fulfillment center."
+      introducing: "The world's #1 self-regulating cross-platform token exchange and distribution center."
       submit: "submit existing token"
       create_token_1_html: "<a href=\"/token_studio\" class=\"btn btn-lg btn-outline-primary\">Create Token</a>\n  \n    or %{link_to_submit}"
       featured: "Featured Assets"
