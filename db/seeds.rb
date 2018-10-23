@@ -8,6 +8,11 @@ eth_wallet_address = wallet.address
 eth_platform_main    = Platform.where(native_symbol: 'ETH').first_or_create!(module: 'ETH', data: {network: 'mainnet', wallet_address: eth_wallet_address, enc_wallet_key: eth_wallet_key})
 eth_platform_classic = Platform.where(native_symbol: 'ETC').first_or_create!(module: 'ETH', data: {network: 'classic', wallet_address: eth_wallet_address, enc_wallet_key: eth_wallet_key})
 
+eth = Asset.where(native_symbol: 'ETH').first_or_create!(name: 'Ethereum', platform: eth_platform_main, platform_data: {decimals: 18, symbol: 'ETH', name: 'Ethereum'}) 
+etc = Asset.where(native_symbol: 'ETC').first_or_create!(name: 'Ethereum (classic)', platform: eth_platform_classic, platform_data: {decimals: 18, symbol: 'ETC', name: 'Ethereum Classic'})
+
+return if Rails.env.test?
+
 admin = User.where(admin: true, email: 'dj@tokenstudio.jp').first_or_create!
 
 supported_assets= [{
@@ -58,8 +63,6 @@ supported_assets= [{
   submitter_id: admin.id
 }]
 
-eth = Asset.where(native_symbol: 'ETH').first_or_create!(name: 'Ethereum', platform: eth_platform_main, platform_data: {decimals: 18, symbol: 'ETH', name: 'Ethereum'}) 
-etc = Asset.where(native_symbol: 'ETC').first_or_create!(name: 'Ethereum (classic)', platform: eth_platform_classic, platform_data: {decimals: 18, symbol: 'ETC', name: 'Ethereum Classic'})
 
 unless Rails.env.production?
   eth_platform_rinkeby = Platform.where(native_symbol: 'ETH(rinkeby)').first_or_create!(module: 'ETH', data: {network: 'rinkeby', wallet_address: eth_wallet_address, enc_wallet_key: eth_wallet_key})

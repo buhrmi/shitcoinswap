@@ -47,7 +47,7 @@ jobs:
 
       - run:
           name: Database setup
-          command: bin/rails db:schema:load --trace
+          command: bin/rails db:schema:load db:seed --trace
 
       - run:
           command: bundle exec rails test
