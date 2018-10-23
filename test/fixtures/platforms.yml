@@ -1,0 +1,5 @@
+eth:
+  native_symbol: ETH
+
+jpy:
+  native_symbol: JPY

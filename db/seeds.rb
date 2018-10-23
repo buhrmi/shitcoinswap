@@ -11,8 +11,6 @@ eth_platform_classic = Platform.where(native_symbol: 'ETC').first_or_create!(mod
 eth = Asset.where(native_symbol: 'ETH').first_or_create!(name: 'Ethereum', platform: eth_platform_main, platform_data: {decimals: 18, symbol: 'ETH', name: 'Ethereum'}) 
 etc = Asset.where(native_symbol: 'ETC').first_or_create!(name: 'Ethereum (classic)', platform: eth_platform_classic, platform_data: {decimals: 18, symbol: 'ETC', name: 'Ethereum Classic'})
 
-return if Rails.env.test?
-
 admin = User.where(admin: true, email: 'dj@tokenstudio.jp').first_or_create!
 
 supported_assets= [{

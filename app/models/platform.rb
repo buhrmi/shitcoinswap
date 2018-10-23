@@ -3,6 +3,10 @@ class Platform < ApplicationRecord
     self.extend "PlatformIntegrations::#{self.module}".constantize
   end
 
+  def name
+    
+  end
+
   def network
     data['network']
   end
