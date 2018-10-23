@@ -35,6 +35,13 @@ class Asset < ApplicationRecord
       0
     end
   end
+  
+  def managable_by? user
+    # If an asset does not have a submitter, it can be managed by anyone
+    return true unless submitter
+    
+    return user && (user.admin? || submitter == user)
+  end
 
   def check_address
     return if native?

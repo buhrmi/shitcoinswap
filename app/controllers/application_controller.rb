@@ -28,6 +28,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def require_admin
+    raise_not_found unless current_user.try(:admin?)
+  end
+
+  def raise_not_found
+    raise ActionController::RoutingError.new('Not Found')
+  end
+
   def set_locale
     if params[:locale]
       cookies.permanent[:locale] = params[:locale]

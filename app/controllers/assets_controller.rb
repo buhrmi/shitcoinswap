@@ -34,6 +34,7 @@ class AssetsController < ApplicationController
 
   def edit
     @asset = Asset.find(params[:id])
+    raise_not_found unless @asset.managable_by? current_user
   end
 
   def new
@@ -51,6 +52,8 @@ class AssetsController < ApplicationController
   # TODO: move into airdrop model
   def airdrop
     asset = Asset.find params[:airdrop][:asset_id]
+    raise_not_found unless asset.managable_by? current_user
+
     recipients = params[:airdrop][:amounts].lines.map(&:split)
     total_amount = 0
     recipients.each do |r| 
@@ -69,7 +72,8 @@ class AssetsController < ApplicationController
 
   def update
     @asset = Asset.find(params[:id])
-    return unless @asset.submitter == current_user || current_user.admin?
+    raise_not_found unless @asset.managable_by? current_user
+    
     @asset.update(update_params)
     redirect_to @asset, notice: 'Asset was successfully updated.'
   end

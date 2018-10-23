@@ -1,4 +1,6 @@
 class Admin::WithdrawalsController < ApplicationController
+  before_action :require_admin
+
   def index
     @withdrawals = Withdrawal.all
   end
