@@ -15,7 +15,7 @@ TokenStudio automates every aspect of your ICO, ITO or STO across many supported
 * [ ] Private sales dashboard
 * [ ] Binance-compatible API
 * [ ] SWIFT / EMV integration
-* [ ] myTokenStudio-apps (like Shopify Apps)
+* [ ] TokenStudio-apps (like Shopify Apps)
 
 ## Support
 
