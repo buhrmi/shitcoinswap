@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Asset:
+  = @airdrop.asset_id
+%p
+  %b Amounts:
+  = @airdrop.amounts
+%p
+  %b User:
+  = @airdrop.user_id
+%p
+  %b Executed at:
+  = @airdrop.executed_at
+%p
+  %b Memo:
+  = @airdrop.memo
+
+= link_to 'Edit', edit_airdrop_path(@airdrop)
+\|
+= link_to 'Back', airdrops_path

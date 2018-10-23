@@ -49,27 +49,6 @@ class AssetsController < ApplicationController
     @asset = Asset.find(params[:id])
   end
 
-  # TODO: move into airdrop model
-  def airdrop
-    asset = Asset.find params[:airdrop][:asset_id]
-    raise_not_found unless asset.managable_by? current_user
-
-    recipients = params[:airdrop][:amounts].lines.map(&:split)
-    total_amount = 0
-    recipients.each do |r| 
-      raise "invalid amount" if r[1].to_f <= 0
-      total_amount +=r [1].to_f
-    end
-    raise "wallet funds are not sufficient" if total_amount > asset.in_wallet
-
-    for recipient in recipients
-      user = User.find_or_create_by! email: recipient[0]
-      adjustment = BalanceAdjustment.create!(user: user, asset: asset, amount: recipient[1].to_f, memo: params[:airdrop][:memo], change: current_user)
-      UserMailer.with(user: user, adjustment: adjustment).airdrop.deliver_later
-    end
-    redirect_back fallback_location: root_url, notice: "Airdrop has been executed."
-  end
-
   def update
     @asset = Asset.find(params[:id])
     raise_not_found unless @asset.managable_by? current_user

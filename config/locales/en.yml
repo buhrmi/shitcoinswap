@@ -7,7 +7,7 @@ en:
     withdrawal_submitted_email:
       subject: "%{amount} %{asset_name} have been withdrawn"
     airdrop:
-      subject: "#{amount} #{asset_name} have been airdropped into your account"
+      subject: "%{amount} %{asset_name} have been airdropped into your account"
     authorization_code:
       subject: "Your private log-in link"
   admin:

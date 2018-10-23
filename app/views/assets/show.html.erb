@@ -6,3 +6,4 @@
 <% if @asset.managable_by?(current_user) %>
   <%= link_to (t '.edit'), edit_asset_path(@asset), class: 'btn btn-primary'%>
 <% end %>
+<%= link_to (t '.new_airdrop'), new_airdrop_path(airdrop: {asset_id: @asset.id}), class: 'btn btn-primary'%>

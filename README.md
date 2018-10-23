@@ -8,7 +8,7 @@ myTokenStudio automates every aspect of your ICO, ITO or STO across many support
 * [x] Airdrops to email addresses (no wallet or account needed)
 * [x] Deposits / Withdrawals
 * [x] Easily rebrandable
-* [x] Multiple languages and locales
+* [x] I18n
 * [ ] Integrated exchange (WIP)
 * [ ] Token reviews
 * [ ] CSV / XLS data export

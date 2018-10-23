@@ -13,10 +13,10 @@ Rails.application.routes.draw do
   resources :balance_adjustments
   resources :authorization_codes
   resources :pages
+  resources :airdrops
 
   resources :assets do
     get 'contract', on: :collection
-    post 'airdrop', on: :member
   end
 
   get '/login'     => 'authorization_codes#new'

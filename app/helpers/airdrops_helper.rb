@@ -1,0 +1,2 @@
+module AirdropsHelper
+end

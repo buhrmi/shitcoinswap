@@ -1,0 +1,35 @@
+%h1 New #{@airdrop.asset.symbol} Airdrop
+
+
+
+.card-deck.mb-3
+  .card
+    .card-body
+      .card-title
+        %h5 Funding Status
+      %p In System wallet: #{@airdrop.asset.in_wallet}
+      %p Sum user balances: #{@airdrop.asset.sum_balances}
+      %p You can airdrop a maximum amount of: #{@airdrop.asset.in_wallet - @airdrop.asset.sum_balances}
+      %p To airdrop more, please deposit funds into: #{@airdrop.asset.platform.wallet_address}
+
+= form_for @airdrop do |f|
+  - if @airdrop.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@airdrop.errors.count, "error")} prohibited this airdrop from being executed:"
+      %ul
+        - @airdrop.errors.full_messages.each do |message|
+          %li= message
+
+= form_for @airdrop do |f|
+  = f.hidden_field :asset_id
+  .form-group
+    %label Recipients
+    %small.form-text.text-muted Please enter one reciepient and coin amount on each line
+    = f.text_area :amounts, class: 'form-control', placeholder: 'address@example.com 200'
+  .form-group
+    %label Memo
+    = f.text_field :memo, class: 'form-control', placeholder: "eg.: Thank you for your interest in #{@airdrop.asset.name}"
+    %small.form-text.text-muted This will be visible for the recipient
+  %button.btn.btn-primary Save & Execute
+  %span.text-muted Please note that this will send an email to every recipient.
+  

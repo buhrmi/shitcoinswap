@@ -6,32 +6,3 @@
     = f.text_area :description, class: 'form-control'
     %small.form-text.text-muted Please provide some further information, eg. tokenholder benefits
   = f.submit 'Save changes', class: 'btn btn-primary'
-
-
-.card-deck.mt-3
-  .card
-    .card-body
-      .card-title
-        %h5 Funding Status
-      %p In System wallet: #{@asset.in_wallet}
-      %p Sum user balances: #{@asset.sum_balances}
-      %p Please deposit into system wallet: #{@asset.platform.wallet_address}
-
-.card-deck.mt-3
-  .card
-    .card-body
-      .card-title
-        %h5 Execute Airdrop
-      
-      = form_tag airdrop_asset_path(@asset) do |f|
-        = hidden_field_tag 'airdrop[asset_id]', @asset.id
-        .form-group
-          %label Recipients
-          %textarea.form-control(name="airdrop[amounts]" placeholder="address@example.com 200")
-          %small.form-text.text-muted Please enter one reciepient and coin amount on each line
-        .form-group
-          %label Memo
-          %input.form-control(name="airdrop[memo]")
-          %small.form-text.text-muted This will be visible for the recipient
-        %button.btn.btn-primary Execute
-        %p Please note that this will send an email to every recipient.
