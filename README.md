@@ -1,6 +1,6 @@
-# myTokenStudio
+# TokenStudio
 
-myTokenStudio automates every aspect of your ICO, ITO or STO across many supported platforms. Make money in your sleep 👍
+TokenStudio automates every aspect of your ICO, ITO or STO across many supported platforms. Make money in your sleep while offering benefits to your customers 👍
 
 ## Features
 
@@ -19,10 +19,4 @@ myTokenStudio automates every aspect of your ICO, ITO or STO across many support
 
 ## Support
 
-Currently there is no documentation available. If you require assistance, please open a GitHub issue or send an email to dj@shitcoin.jp.
-
-## Credits
-
-This project would not be possible without support from
-
-* [NewArt Technology](https://newart-tech.com)
+Currently there is no documentation available. If you would like some assistance, please open a GitHub issue or send an email to dj@shitcoin.jp.
