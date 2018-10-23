@@ -1,6 +1,6 @@
 # TokenStudio
 
-![Build Status](https://img.shields.io/circleci/project/github/djshitcoin/tokenstudio/develop.svg)
+<a href="https://circleci.com/gh/djshitcoin/tokenstudio/tree/develop" alt="Build Status"><img src="https://img.shields.io/circleci/project/github/djshitcoin/tokenstudio/develop.svg" /></a>
 
 TokenStudio automates every aspect of your ICO, ITO or STO across many supported platforms. Make money in your sleep while offering benefits to your customers 👍
 
@@ -21,4 +21,4 @@ TokenStudio automates every aspect of your ICO, ITO or STO across many supported
 
 ## Support
 
-Currently there is no documentation available. If you would like some assistance, please open a GitHub issue or send an email to dj@shitcoin.jp.
+If you need help with something, for the moment, please open a GitHub issue or send an email to dj@shitcoin.jp.
