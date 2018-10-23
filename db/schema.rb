@@ -149,8 +149,8 @@ ActiveRecord::Schema.define(version: 2018_10_19_064333) do
   end
 
   create_table "statuses", force: :cascade do |t|
-    t.datetime "last_deposits_ran_at", default: "2018-10-22 23:46:02"
-    t.datetime "last_withdrawals_ran_at", default: "2018-10-22 23:46:02"
+    t.datetime "last_deposits_ran_at", default: "2018-10-23 03:47:25"
+    t.datetime "last_withdrawals_ran_at", default: "2018-10-23 03:47:25"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -177,6 +177,7 @@ ActiveRecord::Schema.define(version: 2018_10_19_064333) do
     t.string "email"
     t.string "password_digest"
     t.string "preferred_locale"
+    t.boolean "admin"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
