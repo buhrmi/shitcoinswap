@@ -35,6 +35,8 @@ If you need help with something please open a GitHub issue or send an email to d
 
 ## License
 
-You are allowed to do whatever the fuck you want to as long as you respect the fucking copyright and give credit where credit is due you stupid fuck.
+You may study, use, modify and redistribute this work under the following condition:
 
-TokenStudio depends on software written by other people. The list of dependencies can be found in the [Gemfile](https://github.com/djshitcoin/tokenstudio/blob/develop/Gemfile) and [package.json](https://github.com/djshitcoin/tokenstudio/blob/develop/package.json).
+- If a vulnerability is discovered, you make sure it is reported via email to the original author (DJ Shitcoin™ <dj@shitcoin.jp>) and neither exploit nor disclose the vulnerability to a third-party before it is fixed. If the vulnerability can be confirmed and fixed, I will give you a monetary reward.
+
+TokenStudio depends on other open-source software subject to their individual licenses. The list of dependencies can be found in the [Gemfile](https://github.com/djshitcoin/tokenstudio/blob/develop/Gemfile) and [package.json](https://github.com/djshitcoin/tokenstudio/blob/develop/package.json).
