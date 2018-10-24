@@ -21,13 +21,16 @@ TokenStudio automates every aspect of your ICO, ITO or STO across many supported
 * [ ] CSV / XLS data export
 * [ ] Token Apps (similar to Shopify Apps)
 
-
 ## Platform Support
 
 * [x] Ethereum (ERC20)
 * [ ] Stellar
 * [ ] Hedera Hashgraph
 * [ ] _more coming soon..._
+
+## Docs
+
+_Soon..._
 
 ## Support
 
@@ -37,6 +40,13 @@ If you need help with something please open a GitHub issue or send an email to d
 
 You may study, use, modify and redistribute this work under the following condition:
 
-- If a vulnerability is discovered, you make sure it is reported via email to the original author (DJ Shitcoin™ <dj@shitcoin.jp>) and neither exploit nor disclose the vulnerability to a third-party before it is fixed. If the vulnerability can be confirmed and fixed, I will give you a monetary reward.
+- If a vulnerability is discovered, you make sure it is reported via email to the original author (dj@shitcoin.jp) and neither exploit nor disclose the vulnerability to a third-party before it is fixed. If the vulnerability can be confirmed and fixed, I will give you a monetary reward.
 
 TokenStudio depends on other open-source software subject to their individual licenses. The list of dependencies can be found in the [Gemfile](https://github.com/djshitcoin/tokenstudio/blob/develop/Gemfile) and [package.json](https://github.com/djshitcoin/tokenstudio/blob/develop/package.json).
+
+## Vulnerabilities found
+
+Vulnerability | Reporter | Fixed in commit | Reward
+-|-|-|-
+
+_nothing yet..._
