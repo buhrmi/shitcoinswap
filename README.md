@@ -2,7 +2,7 @@
 
 <a href="https://circleci.com/gh/djshitcoin/tokenstudio/tree/develop" alt="Build Status"><img src="https://img.shields.io/circleci/project/github/djshitcoin/tokenstudio/develop.svg" /></a>
 
-TokenStudio automates every aspect of your ICO, ITO or STO across many supported platforms. It manages airdrops, user wallets, news postings, etc.
+TokenStudio automates every aspect of your ICO, ITO or STO across many supported platforms. It comes complete with an integrated trading engine, so you can instantly list your token and start generating volume.
 
 ## Features
 
@@ -11,7 +11,7 @@ TokenStudio automates every aspect of your ICO, ITO or STO across many supported
 * [x] Deposits / Withdrawals
 * [x] Easily rebrandable
 * [x] I18n
-* [ ] Integrated exchange (WIP)
+* [ ] Integrated trading engine (WIP)
 * [ ] Soft tokens (tokens that are not yet deployed to a platform)
 * [ ] Token Sites (Summary, SNS Widgets, Team, Roadmap, Video, News, etc.)
 * [ ] Automated community engagement features
