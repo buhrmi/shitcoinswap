@@ -12,12 +12,12 @@ import router from '../src/routes.js'
 
 import App from '../src/components/app'
 
-// document.addEventListener('turbolinks:load', () => {
-document.addEventListener('DOMContentLoaded', () => {
-  console.log('heyo')
+document.addEventListener('turbolinks:load', init)
+document.addEventListener('DOMContentLoaded', init)
+
+function init() {
   const el = document.getElementById('app')
-  if (!el) return console.log("couldnt find el")
-  console.log('found el')
+  if (!el) return
   new Vue({
     store: store,
     router: router,
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     render: h => h(App)
   })
 
-})
+}
 
 
 // The above code uses Vue without the compiler, which means you cannot

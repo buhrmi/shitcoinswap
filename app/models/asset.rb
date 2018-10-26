@@ -83,6 +83,7 @@ class Asset < ApplicationRecord
   def fetch_platform_data
     return unless new_record? or address_changed? or platform_id_changed?
     return unless platform
+    return unless address.present?
     return if native?
     platform.fetch_platform_data_for(self)
   end

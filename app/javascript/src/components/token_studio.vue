@@ -1,6 +1,7 @@
 <template lang="pug">
 .page
   .container
+    h1.mt-5.mb-3 Token Studio
     .card.mb-3
       .card-body
         h5.card-title Step 1: Create Contract

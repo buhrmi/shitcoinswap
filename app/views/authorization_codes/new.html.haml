@@ -1,3 +1,6 @@
-%h1= t '.please_enter'
-%p= t '.we_will_send'
-= render 'form', authorization_code: @authorization_code
+.container
+  %h1.mt-5= t '.please_enter'
+  %p= t '.we_will_send'
+  .card
+    .card-body
+      = render 'form', authorization_code: @authorization_code
