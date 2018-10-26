@@ -1,7 +1,7 @@
 .container
   %h1 Edit #{@asset.name}
 
-  = form_for @asset do |f|
+  = form_for @asset, authenticity_token: true do |f|
     .form-group
       = f.label :description
       = f.text_area :description, class: 'form-control'
