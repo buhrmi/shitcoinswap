@@ -1,0 +1,13 @@
+%h1= t '.admin'
+%table
+  %thead
+    %tr
+      %th= t '.platform'
+      %th= t '.wallet'
+      %th= t '.last_scanned'
+  %tbody
+    - @platforms.each do |platform|
+      %tr
+        %td= platform.name
+        %td= platform.data['wallet_address']
+        %td= platform.last_scanned_block

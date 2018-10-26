@@ -1,0 +1,16 @@
+%h1= t '.admin_assets'
+%table
+  %thead
+    %tr
+      %th= t '.asset_1'
+      %th= t '.symbol'
+      %th= t '.user_s'
+      %th
+  %tbody
+    - @assets.each do |asset|
+      %tr
+        %td= asset.name
+        %td= asset.symbol
+        %td= asset.sum_balances
+        %td
+          = link_to (t '.check_hot'), asset.wallet_url(asset.platform.wallet_address), target: '_blank'

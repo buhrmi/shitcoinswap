@@ -1,0 +1,22 @@
+%p#notice= notice
+%h1= t '.my_withdrawals'
+%table
+  %thead
+    %tr
+      %th= t '.asset_3'
+      %th= t '.receiver'
+      %th= t '.transaction_1'
+      %th= t '.created_at'
+      %th= t '.amount_2'
+      %th= t '.status_2'
+  %tbody
+    - @withdrawals.each do |withdrawal|
+      %tr
+        %td= withdrawal.asset.name
+        %td= withdrawal.receiver_address
+        %td= withdrawal.transaction_id
+        %td= withdrawal.created_at
+        %td= withdrawal.amount
+        %td= withdrawal.status
+%br/
+= link_to (t '.new_withdrawal'), new_withdrawal_path

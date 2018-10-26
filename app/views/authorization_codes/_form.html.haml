@@ -1,0 +1,14 @@
+= form_with(model: authorization_code, local: true) do |form|
+  - if authorization_code.errors.any?
+    #error_explanation
+      %h2= t '.prohibited_2', :authorization => (pluralize(authorization_code.errors.count, "error") )
+      %ul
+        - authorization_code.errors.full_messages.each do |message|
+          %li= message
+  %br/
+  .row.form-group
+    .col-sm-4
+      = form.email_field :email, :placeholder =>:email, :required => true, class: "form-control", type: "email"
+    .col-sm-3
+      = form.submit "Send me the link", class: "btn btn-primary"
+%br/

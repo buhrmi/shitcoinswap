@@ -11,6 +11,11 @@ class Asset < ApplicationRecord
   
   before_validation :fetch_platform_data
 
+  has_one_attached :logo
+  has_one_attached :background
+  
+  has_one_attached :whitepaper_en
+
   before_save do
     self.address.downcase! if self.address
   end

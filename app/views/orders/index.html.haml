@@ -1,0 +1,25 @@
+%h1= t '.otc_orders'
+%table
+  %thead
+    %tr
+      %th= t '.buying_asset'
+      %th= t '.selling_asset'
+      %th= t '.quantity'
+      %th= t '.rate'
+      %th= t '.filled'
+      %th
+  %tbody
+    - @orders.each do |order|
+      %tr
+        %td= order.buying_asset.name
+        %td= order.selling_asset.name
+        %td= order.quantity
+        %td= order.rate
+        %td
+          = order.percent_filled
+          \%
+        %td= order.user.display_name
+        %td
+          = link_to (t '.cancel'), order, method: 'delete'
+%br/
+= link_to (t '.new_order'), new_order_path

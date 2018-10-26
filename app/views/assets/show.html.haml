@@ -1,0 +1,20 @@
+.asset_top_wrapper(style="background-position:center;background-size:cover;background-image:url('#{url_for @asset.background if @asset.background.attached?}')")
+  .container
+    .hero_well
+      
+      .logo= image_tag(url_for @asset.logo) if @asset.logo.attached?
+      .name= @asset.name
+      = link_to @asset.address, @asset.explorer_url
+    .buttons
+      - if @asset.whitepaper_en.attached?
+        = link_to (t '.whitepaper_en'), rails_blob_path(@asset.whitepaper_en, disposition: "attachment"), class: 'btn btn-primary btn-lg'
+      - else
+        .btn.btn-primary.btn-lg Whitepaper coming soon
+      = link_to (t '.buy_now'), '#', class: 'btn btn-primary btn-lg'
+.asset_description_wrapper
+  %p
+    = @asset.description
+.container
+  - if @asset.managable_by?(current_user)
+    = link_to (t '.edit'), edit_asset_path(@asset), class: 'btn btn-primary'
+    = link_to (t '.new_airdrop'), new_airdrop_path(airdrop: {asset_id: @asset.id}), class: 'btn btn-primary'

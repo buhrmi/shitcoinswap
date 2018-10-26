@@ -1,8 +1,25 @@
-%h1 Edit #{@asset.name}
+.container
+  %h1 Edit #{@asset.name}
 
-= form_for @asset do |f|
-  .form-group
-    = f.label :description
-    = f.text_area :description, class: 'form-control'
-    %small.form-text.text-muted Please provide some further information, eg. tokenholder benefits
-  = f.submit 'Save changes', class: 'btn btn-primary'
+  = form_for @asset do |f|
+    .form-group
+      = f.label :description
+      = f.text_area :description, class: 'form-control'
+      %small.form-text.text-muted Please provide some further information, eg. tokenholder benefits
+    .custom-file
+      = f.file_field :logo, class: 'custom-file-input', id: "logo"
+      = f.label :logo, "Choose Logo", class: 'custom-file-label', for: "logo"
+    .custom-file
+      = f.file_field :background, class: 'custom-file-input', id: "background"
+      = f.label :background, "Choose Header Background", class: 'custom-file-label', for: "background"
+    .custom-file
+      = f.file_field :whitepaper_en, class: 'custom-file-input', id: "whitepaper"
+      = f.label :whitepaper_en, "Choose Whitepaper (English)", class: 'custom-file-label', for: "whitepaper"
+    = f.submit 'Save changes', class: 'btn btn-primary'
+    = link_to 'Cancel', @asset
+
+  :javascript
+    $('.custom-file-input').on('change', function() { 
+      let fileName = $(this).val().split('\\').pop(); 
+      $(this).next('.custom-file-label').addClass("selected").html(fileName); 
+    });

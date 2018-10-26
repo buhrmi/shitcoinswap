@@ -1,0 +1,19 @@
+%h1= t '.admin_1'
+%table
+  %thead
+    %tr
+      %th= t '.user'
+      %th= t '.asset'
+      %th= t '.amount'
+      %th= t '.status'
+      %th= t '.transaction'
+      %th= t '.error'
+  %tbody
+    - @withdrawals.each do |withdrawal|
+      %tr
+        %td= withdrawal.user.email
+        %td= withdrawal.asset.name
+        %td= withdrawal.amount
+        %td= withdrawal.status
+        %td= withdrawal.transaction_id
+        %td= withdrawal.error

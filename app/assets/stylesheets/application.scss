@@ -1,9 +1,13 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosansjapanese.css);
 @import "bootstrap";
-@import 'scaffolds';
-
+@import "*";
 
 html {
   font-size: 14px;
+}
+
+body {
+  font-family: Noto Sans Japanese,Lucida Grande,Tahoma,Verdana,sans-serif;
 }
 
 @media (min-width: 768px) {

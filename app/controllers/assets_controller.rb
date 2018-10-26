@@ -74,7 +74,7 @@ class AssetsController < ApplicationController
 
   private
   def update_params
-    params.require(:asset).permit(:description)
+    params.require(:asset).permit(:description, :logo, :background)
   end
 
   def asset_params

@@ -1,0 +1,18 @@
+= form_with(model: withdrawal, local: true) do |form|
+  - if withdrawal.errors.any?
+    #error_explanation
+      %h2= t '.prohibited_1', :withdrawal => (pluralize(withdrawal.errors.count, "error") )
+      %ul
+        - withdrawal.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = form.label :asset_id
+    = form.select :asset_id, Asset.all.map { |asset| [asset.symbol, asset.id] }
+  .field
+    = form.label :receiver_address
+    = form.text_field :receiver_address
+  .field
+    = form.label :amount
+    = form.text_field :amount
+  .actions
+    = form.submit

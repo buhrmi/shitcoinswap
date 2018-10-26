@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  
   namespace :admin do
     resources :balance_adjustments
     resources :platforms
@@ -25,5 +24,9 @@ Rails.application.routes.draw do
   root to: 'pages#welcome'
   
   # Vue app
-  get '*path' => 'pages#app'
+  get '*path' => 'pages#app', constraints: lambda { |req|
+    # Workaround for open rails issue
+    # https://github.com/rails/rails/issues/31228#issuecomment-352900551
+    req.path.exclude? 'rails/active_storage'
+  }
 end

@@ -1,4 +1,5 @@
-- @assets.each do |asset|
-  .asset
-    %td= link_to asset.name, asset
+.container
+  - @assets.each do |asset|
+    .asset
+      %td= link_to asset.name, asset
     
