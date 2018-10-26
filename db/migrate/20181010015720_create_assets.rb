@@ -17,6 +17,8 @@ class CreateAssets < ActiveRecord::Migration[5.2]
       
       t.string :logo_uid
       t.string :logo_name
+      
+      t.string :website
 
       t.timestamps
 

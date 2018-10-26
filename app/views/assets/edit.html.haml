@@ -6,6 +6,9 @@
       = f.label :description
       = f.text_area :description, class: 'form-control'
       %small.form-text.text-muted Please provide some further information, eg. tokenholder benefits
+    .form-group
+      = f.label :website
+      = f.text_field :website, class: 'form-control'
     .custom-file
       = f.file_field :logo, class: 'custom-file-input', id: "logo"
       = f.label :logo, "Choose Logo", class: 'custom-file-label', for: "logo"

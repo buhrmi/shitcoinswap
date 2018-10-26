@@ -29,7 +29,9 @@
 }
 
 .asset.card {
-  margin-top: 25px;
+  margin-top: 32px;
+  min-width: 50%;
+  flex: 1 0 40%; // we want only 2 cards in a row at max
   .card-logo {
     width: 84px;
     height: 84px;
@@ -44,7 +46,12 @@
     img {
       width: 76px;
       height: 76px;
+      border-radius: 42px;
     }
+  }
+  .card-footer {
+    border: none;
+    background: none;
   }
   .card-body {
     margin-top: 48px;
