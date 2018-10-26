@@ -8,8 +8,4 @@ class PagesController < ApplicationController
   def show
     render params[:id]
   end
-
-  def app
-    @serve_webpack_app = true
-  end
 end

@@ -17,8 +17,8 @@
       - if current_user
         balances: #{raw current_user.cached_balances_json}
       }
+    = javascript_pack_tag 'app', integrity: true
   %body{class: params[:controller]}
-    = javascript_pack_tag 'app', integrity: true if @serve_webpack_app
     - if current_user.try(:admin?)
       %nav.navbar.navbar-dark.bg-dark.fixed-bottom.navbar-expand-lg
         .nav-item Admin Menu 
@@ -27,7 +27,6 @@
         .nav-item= link_to 'Assets', admin_assets_path
     %nav.navbar.sticky-top.navbar-light.bg-white.border-bottom.navbar-expand-lg
       = link_to image_tag('logo_name.png', height: 19), root_path, class: 'navbar-brand mr-auto'
-      
       - if current_user
         .nav-item= "Logged in as #{current_user.email}"
         .nav-item= link_to 'My Balances', '/balances', class: 'p-2 text-dark'

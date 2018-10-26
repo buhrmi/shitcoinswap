@@ -12,10 +12,10 @@ import router from '../src/routes.js'
 
 import App from '../src/components/app'
 
-document.addEventListener('turbolinks:load', init)
-document.addEventListener('DOMContentLoaded', init)
+import TurbolinksAdapter from 'vue-turbolinks';
+Vue.use(TurbolinksAdapter)
 
-function init() {
+document.addEventListener('turbolinks:load', () => {
   const el = document.getElementById('app')
   if (!el) return
   new Vue({
@@ -24,8 +24,8 @@ function init() {
     el: el,
     render: h => h(App)
   })
+})
 
-}
 
 
 // The above code uses Vue without the compiler, which means you cannot
