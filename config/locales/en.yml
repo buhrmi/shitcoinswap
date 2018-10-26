@@ -138,7 +138,7 @@ en:
       edit: "Edit"
   pages:
     welcome:
-      welcome_to: "Welcome to TokenStudio"
+      welcome_to: "Welcome to NewArt Technology"
       introducing: "The world's #1 self-regulating cross-platform token exchange and distribution center."
       submit: "submit existing token"
       create_token_1_html: "<a href=\"/token_studio\" class=\"btn btn-lg btn-outline-primary\">Create Token</a>\n  \n    or %{link_to_submit}"

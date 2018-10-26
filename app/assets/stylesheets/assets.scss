@@ -27,3 +27,34 @@
 .asset_description_wrapper {
   text-align: center;
 }
+
+.asset.card {
+  margin-top: 25px;
+  .card-logo {
+    width: 84px;
+    height: 84px;
+    border-radius: 42px;
+    border: 1px solid #ccc;
+    left: 50%;
+    top: -22px;
+    background: white;
+    padding: 4px;
+    position: absolute;
+    transform: translate(-50%, 0);
+    img {
+      width: 76px;
+      height: 76px;
+    }
+  }
+  .card-body {
+    margin-top: 48px;
+    .card-title {
+      text-align: center;
+      font-size: 36px;
+    }
+    .card-text {
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.8);
+    }
+  }
+}

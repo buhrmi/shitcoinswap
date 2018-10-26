@@ -1,7 +1,6 @@
 .asset_top_wrapper(style="background-position:center;background-size:cover;background-image:url('#{url_for @asset.background if @asset.background.attached?}')")
   .container
     .hero_well
-      
       .logo= image_tag(url_for @asset.logo) if @asset.logo.attached?
       .name= @asset.name
       = link_to @asset.address, @asset.explorer_url

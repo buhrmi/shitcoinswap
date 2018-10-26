@@ -5,12 +5,13 @@
     = t '.create_token_1_html', :link_to_submit => (link_to (t '.submit'), new_asset_path)
   .px-3.py-3.pt-md-5.pb-md-4.mx-auto
     %h1.display-4.text-center= t '.featured'
-    - @featured_assets.in_groups_of(3) do
-      .row
-        - for asset in @featured_assets
-          .col-lg-4
-            %h2= asset.name
-            %p= asset.description
+    .card-deck
+      - for asset in @featured_assets
+        .card.asset(style="background-position:center;background-size:cover;background-image:url('#{url_for asset.background if asset.background.attached?}')")
+          .card-logo= image_tag(url_for asset.logo) if asset.logo.attached?
+          .card-body
+            %h5.card-title= asset.name
+            %p.card-text.text-justify= asset.description
             %p
               = link_to (t '.view_details'), asset, class: 'btn btn-primary'
     .text-center
