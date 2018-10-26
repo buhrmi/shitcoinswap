@@ -8,6 +8,7 @@ class AssetsController < ApplicationController
     @unit = 10 ** @decimals
     @initial_supply = params[:initial_supply].to_i * @unit
     @mintable = params[:mintable]
+    @erc223 = params[:erc223]
     @max_supply = params[:max_supply].to_i * @unit
     @parents = []
     if @mintable && @max_supply > 0

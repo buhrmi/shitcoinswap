@@ -89,6 +89,12 @@
                 input.form-control(name="end_date" type="datetime-local" v-model="newAsset.end_date")
                 .input-group-append
                   .input-group-text UTC (GMT+0)
+          .row.form-group
+            .col-sm-2
+            .col-sm-10
+              .form-check
+                input#erc223.form-check-input(type="checkbox" name="erc223" v-model="newAsset.erc223")
+                label.form-check-label(for="erc223") Enable <a href="https://github.com/ethereum/EIPs/issues/223" target="_blank">ERC223 Extension</a>
                 
           button.btn.btn-primary Download Contract
   .container
@@ -121,6 +127,7 @@ module.exports =
       mintable: false
       has_cap: false
       pausable: false
+      erc223: true
       maxSupply: '20000000'
       address: ''
       platform_id: 1
