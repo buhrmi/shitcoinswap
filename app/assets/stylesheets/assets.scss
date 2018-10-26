@@ -32,11 +32,12 @@
   margin-top: 32px;
   min-width: 50%;
   flex: 1 0 40%; // we want only 2 cards in a row at max
+
   .card-logo {
     width: 84px;
     height: 84px;
     border-radius: 42px;
-    border: 1px solid #ccc;
+    // border: 1px solid #ccc;
     left: 50%;
     top: -22px;
     background: white;
