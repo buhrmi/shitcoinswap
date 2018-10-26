@@ -81,17 +81,19 @@ ActiveRecord::Schema.define(version: 2018_10_26_010650) do
   create_table "assets", force: :cascade do |t|
     t.string "name"
     t.string "native_symbol"
+    t.integer "submitter_id", comment: "User ID of user who submitted this token. He should be made admin of this token."
     t.float "cached_rating", default: 0.0
     t.string "platform_id"
     t.string "address"
     t.json "platform_data", default: {}, comment: "Cached information for the asset. Pulled from the platform upon creation"
     t.datetime "delisted_at"
+    t.datetime "featured_at"
     t.string "logo_uid"
     t.string "logo_name"
+    t.string "brand_color"
+    t.string "website"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "featured_at", precision: 6
-    t.bigint "submitter_id"
     t.index ["address", "platform_id"], name: "index_assets_on_address_and_platform_id", unique: true
     t.index ["name"], name: "index_assets_on_name"
   end
@@ -139,7 +141,7 @@ ActiveRecord::Schema.define(version: 2018_10_26_010650) do
     t.integer "asset_id"
     t.string "transaction_id"
     t.decimal "amount", precision: 50, scale: 20
-    t.integer "withdrawal_to_hotwallet_id", comment: "The withdrawal used for consolidation (withdrawal from deposit address into hot wallet)"
+    t.integer "withdrawal_to_wallet_id", comment: "The withdrawal used for consolidation (withdrawal from deposit address into hot wallet)"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["transaction_id"], name: "index_deposits_on_transaction_id", unique: true
@@ -180,8 +182,8 @@ ActiveRecord::Schema.define(version: 2018_10_26_010650) do
   end
 
   create_table "statuses", force: :cascade do |t|
-    t.datetime "last_deposits_ran_at", default: "2018-10-19 06:52:41"
-    t.datetime "last_withdrawals_ran_at", default: "2018-10-19 06:52:41"
+    t.datetime "last_deposits_ran_at", default: "2018-10-26 15:36:22"
+    t.datetime "last_withdrawals_ran_at", default: "2018-10-26 15:36:22"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -207,10 +209,10 @@ ActiveRecord::Schema.define(version: 2018_10_26_010650) do
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "password_digest"
+    t.string "preferred_locale"
+    t.boolean "admin"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "preferred_locale", limit: 255
-    t.boolean "admin"
   end
 
   create_table "withdrawals", force: :cascade do |t|
