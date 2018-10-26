@@ -12,9 +12,12 @@ import router from '../src/routes.js'
 
 import App from '../src/components/app'
 
-document.addEventListener('turbolinks:load', () => {
+// document.addEventListener('turbolinks:load', () => {
+document.addEventListener('DOMContentLoaded', () => {
+  console.log('heyo')
   const el = document.getElementById('app')
-  if (!el) return
+  if (!el) return console.log("couldnt find el")
+  console.log('found el')
   new Vue({
     store: store,
     router: router,

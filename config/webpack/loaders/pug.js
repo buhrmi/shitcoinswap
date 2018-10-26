@@ -1,6 +1,6 @@
 module.exports = {
   test: /\.pug(\.erb)?$/,
   use: [{
-    loader: 'pug-loader'
+    loader: 'pug-plain-loader'
   }]
 }
