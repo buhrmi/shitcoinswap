@@ -98,8 +98,8 @@ Rails.application.configure do
 
   # Exception notification
   config.middleware.use ExceptionNotification::Rack,
-    :email => {
-      :sender_address => I18n.t 'from_mail',
-      :exception_recipients => %w{dj@shitcoin.jp}
+    email: {
+      sender_address: I18n.t('from_mail'),
+      exception_recipients: %w{dj@shitcoin.jp}
     }
 end
