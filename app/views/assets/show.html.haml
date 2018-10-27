@@ -13,17 +13,18 @@
       - else
         .btn.btn-primary.btn-lg Whitepaper coming soon
       = link_to (t '.buy_now'), '#', class: 'btn btn-primary btn-lg'
-.container.pt-5.pb-5
-  .row
-    .col-4.text-center
-      .asset-stat-header Total Supply
-      .asset-stat #{ number_with_delimiter @asset.total_supply } #{ @asset.symbol }
-    .col-4.text-center
-      .asset-stat-header 24h Volume
-      .asset-stat #{ number_with_delimiter @asset.volume24h } ETH
-    .col-4.text-center
-      .asset-stat-header List Price
-      .asset-stat N/A
+.bg-white
+  .container.pt-5.pb-5
+    .row
+      .col-sm-4.text-center
+        .asset-stat-header Total Supply
+        .asset-stat #{ number_with_delimiter @asset.total_supply } #{ @asset.symbol }
+      .col-sm-4.text-center
+        .asset-stat-header 24h Volume
+        .asset-stat #{ number_with_delimiter @asset.volume24h } ETH
+      .col-sm-4.text-center
+        .asset-stat-header List Price
+        .asset-stat N/A
 
 .page_content
   .container
