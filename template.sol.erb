@@ -606,13 +606,13 @@ contract <%= @name.gsub(/[^0-9A-Za-z]/, '') %> is <%= @parents.join(', ') %> {
   <% if @crowdsale %>
   event TokenPurchase(address indexed purchaser, address indexed beneficiary, uint256 value, uint256 amount);
 
-  uint256 endDate = <%= Time.parse(@end_date).to_i %>;
-  uint256 startDate = <%= Time.parse(@start_date).to_i %>;
-  uint256 tokenPrice = <%= @price %> ether;
+  uint256 public endTime = <%= Time.parse(@end_date).to_i %>;
+  uint256 public startTime = <%= Time.parse(@start_date).to_i %>;
+  uint256 public tokenPrice = <%= @price %> ether;
 
   function buyTokens() public payable {
-    require(now >= startDate);
-    require(now < endDate);
+    require(now >= startTime);
+    require(now < endTime);
     require(msg.value > 0);
 
     <% if @phases %>
@@ -628,7 +628,7 @@ contract <%= @name.gsub(/[^0-9A-Za-z]/, '') %> is <%= @parents.join(', ') %> {
     
     emit TokenPurchase(msg.sender, msg.sender, msg.value, amount + bonus);
     mint(msg.sender, amount + bonus);
-    owner.transfer(msg.value);
+    return owner.transfer(msg.value);
   }
 
   function() public payable {
