@@ -31,7 +31,7 @@ class CreateAssets < ActiveRecord::Migration[5.2]
 
     reversible do |dir|
       dir.up do
-        Asset.create_translation_table! description: :text
+        Asset.create_translation_table! description: :text, page_content: :json
       end
 
       dir.down do

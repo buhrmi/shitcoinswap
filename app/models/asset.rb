@@ -1,6 +1,7 @@
 class Asset < ApplicationRecord
   translates :description
-
+  translates :page_content
+  
   belongs_to :platform
   has_many :balance_adjustments
   belongs_to :submitter, class_name: 'User', optional: true

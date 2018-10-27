@@ -29,7 +29,7 @@
 
     .form-group
       = f.label :page_content
-      = text_area_tag 'asset[page_content][][html]', @asset.page_content[0]['html'], id: 'redactor', class: 'redactor'
+      = text_area_tag 'asset[page_content][][html]', @asset.page_content.try(:[], 0).try(:[], 'html'), id: 'redactor', class: 'redactor'
     = f.submit 'Save changes', class: 'btn btn-primary'
     = link_to 'Cancel', @asset
 
