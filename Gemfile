@@ -32,6 +32,8 @@ gem 'turbolinks'
 
 gem 'exception_notification-rake'
 
+gem 'image_processing'
+
 # Create eth keys etc
 gem 'eth'
 

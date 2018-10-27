@@ -13,8 +13,9 @@ class Asset < ApplicationRecord
 
   has_one_attached :logo
   has_one_attached :background
-  
   has_one_attached :whitepaper_en
+
+  has_many_attached :files
 
   before_save do
     self.address.downcase! if self.address
@@ -69,15 +70,7 @@ class Asset < ApplicationRecord
   def total_supply
     return unless platform
     return if native?
-    return 1000 if Rails.env.development?
-    @last_checked ||= 0
-    if Time.now > @last_checked + 60.seconds
-      @last_checked = Time.now
-      @total_supply = (platform.fetch_total_supply(self) || 0).to_f / unit
-    else
-      @total_supply
-    end
-    
+    platform_data['total_supply'].to_f / unit
   end
 
   def fetch_platform_data

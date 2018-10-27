@@ -1,18 +1,23 @@
 .asset_top_wrapper(style="background-position:center;background-size:cover;background-image:url('#{url_for @asset.background if @asset.background.attached?}')")
   .container
     .hero_well
-      .logo= image_tag(url_for @asset.logo) if @asset.logo.attached?
+      .logo= image_tag(url_for @asset.logo.variant(resize: '100x100')) if @asset.logo.attached?
       .name= @asset.name
-      = link_to @asset.address, @asset.explorer_url
+      %hr
+      .description= @asset.description
+      %p Total supply: #{ @asset.total_supply } #{ @asset.symbol }
+      %p Platform: #{ @asset.platform.name }
+      %p Explore: #{ link_to @asset.address, @asset.explorer_url }
     .buttons
       - if @asset.whitepaper_en.attached?
         = link_to (t '.whitepaper_en'), rails_blob_path(@asset.whitepaper_en, disposition: "attachment"), class: 'btn btn-primary btn-lg'
       - else
         .btn.btn-primary.btn-lg Whitepaper coming soon
       = link_to (t '.buy_now'), '#', class: 'btn btn-primary btn-lg'
-.asset_description_wrapper
-  %p
-    = @asset.description
+.container.asset_page_content
+  - for content in @asset.page_content
+    .page_content.pt-5.pb-5
+      = raw content['html']
 .container
   - if @asset.managable_by?(current_user)
     = link_to (t '.edit'), edit_asset_path(@asset), class: 'btn btn-primary'

@@ -9,15 +9,27 @@
     .form-group
       = f.label :website
       = f.text_field :website, class: 'form-control'
-    .custom-file
-      = f.file_field :logo, class: 'custom-file-input', id: "logo"
-      = f.label :logo, "Choose Logo", class: 'custom-file-label', for: "logo"
-    .custom-file
-      = f.file_field :background, class: 'custom-file-input', id: "background"
-      = f.label :background, "Choose Header Background", class: 'custom-file-label', for: "background"
-    .custom-file
-      = f.file_field :whitepaper_en, class: 'custom-file-input', id: "whitepaper"
-      = f.label :whitepaper_en, "Choose Whitepaper (English)", class: 'custom-file-label', for: "whitepaper"
+    .form-group
+      .row
+        .col-md-4
+          = f.label :logo
+          .custom-file
+            = f.file_field :logo, class: 'custom-file-input', id: "logo", direct_upload: true
+            = f.label :logo, "Choose", class: 'custom-file-label', for: "logo"
+        .col-md-4
+          = f.label :background_image
+          .custom-file
+            = f.file_field :background, class: 'custom-file-input', id: "background", direct_upload: true
+            = f.label :background, "Choose", class: 'custom-file-label', for: "background"
+        .col-md-4
+          = f.label 'Whitepaper (English)'
+          .custom-file
+            = f.file_field :whitepaper_en, class: 'custom-file-input', id: "whitepaper", direct_upload: true
+            = f.label :whitepaper_en, "Choose", class: 'custom-file-label', for: "whitepaper"
+
+    .form-group
+      = f.label :page_content
+      = text_area_tag 'asset[page_content][][html]', @asset.page_content[0]['html'], id: 'redactor', class: 'redactor'
     = f.submit 'Save changes', class: 'btn btn-primary'
     = link_to 'Cancel', @asset
 

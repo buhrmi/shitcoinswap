@@ -30,10 +30,11 @@ class AssetsController < ApplicationController
     end
 
     template = File.open(Rails.root.join('template.sol.erb'), 'rb', &:read)
-    send_data ERB.new(template).result(binding), filename: @name.parameterize(separator: '_').camelcase + '.sol'  
+    send_data ERB.new(template).result(binding), filename: @name.gsub(/[^0-9A-Za-z]/, '') + '.sol'  
   end
 
   def edit
+    @no_cache = true
     @asset = Asset.find(params[:id])
     raise_not_found unless @asset.managable_by? current_user
   end
@@ -75,7 +76,7 @@ class AssetsController < ApplicationController
 
   private
   def update_params
-    params.require(:asset).permit(:description, :logo, :background)
+    params.require(:asset).permit(:description, :logo, :background, :whitepaper_en, page_content: [:html])
   end
 
   def asset_params

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_26_010650) do
+ActiveRecord::Schema.define(version: 2018_10_27_100051) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,6 +94,7 @@ ActiveRecord::Schema.define(version: 2018_10_26_010650) do
     t.string "website"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.json "page_content", default: []
     t.index ["address", "platform_id"], name: "index_assets_on_address_and_platform_id", unique: true
     t.index ["name"], name: "index_assets_on_name"
   end
@@ -170,6 +171,12 @@ ActiveRecord::Schema.define(version: 2018_10_26_010650) do
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
+  create_table "pictures", force: :cascade do |t|
+    t.integer "uploader_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "platforms", force: :cascade do |t|
     t.string "module"
     t.string "category", default: "token", comment: "Either \"native\" or \"tokens\""
@@ -204,6 +211,12 @@ ActiveRecord::Schema.define(version: 2018_10_26_010650) do
     t.index ["created_at"], name: "index_trades_on_created_at"
     t.index ["quote_asset_id"], name: "index_trades_on_quote_asset_id"
     t.index ["seller_id"], name: "index_trades_on_seller_id"
+  end
+
+  create_table "uploads", force: :cascade do |t|
+    t.integer "uploader_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

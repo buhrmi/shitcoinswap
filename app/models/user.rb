@@ -11,6 +11,7 @@ class User < ApplicationRecord
   has_many :authorization_codes
   has_many :orders
   has_many :cached_balances
+  has_many :pictures, foreign_key: 'uploader_id'
 
   def create_access_token!
     AccessToken.create!(user: self)

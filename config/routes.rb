@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :pictures
   namespace :admin do
     resources :balance_adjustments
     resources :platforms
