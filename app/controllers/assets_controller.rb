@@ -54,7 +54,7 @@ class AssetsController < ApplicationController
   def update
     @asset = Asset.find(params[:id])
     raise_not_found unless @asset.managable_by? current_user
-    
+
     @asset.update(update_params)
     redirect_to @asset, notice: 'Asset was successfully updated.'
   end
@@ -76,7 +76,7 @@ class AssetsController < ApplicationController
 
   private
   def update_params
-    params.require(:asset).permit(:description, :logo, :background, :whitepaper_en, page_content: [:html])
+    params.require(:asset).permit(:description, :website, :logo, :background, :whitepaper_en, page_content: [:html])
   end
 
   def asset_params
