@@ -5,7 +5,6 @@
       .name= @asset.name
       %hr
       .description= @asset.description
-      %p Total supply: #{ @asset.total_supply } #{ @asset.symbol }
       %p Platform: #{ @asset.platform.name }
       %p Explore: #{ link_to @asset.address, @asset.explorer_url }
     .buttons
@@ -14,13 +13,26 @@
       - else
         .btn.btn-primary.btn-lg Whitepaper coming soon
       = link_to (t '.buy_now'), '#', class: 'btn btn-primary btn-lg'
-.container.asset_page_content
-  - if @asset.page_content
-    - for content in @asset.page_content
-      .page_content.pt-5.pb-5
-        = raw content['html']
-  - else
-    .page_content.pt-5.pb-5= t '.no_info_available'
+.container.pt-5.pb-5
+  .row
+    .col-4.text-center
+      .asset-stat-header Total Supply
+      .asset-stat #{ number_with_delimiter @asset.total_supply } #{ @asset.symbol }
+    .col-4.text-center
+      .asset-stat-header 24h Volume
+      .asset-stat= number_with_delimiter @asset.volume24h
+    .col-4.text-center
+      .asset-stat-header Current Price
+      .asset-stat N/A
+
+.page_content
+  .container
+    - if @asset.page_content
+      - for content in @asset.page_content      
+        .pt-5.pb-5
+          = raw content['html']
+    - else
+      .pt-5.pb-5= t '.no_info_available'
 .container
   - if @asset.managable_by?(current_user)
     = link_to (t '.edit'), edit_asset_path(@asset), class: 'btn btn-primary'

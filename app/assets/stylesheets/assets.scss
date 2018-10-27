@@ -66,8 +66,14 @@
     }
   }
 }
-.page_content {
-  img {
-    max-width: 100%;
-  }
+
+
+.asset-stat-header {
+  text-transform: uppercase;
+  font-size: 15px;
+  color: #999;
+}
+
+.asset-stat {
+  font-size: 26px;
 }

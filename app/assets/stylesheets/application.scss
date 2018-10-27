@@ -2,12 +2,9 @@
 @import "bootstrap";
 @import "*";
 
-html {
-  font-size: 14px;
-}
-
 body {
   font-family: Noto Sans Japanese,Lucida Grande,Tahoma,Verdana,sans-serif;
+  font-size: 16px;
 }
 
 @media (min-width: 768px) {
@@ -26,4 +23,17 @@ body {
 
 .card-deck .card {
   min-width: 220px;
+}
+
+.page_content {
+  background: #f9f9f9;
+  font-weight: 200;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  img {
+    max-width: 100%;
+  }
+  td {
+    border: 1px solid #eee;
+  }
 }

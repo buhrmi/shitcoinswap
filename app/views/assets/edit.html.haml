@@ -27,7 +27,7 @@
             = f.file_field :whitepaper_en, class: 'custom-file-input', id: "whitepaper", direct_upload: true
             = f.label :whitepaper_en, "Choose", class: 'custom-file-label', for: "whitepaper"
 
-    .form-group
+    .form-group.page_content
       = f.label :page_content
       = text_area_tag 'asset[page_content][][html]', @asset.page_content.try(:[], 0).try(:[], 'html'), id: 'redactor', class: 'redactor'
     = f.submit 'Save changes', class: 'btn btn-primary'

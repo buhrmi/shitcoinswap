@@ -1,7 +1,7 @@
 class Asset < ApplicationRecord
   translates :description
   translates :page_content
-  
+
   belongs_to :platform
   has_many :balance_adjustments
   belongs_to :submitter, class_name: 'User', optional: true
@@ -92,6 +92,10 @@ class Asset < ApplicationRecord
   
   def symbol
     platform_data['symbol']
+  end
+
+  def volume24h
+    0
   end
 
   def unit
