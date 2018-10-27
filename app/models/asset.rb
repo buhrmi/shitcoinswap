@@ -43,7 +43,7 @@ class Asset < ApplicationRecord
   def sanitize_page
     return unless page_content
     for content in page_content
-      content['html'] = Sanitize.fragment(content['html'], Sanitize::Config::RELAXED)
+      content['html'] = Sanitize.fragment(content['html'], Sanitize::Config::WHITELISTED)
     end
   end
   # This is the fee that the user has to pay in the currency that he is transferring. not neccesarily native currency
