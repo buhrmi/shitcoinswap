@@ -102,7 +102,7 @@ class Asset < ApplicationRecord
   end
 
   def volume24h
-    0
+    Trade.where(base_asset: self).where('created_at > ?', 24.hours.ago).sum('amount * rate')
   end
 
   def unit

@@ -232,16 +232,19 @@ module PlatformIntegrations::ETH
     name = hydra_eth_call(asset.address, 'name()')
     decimals = hydra_eth_call(asset.address, 'decimals()')
     total_supply = hydra_eth_call(asset.address, 'totalSupply()')
+    cap = hydra_eth_call(asset.address, 'cap()')
     hydra.queue(symbol)
     hydra.queue(name)
     hydra.queue(decimals)
     hydra.queue(total_supply)
+    hydra.queue(cap)
     hydra.run
     platform_data = {
       symbol: eth_result_to_string(JSON.parse(symbol.response.body)['result']),
       name: eth_result_to_string(JSON.parse(name.response.body)['result']),
       decimals: eth_result_to_number(JSON.parse(decimals.response.body)['result']),
-      total_supply: eth_result_to_number(JSON.parse(total_supply.response.body)['result'])
+      total_supply: eth_result_to_number(JSON.parse(total_supply.response.body)['result']),
+      cap: eth_result_to_number(JSON.parse(cap.response.body)['result']),
     }
     asset.platform_data = platform_data
     asset.name = platform_data[:name]

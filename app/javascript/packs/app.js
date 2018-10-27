@@ -13,6 +13,7 @@ import router from '../src/routes.js'
 import App from '../src/components/app'
 
 import TurbolinksAdapter from 'vue-turbolinks';
+
 Vue.use(TurbolinksAdapter)
 
 document.addEventListener('turbolinks:load', () => {

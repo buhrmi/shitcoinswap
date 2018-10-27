@@ -20,9 +20,9 @@
       .asset-stat #{ number_with_delimiter @asset.total_supply } #{ @asset.symbol }
     .col-4.text-center
       .asset-stat-header 24h Volume
-      .asset-stat= number_with_delimiter @asset.volume24h
+      .asset-stat #{ number_with_delimiter @asset.volume24h } ETH
     .col-4.text-center
-      .asset-stat-header Current Price
+      .asset-stat-header List Price
       .asset-stat N/A
 
 .page_content

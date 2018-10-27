@@ -139,9 +139,11 @@ en:
   pages:
     welcome:
       welcome_to: "Welcome to NewArt Technology"
-      introducing: "The world's #1 self-regulating cross-platform token exchange and distribution center."
-      submit: "submit existing token"
-      create_token_1_html: "<a href=\"/token_studio\" class=\"btn btn-lg btn-outline-primary\">Create Token</a>\n  \n    or %{link_to_submit}"
+      24hvolume: "In the last 24 hours, we have moved %{amount} worth of assets for our partners."
+      submit_existing: "submit existing token"
+      sounds_good: Become our partner!
+      create_token: Create Token
+      or: or
       featured: "Featured Assets"
       view_details: "View details »"
       browse_all: "Browse all assets"

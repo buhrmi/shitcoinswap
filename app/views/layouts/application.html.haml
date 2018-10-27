@@ -9,8 +9,6 @@
       %meta(name="turbolinks-cache-control" content="no-cache")
     = csrf_meta_tags
     = csp_meta_tag
-    = stylesheet_link_tag    'application', media: 'all'
-    = javascript_include_tag 'application', integrity: true
     = javascript_tag do
       __INITIAL_STATE__= {
       assets: #{raw Asset.all.to_json(only: [:id, :name], methods: [:symbol, :explorer_url])},
@@ -20,6 +18,9 @@
         balances: #{raw current_user.cached_balances_json}
       }
     = javascript_pack_tag 'app', integrity: true
+    = javascript_include_tag 'application', integrity: true
+    
+    = stylesheet_link_tag    'application', media: 'all'
   %body{class: params[:controller]}
     - if current_user.try(:admin?)
       %nav.navbar.navbar-dark.bg-dark.fixed-bottom.navbar-expand-lg
