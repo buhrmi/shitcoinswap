@@ -592,7 +592,7 @@ contract CappedToken is MintableToken {
   }
 }
 
-contract <%= @name.parameterize(separator: '_').camelcase %> is <%= @parents.join(', ') %> {
+contract <%= @name.gsub(/[^0-9A-Za-z]/, '') %> is <%= @parents.join(', ') %> {
   string public name = "<%= @name %>";
   string public symbol = "<%= @symbol %>";
   uint8 public decimals = <%= @decimals %>;
