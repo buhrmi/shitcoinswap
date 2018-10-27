@@ -11,6 +11,7 @@ class Asset < ApplicationRecord
   validates_uniqueness_of :address, case_sensitive: false, allow_nil: true
   
   before_validation :fetch_platform_data
+  before_save :sanitize_page
 
   has_one_attached :logo
   has_one_attached :background
@@ -39,6 +40,12 @@ class Asset < ApplicationRecord
     end
   end
 
+  def sanitize_page
+    return unless page_content
+    for content in page_content
+      content['html'] = Sanitize.fragment(content['html'], Sanitize::Config::RELAXED)
+    end
+  end
   # This is the fee that the user has to pay in the currency that he is transferring. not neccesarily native currency
   def user_transfer_fee
     if platform

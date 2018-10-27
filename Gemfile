@@ -27,6 +27,9 @@ gem 'uglifier', '>= 1.3.0'
 gem 'webpacker', '>= 4.0.x'
 gem 'turbolinks'
 
+# Sanitize HTML input
+gem 'sanitize'
+
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'mini_racer', platforms: :ruby
 

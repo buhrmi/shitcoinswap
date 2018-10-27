@@ -1,9 +1,11 @@
-.container
-  .py-3.pt-md-5.pb-md-4.mx-auto.text-center
-    %h1.display-4= t '.welcome_to'
-    %p.lead= t '.introducing'
-    = t '.create_token_1_html', :link_to_submit => (link_to (t '.submit'), new_asset_path)
-  .py-3.pt-md-5.pb-md-4.mx-auto
+%section.hero
+  .container
+    .text-center
+      %h1.display-4= t '.welcome_to'
+      %p.lead= t '.introducing'
+      = t '.create_token_1_html', :link_to_submit => (link_to (t '.submit'), new_asset_path)
+%section.featured
+  .container.py-3.pt-md-5.pb-md-4.mx-auto
     %h1.display-4.text-center= t '.featured'
     .card-deck.mb-5
       - for asset in @featured_assets
