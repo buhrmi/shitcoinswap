@@ -1,19 +1,23 @@
 .container
-  %h1= t '.contact_1'
-  %p= t '.feel_free_to'
-  %table.table
-    %tr
-      %td= t '.address'
-      %td
-        〒102-0084
-        %br>/
-        千代田区二番町3-10-3#{t '.f'}
-        %br/
-        %a{:href => "https://www.google.com/maps/search/〒102-0084+千代田区二番町3-10", :target => "_blank"}= t '.google_maps'
-    %tr
-      %td= t '.phone'
-      %td 03-6825-6305
-    %tr
-      %td= t '.fax'
-      %td 03-6261-0389
-    
+  %h1.mt-5= t '.contact_1'
+  .card
+    .card-body
+      %table.table
+        %tr
+          %td Company name
+          %td NewArt Technology Co., Ltd.
+        %tr
+          %td= t '.address'
+          %td
+            〒102-0084
+            %br>/
+            千代田区二番町3-10-3#{t '.f'}
+            %br/
+            %a{:href => "https://www.google.com/maps/search/〒102-0084+千代田区二番町3-10", :target => "_blank"}= t '.google_maps'
+        %tr
+          %td= t '.phone'
+          %td +81 (0)3-6825-6305<br>Mo-Fr 10:00 - 19:00 JST
+        %tr
+          %td= t '.fax'
+          %td +81 (0)3-6261-0389
+        
