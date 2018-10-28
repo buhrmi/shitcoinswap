@@ -18,16 +18,16 @@
     = csp_meta_tag
     = javascript_tag do
       __INITIAL_STATE__= {
-      assets: #{raw Asset.all.to_json(only: [:id, :name], methods: [:symbol, :explorer_url])},
       platforms: #{raw Platform.all.to_json(only: [:id], methods: [:name])},
       authenticity_token: #{raw form_authenticity_token.to_json},
       - if current_user
         balances: #{raw current_user.cached_balances_json}
       }
-    = javascript_pack_tag 'app', integrity: true
+    = javascript_include_tag "https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"
     = javascript_include_tag 'application', integrity: true
-
     = stylesheet_link_tag    'application', media: 'all'
+    = content_for :head
+    
   %body{class: params[:controller]}
     - if current_user.try(:admin?)
       %nav.navbar.navbar-dark.bg-dark.fixed-bottom.navbar-expand-lg
@@ -39,7 +39,7 @@
       = link_to image_tag('logo_name.png', height: 19), root_path, class: 'navbar-brand mr-auto'
       - if current_user
         .nav-item= "Logged in as #{current_user.email}"
-        .nav-item= link_to 'My Balances', '/balances', class: 'p-2 text-dark'
+        .nav-item= link_to 'My Balances', '/cached_balances', class: 'p-2 text-dark'
         .nav-item= link_to 'Account History', '/balance_adjustments', class: 'p-2 text-dark'
         .nav-item= link_to 'Log Out', logout_path, method: :delete, class: 'p-2 text-dark'
       - else
@@ -69,30 +69,3 @@
             = t '.deposits', :status_first => (Status.first.last_deposits_ran_at > 2.minutes.ago ? 'OK' : 'Stopped')
             = t '.withdrawals_1', :status_first => (Status.first.last_withdrawals_ran_at > 2.minutes.ago ? 'OK' : 'Stopped')
 
-// XXX: move code into a bundled javascipt file
-= javascript_include_tag '/redactor/redactor.min.js'
-= javascript_include_tag '/redactor/_plugins/alignment/alignment.min.js'
-= javascript_include_tag '/redactor/_plugins/imagemanager/imagemanager.min.js'
-= javascript_include_tag '/redactor/_plugins/table/table.min.js'
-= javascript_include_tag '/redactor/_plugins/video/video.min.js'
-= stylesheet_link_tag '/redactor/redactor.min.css'
-:javascript
-  document.addEventListener("turbolinks:load", function() {
-    var csrf_token = $('meta[name=csrf-token]').attr('content');
-    var csrf_param = $('meta[name=csrf-param]').attr('content');
-    var params = {};
-    if (csrf_param !== undefined && csrf_token !== undefined) {
-        params[csrf_param] = csrf_token;
-    }
-    $R('.redactor', {
-      styles: false,
-      plugins: ['alignment', 'video', 'imagemanager', 'table'],
-      imageResizable: true,
-      imagePosition: true,
-      imageManagerJson: '/pictures',
-      imageUpload: '/pictures',
-      imageData: params,
-      clipboardUploadUrl: '/pictures',
-      clipboardData: params
-    })
-  })

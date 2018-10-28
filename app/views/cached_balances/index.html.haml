@@ -1,0 +1,21 @@
+.container
+  %h1.mt-5 My Balances
+  .card
+    %table.table.table-hover
+      %tbody
+        %tr
+          %th Asset
+          %th Total
+          %th Available
+          %th
+        - for balance in @cached_balances
+          %tr
+            %td= balance.asset.name
+            %td= balance.total
+            %td= balance.available
+            %td
+              = link_to 'Withdraw', new_withdrawal_path(withdrawal: {asset_id: balance.asset.id})
+              |  | 
+              = link_to 'Deposit', new_deposit_path(asset_id: balance.asset.id)
+              |  |
+              = link_to 'History', balance_adjustments_path(asset_id: balance.asset.id)

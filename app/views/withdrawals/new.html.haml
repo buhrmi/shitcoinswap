@@ -1,3 +1,6 @@
-%h1= t '.new_withdrawal_1'
-= render 'form', withdrawal: @withdrawal
-= link_to (t '.back_3'), withdrawals_path
+.container
+  %h1.mt-5= t '.new_withdrawal_1'
+  .card
+    .card-body
+      = render 'form', withdrawal: @withdrawal
+      = link_to (t '.back_3'), withdrawals_path

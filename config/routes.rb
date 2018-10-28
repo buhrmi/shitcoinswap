@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :withdrawals
   resources :deposits
   resources :balance_adjustments
+  resources :cached_balances
   resources :authorization_codes
   resources :pages
   resources :airdrops
@@ -23,11 +24,4 @@ Rails.application.routes.draw do
   delete '/logout' => 'access_tokens#destroy'
   
   root to: 'pages#welcome'
-  
-  # Vue app
-  get '*path' => 'pages#app', constraints: lambda { |req|
-    # Workaround for open rails issue
-    # https://github.com/rails/rails/issues/31228#issuecomment-352900551
-    req.path.exclude? 'rails/active_storage'
-  }
 end

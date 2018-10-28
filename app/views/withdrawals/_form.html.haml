@@ -1,18 +1,30 @@
-= form_with(model: withdrawal, local: true) do |form|
+= form_for(withdrawal) do |form|
   - if withdrawal.errors.any?
     #error_explanation
       %h2= t '.prohibited_1', :withdrawal => (pluralize(withdrawal.errors.count, "error") )
       %ul
         - withdrawal.errors.full_messages.each do |message|
           %li= message
-  .field
-    = form.label :asset_id
-    = form.select :asset_id, Asset.all.map { |asset| [asset.symbol, asset.id] }
-  .field
-    = form.label :receiver_address
-    = form.text_field :receiver_address
-  .field
-    = form.label :amount
-    = form.text_field :amount
-  .actions
-    = form.submit
+  .row.form-group
+    = form.label :asset_id, class: 'col-sm-2 col-form-label'
+    .col-sm-10
+      = link_to withdrawal.asset.name, withdrawal.asset, class: 'form-control'
+  .row.form-group
+    = form.label :receiver_address, class: 'col-sm-2 col-form-label'
+    .col-sm-10
+      = form.text_field :receiver_address, class: 'form-control'
+  .row.form-group
+    = form.label :amount, class: 'col-sm-2 col-form-label'
+    .col-sm-10
+      = form.text_field :amount, class: 'form-control'
+      %small.form-text.text-muted Max: {{ max }} #{withdrawal.asset.symbol}, Fees: #{withdrawal.asset.user_transfer_fee} #{withdrawal.asset.platform.native_symbol}
+  .row
+    .col-sm-2
+    .col-sm-10
+      = form.submit class: 'btn btn-primary'
+
+:coffeescript
+  new Vue
+    el: '#new_withdrawal'
+    data: ->
+      max: #{current_user.available_balance(withdrawal.asset)}
