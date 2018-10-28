@@ -15,16 +15,24 @@ module PlatformIntegrations::ETH
   end
 
   def balance_of(asset, address)
-    signature = Eth::Utils.bin_to_hex(Eth::Utils.keccak256('balanceOf(address)')).first(8)
-    data = '0x' + signature + hex_to_param(address)
-    params = [
-      {
-        to: asset.address,
-        data: data
-      },
-      'latest'
-    ]
-    eth_result_to_number(jsonrpc('eth_call', params)['result'])
+    if asset.native? # Get balance of native ETH
+      params = [
+        address,
+        'latest'
+      ]
+      eth_result_to_number(jsonrpc('eth_getBalance', params)['result'])
+    else # Get balance of token
+      signature = Eth::Utils.bin_to_hex(Eth::Utils.keccak256('balanceOf(address)')).first(8)
+      data = '0x' + signature + hex_to_param(address)
+      params = [
+        {
+          to: asset.address,
+          data: data
+        },
+        'latest'
+      ]
+      eth_result_to_number(jsonrpc('eth_call', params)['result']) || 0
+    end
   end
 
   def fetch_new_transfers from_block, to_block

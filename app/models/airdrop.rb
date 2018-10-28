@@ -12,7 +12,7 @@ class Airdrop < ApplicationRecord
       errors.add(:amounts, "email #{r[0]} is invalid") unless r[0].match URI::MailTo::EMAIL_REGEXP
       total_amount +=r [1].to_f
     end
-    # errors.add(:amounts, "total can't be more than #{available}") if total_amount > available
+    errors.add(:amounts, "total can't be more than #{available}") if total_amount > available
   end
 
   def recipients

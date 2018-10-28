@@ -1,10 +1,24 @@
 Hello,
 
+
 you have received an airdrop into your #{t 'app_name'} account:
+
 
 Asset: #{@adjustment.asset.name} (#{@adjustment.asset.symbol})
 Amount: #{@adjustment.amount}
 
-Please vist #{login_url} to access your funds.
+
+To access your account balance and history, please visit the following the URL:
+#{balance_adjustments_url(asset_id: @adjustment.asset.id)}
+
 
 Thank you for using #{t 'app_name'}.
+
+
+Please let us know if you think you received this email in error.
+
+
+Regards,
+
+NewArt Technology Co., Ltd.
+https://www.newart.tech

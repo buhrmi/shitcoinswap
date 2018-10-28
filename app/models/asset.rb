@@ -68,7 +68,7 @@ class Asset < ApplicationRecord
   end
 
   def in_wallet
-    platform.balance_of self, platform.wallet_address
+    platform.balance_of(self, platform.wallet_address).to_f / unit
   end
 
   def sum_balances
