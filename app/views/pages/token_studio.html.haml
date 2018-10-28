@@ -63,25 +63,25 @@
               .input-group-append
                 .input-group-text UTC (GMT+0)
         .row.form-group(v-for="(phase, index) in newAsset.phases" v-if="newAsset.crowdsale && newAsset.mintable")
-          .col-sm-2
-            Phase {{ index + 1 }}
-            %a(:click="newAsset.phases.splice(index, 1)") Remove phase
+          .col-sm-2.col-form-label
+            .close(v-on:click="newAsset.phases.splice(index, 1)") &times;
+            .text-muted Phase {{ index + 1 }}
           .col-sm-10
             .input-group.mb-3
               .input-group-prepend
                 .input-group-text Bonus:
-              %input.form-control(:name="`phases[]bonus`" v-model="phase.bonus")
+              %input.form-control(name="phases[]bonus" v-model="phase.bonus")
               .input-group-append
                 .input-group-text %
             .input-group
               .input-group-prepend
                 .input-group-text End Date:
-              %input.form-control(:name="`phases[]end`" type="datetime-local" v-model="phase.end")
+              %input.form-control(name="phases[]end" type="datetime-local" v-model="phase.end")
         .row.form-group(v-if="newAsset.crowdsale && newAsset.mintable")
           %label.col-sm-2.col-form-label
           .col-sm-10
             %label
-              .btn-sm(:click="addphase") Add Bonus Phase
+              .btn.btn-sm.btn-outline-secondary(v-on:click="addphase") Add Bonus Phase
         .row.form-group(v-if="newAsset.crowdsale && newAsset.mintable")
           %label.col-sm-2.col-form-label End Date
           .col-sm-10
@@ -132,10 +132,10 @@
         address: ''
         platform_id: 1
         crowdsale: false
-        start_date: new Date()
-        end_date: new Date()
+        start_date: new Date().toISOString().replace('Z','')
+        end_date: new Date().toISOString().replace('Z','')
         price: 1
         phases: []
     methods:
       addphase: ->
-        this.newAsset.phases.push bonus: 0, start: new Date()
+        this.newAsset.phases.push bonus: 0, end: new Date().toISOString().replace('Z','')
