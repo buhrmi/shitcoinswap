@@ -4,7 +4,7 @@ class BalanceAdjustmentsController < ApplicationController
   # GET /balance_adjustments
   # GET /balance_adjustments.json
   def index
-    @balance_adjustments = current_user.balance_adjustments
+    @balance_adjustments = current_user.balance_adjustments.page params[:page]
     @balance_adjustments = @balance_adjustments.where(asset: params[:asset_id]) if params[:asset_id]
   end
 

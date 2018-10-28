@@ -21,6 +21,9 @@ gem 'haml-rails'
 gem 'globalize', git: 'https://github.com/globalize/globalize'
 gem 'activemodel-serializers-xml'
 
+gem 'kaminari'
+gem 'bootstrap4-kaminari-views'
+
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker

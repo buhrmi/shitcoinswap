@@ -3,6 +3,10 @@ class BalanceAdjustment < ApplicationRecord
   belongs_to :asset
   belongs_to :change, polymorphic: true
 
+  default_scope do
+    order('created_at desc')
+  end
+
   validate do
     if amount < 0 && user.available_balance(asset) + amount < 0
       errors.add(:amount, "would make balance negative")

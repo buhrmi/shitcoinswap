@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_access_token
-    @current_access_token ||= AccessToken.joins(:user).find_by(token: cookies[:access_token])
+    @current_access_token ||= AccessToken.joins(:user).lock.find_by(token: cookies[:access_token])
   end
 
   # authroize method redirects user to login page if not logged in:
@@ -26,6 +26,13 @@ class ApplicationController < ActionController::Base
       cookies[:continue_to] = request.path
       redirect_to login_path, alert: 'You must be logged in to access this page.'
     end
+  end
+
+  def transaction	
+    return yield if ['GET', 'OPTIONS'].include?(request.method)
+    ActiveRecord::Base.transaction do	
+      yield	
+    end	
   end
 
   def require_admin

@@ -1,18 +1,25 @@
-%p#notice= notice
-%h1= t '.account_1'
-%table
-  %thead
-    %tr
-      %th= t '.asset_4'
-      %th= t '.change_type_1'
-      %th= t '.memo_1'
-      %th= t '.amount_3'
-      %th{:colspan => "3"}
-  %tbody
-    - @balance_adjustments.each do |balance_adjustment|
-      %tr
-        %td= balance_adjustment.asset_id
-        %td= balance_adjustment.change_type
-        %td= balance_adjustment.memo
-        %td= balance_adjustment.amount
-        %td= link_to (t '.check'), balance_adjustment.transaction_url, target: '_blank' if balance_adjustment.transaction_url
+.container
+  %h1.mt-5 Account History
+  %p All your balance adjustments
+  = paginate @balance_adjustments, theme: 'twitter-bootstrap-4'
+  .card
+    .card-body
+      %table.table
+        %thead
+          %tr
+            %th Date
+            %th= t '.asset_4'
+            %th= t '.change_type_1'
+            %th= t '.memo_1'
+            %th= t '.amount_3'
+            %th{:colspan => "3"}
+        %tbody
+          - @balance_adjustments.each do |balance_adjustment|
+            %tr
+              %td= balance_adjustment.created_at
+              %td= link_to(balance_adjustment.asset.name, balance_adjustment.asset)
+              %td= link_to(balance_adjustment.change_type, balance_adjustment.change)
+              %td= balance_adjustment.memo
+              %td= balance_adjustment.amount
+              %td= link_to (t '.check'), balance_adjustment.transaction_url, target: '_blank' if balance_adjustment.transaction_url
+  = paginate @balance_adjustments, theme: 'twitter-bootstrap-4'
