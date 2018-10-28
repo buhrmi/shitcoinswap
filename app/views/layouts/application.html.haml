@@ -23,7 +23,10 @@
       - if current_user
         balances: #{raw current_user.cached_balances_json}
       }
-    = javascript_include_tag "https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"
+    - if Rails.env.production?
+      = javascript_include_tag "https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.min.js", integrity: 'sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc='
+    - else
+      = javascript_include_tag "https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"
     = javascript_include_tag 'application', integrity: true
     = stylesheet_link_tag    'application', media: 'all'
     = content_for :head
