@@ -39,9 +39,8 @@
       = link_to image_tag('logo_name.png', height: 19), root_path, class: 'navbar-brand mr-auto'
       - if current_user
         .nav-item= "Logged in as #{current_user.email}"
-        .nav-item= link_to 'My Balances', '/cached_balances', class: 'p-2 text-dark'
-        .nav-item= link_to 'Account History', '/balance_adjustments', class: 'p-2 text-dark'
-        .nav-item= link_to 'Log Out', logout_path, method: :delete, class: 'p-2 text-dark'
+        .nav-item= link_to 'My Balances', '/cached_balances', class: 'nav-link'
+        .nav-item= link_to 'Log Out', logout_path, method: :delete, class: 'nav-link'
       - else
         / not logged in
         .nav-item= link_to (t '.log_in'), login_path

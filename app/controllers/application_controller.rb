@@ -17,13 +17,13 @@ class ApplicationController < ActionController::Base
   end
 
   def current_access_token
-    @current_access_token ||= AccessToken.joins(:user).lock.find_by(token: cookies[:access_token])
+    @current_access_token ||= AccessToken.active.joins(:user).lock.find_by(token: cookies[:access_token])
   end
 
   # authroize method redirects user to login page if not logged in:
   def require_user
     if current_user.nil?
-      cookies[:continue_to] = request.path
+      cookies[:continue_to] = request.fullpath
       redirect_to login_path, alert: 'You must be logged in to access this page.'
     end
   end
@@ -87,7 +87,7 @@ class ApplicationController < ActionController::Base
     end
 
     access_token = @authorization_code.trade_for_token!
-    cookies[:access_token] = {value: access_token.token, http_only: true}
-    redirect_to root_path, notice: "Logged in!"
+    cookies[:access_token] = {value: access_token.token, http_only: true, secure: Rails.env.production?}
+    redirect_to cookies.delete(:continue_to) || root_path, notice: "Logged in!"
   end
 end

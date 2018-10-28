@@ -4,4 +4,8 @@ class AccessToken < ApplicationRecord
   before_create do
     self.token = SecureRandom.hex(32)
   end
+
+  def self.active
+    where(logged_out_at: nil)
+  end
 end

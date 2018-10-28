@@ -1,6 +1,6 @@
 .container
-  %h1.mt-5 Account History
-  %p All your balance adjustments
+  %h1.mt-5 Balance History
+  %p Displaying your balance history for #{@asset.name} (#{@asset.symbol})
   = paginate @balance_adjustments, theme: 'twitter-bootstrap-4'
   .card
     .card-body
