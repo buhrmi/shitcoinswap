@@ -2,7 +2,8 @@
   .container
     .text-center
       %h1.display-4= t '.welcome_to'
-      %p.lead= t '.24hvolume', amount: Trade.volume(Asset.eth, 24.hours).to_s + ' ETH'
+      -# %p.lead= t '.24hvolume', amount: Trade.volume(Asset.eth, 24.hours).to_s + ' ETH'
+      %p.lead= t '.24hvolume', amount: Trade.volume(Asset.rinkeby, 24.hours).to_s + ' ETH(rinkeby)'
       %p #{ t('.sounds_good') } #{ link_to t('.create_token'), '/pages/token_studio', class: 'btn btn-lg btn-outline-primary' } or #{ link_to t('.submit_existing'), new_asset_path }
 %section.featured
   .container.py-3.pt-md-5.pb-md-4.mx-auto

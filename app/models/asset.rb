@@ -27,6 +27,10 @@ class Asset < ApplicationRecord
     find_by(native_symbol: 'ETH')
   end
 
+  def self.rinkeby
+    find_by(native_symbol: 'ETH(rinkeby)')
+  end
+
   def self.quotable_ids
     where(native_symbol: ['ETH', 'JPY', 'ETH(rinkeby)']).pluck(:id)
   end
