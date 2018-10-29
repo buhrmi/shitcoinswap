@@ -21,8 +21,6 @@ class CreateAssets < ActiveRecord::Migration[5.2]
       t.string :brand_color
       t.string :website
 
-      t.json :page_content, default: []
-
       t.timestamps
 
       t.index [:address, :platform_id], unique: true

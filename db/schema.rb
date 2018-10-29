@@ -93,7 +93,6 @@ ActiveRecord::Schema.define(version: 2018_10_27_100051) do
     t.string "logo_name"
     t.string "brand_color"
     t.string "website"
-    t.json "page_content", default: []
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["address", "platform_id"], name: "index_assets_on_address_and_platform_id", unique: true
@@ -190,8 +189,8 @@ ActiveRecord::Schema.define(version: 2018_10_27_100051) do
   end
 
   create_table "statuses", force: :cascade do |t|
-    t.datetime "last_deposits_ran_at", default: "2018-10-27 11:41:09"
-    t.datetime "last_withdrawals_ran_at", default: "2018-10-27 11:41:09"
+    t.datetime "last_deposits_ran_at", default: "2018-10-29 03:45:34"
+    t.datetime "last_withdrawals_ran_at", default: "2018-10-29 03:45:34"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
