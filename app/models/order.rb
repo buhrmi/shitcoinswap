@@ -41,6 +41,10 @@ class Order < ActiveRecord::Base
   def self.open
     where(cancelled_at: nil, filled_at: nil)
   end
+
+  def self.closed
+    where('cancelled_at IS NOT NULL or filled_at IS NOT NULL')
+  end
   
   def self.base(asset)
     where(base_asset: asset)

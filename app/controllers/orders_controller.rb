@@ -1,8 +1,8 @@
 class OrdersController < ApplicationController
-  skip_before_action :require_user, only: [:index]
 
   def index
-    @orders = Order.open
+    @open_orders = current_user.orders.open
+    @past_orders = current_user.orders.closed
   end
 
   def new

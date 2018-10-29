@@ -1,5 +1,6 @@
 .container
   %h1.mt-5= t "Orders"
+  %h5 Open Orders
   .card
     .card-body
       %table.table
@@ -13,7 +14,7 @@
             %th= t '.filled'
             %th
         %tbody
-          - @orders.each do |order|
+          - @open_orders.each do |order|
             %tr
               %td= order.side
               %td= link_to order.base_asset.name, order.base_asset
@@ -25,3 +26,28 @@
                 \%
               %td
                 = link_to (t '.cancel'), order, method: 'delete'
+  %h5.mt-3 Past Orders
+  .card
+    .card-body
+      %table.table
+        %thead
+          %tr
+            %th Side
+            %th Asset
+            %th Market
+            %th= t '.quantity'
+            %th= t '.rate'
+            %th= t '.filled'
+            %th
+        %tbody
+          - @past_orders.each do |order|
+            %tr
+              %td= order.side
+              %td= link_to order.base_asset.name, order.base_asset
+              %td= order.quote_asset.name
+              %td= order.quantity
+              %td= order.market? ? 'any' : order.rate
+              %td
+                = order.percent_filled
+                \%
+              %td
