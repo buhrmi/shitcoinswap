@@ -26,7 +26,7 @@
     = form.label :total, class: 'col-sm-2 col-form-label'
     .col-sm-10
       .input-group
-        = form.text_field :total, class: 'form-control', 'v-model' => 'quantity'
+        = form.text_field :total, class: 'form-control', 'v-model' => 'total'
         .input-group-append
           .input-group-text #{ order.quote_asset.symbol }
   .row.form-group(v-else)
@@ -49,8 +49,9 @@
   new Vue
     el: '#new_order'
     data: ->
-      quantity: #{ order.quantity || current_user.available_balance(order.base_asset) }
-      side: '#{ order.side || current_user.available_balance(order.base_asset) > 0 ? 'sell' : 'buy' }'
+      quantity: #{ order.quantity.truth || current_user.available_balance(order.base_asset) }
+      total: #{ order.total.truth || current_user.available_balance(order.quote_asset) }
+      side: '#{ order.side || (current_user.available_balance(order.base_asset) > 0 ? 'sell' : 'buy') }'
       kind: '#{ order.kind || "market"}'
       rate: #{ order.rate || 1}
       STATE: STATE

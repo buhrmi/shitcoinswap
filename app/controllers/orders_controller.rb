@@ -43,6 +43,6 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(:base_asset_id, :quote_asset_id, :side, :kind, :quantity, :rate)
+    params.require(:order).permit(:base_asset_id, :quote_asset_id, :side, :kind, :quantity, :rate, :total)
   end
 end
