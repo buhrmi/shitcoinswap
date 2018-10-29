@@ -12,7 +12,7 @@
         = link_to (t '.whitepaper_en'), rails_blob_path(@asset.whitepaper_en, disposition: "attachment"), class: 'btn btn-primary btn-lg'
       - else
         .btn.btn-primary.btn-lg Whitepaper coming soon
-      = link_to t(current_user.available_balance(@asset) > 0 ? '.trade_now' : '.buy_now'), new_order_path(order: {base_asset_id: @asset.id}), class: 'btn btn-primary btn-lg'
+      = link_to t((current_user && current_user.available_balance(@asset) > 0) ? '.trade_now' : '.buy_now'), new_order_path(order: {base_asset_id: @asset.id}), class: 'btn btn-primary btn-lg'
 .bg-white
   .container.pt-5.pb-5
     .row
