@@ -1,4 +1,165 @@
 ja:
+  app_name: "NewArt Technology"
+  from_mail: "NewArt Technology <support@newart-tech.com>"
+  user_mailer:
+    deposit_email:
+      subject: "新しいデポジット: %{amount} %{asset_name}は預けられました"
+    withdrawal_submitted_email:
+      subject: "%{amount} %{asset_name} は引き出しされました。"
+    airdrop:
+      subject: "%{amount} %{asset_name} はあなたのアカウントに振込されました。"
+    authorization_code:
+      subject: "ログインするためのリンク"
+  admin:
+    platforms:
+      index:
+        admin: "アドミン ／ プラットフォーム"
+        platform: "プラットフォーム"
+        wallet: "ホットウォレット"
+        last_scanned: "最近スキャンしたブロック"
+    withdrawals:
+      index:
+        admin_1: "アドミン ／ 引き出す"
+        user: "ユーザ"
+        asset: "資産"
+        amount: "数量"
+        status: "状態"
+        transaction: "処理"
+        error: "エラー"
+    assets:
+      index:
+        admin_assets: "アドミン ／ 資産"
+        asset_1: "資産"
+        symbol: "シンボル"
+        user_s: "ユーザの残高"
+        check_hot: "ホットウォレットをチェックしてください"
+    balance_adjustments:
+      index:
+        balance: "残高調整"
+        asset_2: "資産"
+        user_1: "ユーザ"
+        change_type: "変更タイプ"
+        change: "変更する"
+        memo: "メモ"
+        amount_1: "数量"
+        show: "表示"
+        new_balance: "新残高調整"
+      show:
+        asset_3_html: "<strong>資産:</strong>\n  %{balance}"
+        user_2_html: "<strong>ユーザ:</strong>\n  %{balance}"
+        change_type_1_html: "<strong>変更タイプ:</strong>\n  %{balance}"
+        change_1_html: "<strong>変更:</strong>\n  %{balance}"
+        memo_1_html: "<strong>メモ:</strong>\n  %{balance}"
+        amount_2_html: "<strong>数量:</strong>\n  %{balance}"
+        back: "戻る"
+      form:
+        prohibited: "%{balance} 残高調整を保存できません:"
+      new:
+        new_balance_1: "新残高調整"
+        back_1: "戻る"
+  deposits:
+    new:
+      deposit: "デポジット %{asset_name}"
+      please_deposit: "%{asset_symbol}を%{address}に入金してください"
+  layouts:
+    application:
+      balance_1: "残高調整"
+      platforms: "プレットフォーム"
+      withdrawals: "取引"
+      assets: "資産"
+      english: "English"
+      japanese: "日本語"
+      my_balances: "残高"
+      account: "アカウント履歴"
+      log_out: "Log Out"
+      log_in: "Log In"
+      coypright_2018: "© 2018 NewArt Technology Co., Ltd."
+      company: "会社"
+      contact: "Contact"
+      resources: "リソース"
+      create_token: "トークン作成"
+      submit_token: "トークンを提出する"
+      status_1: "状態"
+      deposits: "デポジット: %{status_first}"
+      withdrawals_1: "え: %{status_first}"
+    mailer:
+      email_styles: "Email styles need to be inline */"
+  users:
+    new:
+      sign_up: "Sign Up"
+  withdrawals:
+    index:
+      my_withdrawals: "取引"
+      asset_3: "資産"
+      receiver: "振り込む先"
+      transaction_1: "処理"
+      created_at: "作成時"
+      amount_2: "数量"
+      status_2: "状態"
+      new_withdrawal: "新取引"
+    show:
+      asset_4_html: "<strong>資産:</strong>\n  %{withdrawal}"
+      user_2_html: "<strong>ユーザ:</strong>\n  %{withdrawal}"
+      receiver_1_html: "<strong>取引先:</strong>\n  %{withdrawal}"
+      transaction_2_html: "<strong>処理:</strong>\n  %{withdrawal}"
+      submitted_at_html: "<strong>提出時:</strong>\n  %{withdrawal}"
+      amount_3_html: "<strong>数量:</strong>\n  %{withdrawal}"
+      status_3_html: "<strong>状態:</strong>\n  %{withdrawal}"
+      tries_html: "<strong>トライ:</strong>\n  %{withdrawal}"
+      error_1_html: "<strong>エラー:</strong>\n  %{withdrawal}"
+      error_at_html: "<strong>エラー時:</strong>\n  %{withdrawal}"
+      signed_html: "<strong>Signed transaction:</strong>\n  %{withdrawal}"
+      back_2: "戻る"
+    form:
+      prohibited_1: "%{withdrawal} 取引は保存できません:"
+    new:
+      new_withdrawal_1: "新しい取引"
+      back_3: "戻る"
+  authorization_codes:
+    form:
+      prohibited_2: "%{authorization} この承認コードは保存できません:"
+    new:
+      please_enter: "メールアドレスを記入してください"
+      we_will_send: "プライベートリンクを送信します"
+  orders:
+    index:
+      otc_orders: "OTC 受注"
+      buying_asset: "資産を購入する"
+      selling_asset: "資産を販売する"
+      quantity: "数量"
+      rate: "レート"
+      filled: "Filled"
+      cancel: "キャンセル"
+      new_order: "新しい受注"
+    form:
+      prohibited_3: "%{order_errors} この受注は保存できません:"
+  assets:
+    show:
+      edit: "変更"
   pages:
     welcome:
       welcome_to: "NewArt Technologyへようこそ"
+      24hvolume: "最近２４時間以内、%{amount} の資産を私たちのパートナーに振込しました"
+      submit_existing: "存在のトークンを提出する"
+      sounds_good: パートナーになる！
+      create_token: トークン作成
+      or: or
+      featured: "Featured Assets"
+      view_details: "明細 »"
+      browse_all: "すべての資産"
+    contact:
+      contact_1: "Contact"
+      feel_free_to: "Feel free to call us at any time."
+      address: "アドレス"
+      f: "F"
+      google_maps: "Google Maps"
+      phone: "電話"
+      fax: "Fax"
+  balance_adjustments:
+    index:
+      account_1: "アカウント履歴"
+      asset_4: "資産"
+      change_type_1: "変更タイプ"
+      memo_1: "メモ"
+      amount_3: "数量"
+      check: "処理を確認する"
