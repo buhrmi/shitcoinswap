@@ -6,7 +6,7 @@ log/*
 !log/.keep
 tmp/*
 !tmp/.keep
-
+test/reports
 
 /db/*.sqlite3
 /db/*.sqlite3-journal
@@ -22,12 +22,6 @@ storage/*
 # TODO Comment out this rule if you are OK with secrets being uploaded to the repo
 config/initializers/secret_token.rb
 config/master.key
-
-# Ignore node_modules
-node_modules/*
-/yarn-error.log
-.yarn-integrity
-yarn-debug.log*
 
 # Only include if you have production secrets in this file, which is no longer a Rails default
 # config/secrets.yml
@@ -50,18 +44,14 @@ yarn-debug.log*
 /vendor/assets/bower_components
 *.bowerrc
 bower.json
+
 /public/assets
+
 # Ignore pow environment settings
 .powenv
 
 # Ignore Byebug command history file.
 .byebug_history
-
-
-
-# Ignore precompiled javascript packs
-/public/packs
-/public/packs-test
 
 
 # Ignore hotwallet keys
