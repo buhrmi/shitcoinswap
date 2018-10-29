@@ -52,7 +52,7 @@ class Order < ActiveRecord::Base
   
   
   def self.matching(order)
-    orders = Order.where(base_asset: order.base_asset, quote_asset: order.quote_asset)
+    orders = Order.lock.where(base_asset: order.base_asset, quote_asset: order.quote_asset)
     orders = orders.where(kind: order.matching_kinds)
     
     if order.sell?
@@ -137,14 +137,6 @@ class Order < ActiveRecord::Base
     else
       ['market', 'limit']
     end
-  end
-  
-  def buying_asset
-    self.buy? ? base_asset : base_asset
-  end
-
-  def selling_asset
-    self.sell? ? base_asset : quote_asset
   end
 
   def base_unit

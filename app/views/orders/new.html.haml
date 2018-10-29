@@ -1,1 +1,16 @@
-= render 'form', order: @order
+.container
+  %h1.mt-5 Buy/Sell #{ @order.base_asset.name }
+  #balance
+    %p Available #{ @order.base_asset.symbol }: {{ STATE.balances[base_asset_id] ? STATE.balances[base_asset_id].available : 0.0 }}
+    %p Available #{ @order.quote_asset.symbol }: {{ STATE.balances[quote_asset_id] ? STATE.balances[quote_asset_id].available : 0.0 }}
+  .card
+    .card-body
+      = render 'form', order: @order
+
+:coffeescript
+  new Vue
+    el: '#balance'
+    data: ->
+      STATE: STATE
+      base_asset_id: #{ @order.base_asset_id }
+      quote_asset_id: #{ @order.quote_asset_id.to_i }

@@ -6,15 +6,19 @@ class OrdersController < ApplicationController
   end
 
   def new
-    @order = Order.new
+    @order = Order.new(order_params)
+    @asset = @order.base_asset
+    @order.quote_asset ||= @asset.platform.native_asset
   end
 
   def create
     @order = Order.new(order_params)
+    @asset = @order.base_asset
     @order.user = current_user
 
     respond_to do |format|
       if @order.save
+        @order.process!
         format.html { redirect_to orders_path, notice: 'Order was successfully created.' }
         format.json { render :show, status: :created, location: @order }
       else

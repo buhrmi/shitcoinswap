@@ -1,25 +1,27 @@
-%h1= t '.otc_orders'
-%table
-  %thead
-    %tr
-      %th= t '.buying_asset'
-      %th= t '.selling_asset'
-      %th= t '.quantity'
-      %th= t '.rate'
-      %th= t '.filled'
-      %th
-  %tbody
-    - @orders.each do |order|
-      %tr
-        %td= order.buying_asset.name
-        %td= order.selling_asset.name
-        %td= order.quantity
-        %td= order.rate
-        %td
-          = order.percent_filled
-          \%
-        %td= order.user.display_name
-        %td
-          = link_to (t '.cancel'), order, method: 'delete'
-%br/
-= link_to (t '.new_order'), new_order_path
+.container
+  %h1.mt-5= t "Orders"
+  .card
+    .card-body
+      %table.table
+        %thead
+          %tr
+            %th Side
+            %th Asset
+            %th Market
+            %th= t '.quantity'
+            %th= t '.rate'
+            %th= t '.filled'
+            %th
+        %tbody
+          - @orders.each do |order|
+            %tr
+              %td= order.side
+              %td= link_to order.base_asset.name, order.base_asset
+              %td= order.quote_asset.name
+              %td= order.quantity
+              %td= order.market? ? 'any' : order.rate
+              %td
+                = order.percent_filled
+                \%
+              %td
+                = link_to (t '.cancel'), order, method: 'delete'

@@ -83,7 +83,7 @@ class OrderTest < ActiveSupport::TestCase
     assert_equal(bob_jpy_before   + 6 * 6.5, bob.available_balance(jpy))
   end
 
-  test "buy and sell market orders fill each other partially" do
+  test "sell limit and buy market orders fill each other partially" do
     alice_jpy_before = alice.available_balance(jpy)
     alice_eth_before = alice.available_balance(eth)
     bob_jpy_before = bob.available_balance(jpy)
@@ -106,6 +106,28 @@ class OrderTest < ActiveSupport::TestCase
     assert_equal(alice_eth_before -  7, alice.available_balance(eth))
     assert_equal(bob_eth_before   +  7, bob.available_balance(eth))
     assert_equal(bob_jpy_before   - 15, bob.available_balance(jpy))
+  end
+
+  test "buy limit and sell market orders fill each other" do
+    alice_jpy_before = alice.available_balance(jpy)
+    alice_eth_before = alice.available_balance(eth)
+    bob_jpy_before = bob.available_balance(jpy)
+    bob_eth_before = bob.available_balance(eth)
+
+    order1 = alice.orders.create!(side: 'buy', kind: 'limit', quantity: 3, rate: 2, base_asset: eth, quote_asset: jpy)
+    order2 = bob.orders.create!(side: 'sell', kind: 'market', quantity: 5, base_asset: eth, quote_asset: jpy)
+    
+    assert_equal(alice_jpy_before - 6,    alice.available_balance(jpy))
+    assert_equal(alice_eth_before, alice.available_balance(eth))
+    assert_equal(bob_eth_before - 5,        bob.available_balance(eth))
+    assert_equal(bob_jpy_before, bob.available_balance(jpy))
+
+    order1.process!
+
+    assert_equal(alice_jpy_before - 6, alice.available_balance(jpy))
+    assert_equal(alice_eth_before + 3, alice.available_balance(eth))
+    assert_equal(bob_eth_before - 5, bob.available_balance(eth))
+    assert_equal(bob_jpy_before  + 6, bob.available_balance(jpy))
   end
 
   def jpy

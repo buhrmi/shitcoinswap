@@ -12,19 +12,22 @@
         = link_to (t '.whitepaper_en'), rails_blob_path(@asset.whitepaper_en, disposition: "attachment"), class: 'btn btn-primary btn-lg'
       - else
         .btn.btn-primary.btn-lg Whitepaper coming soon
-      = link_to (t '.buy_now'), '#', class: 'btn btn-primary btn-lg'
+      = link_to (t '.buy_now'), new_order_path(order: {base_asset_id: @asset.id}), class: 'btn btn-primary btn-lg'
 .bg-white
   .container.pt-5.pb-5
     .row
-      .col-sm-4.text-center
+      .col-sm-3.text-center
         .asset-stat-header Total Supply
         .asset-stat #{ number_with_delimiter @asset.total_supply } #{ @asset.symbol }
-      .col-sm-4.text-center
+      .col-sm-3.text-center
         .asset-stat-header 24h Volume
-        .asset-stat #{ number_with_delimiter @asset.volume24h } ETH
-      .col-sm-4.text-center
-        .asset-stat-header List Price
-        .asset-stat N/A
+        .asset-stat #{ number_with_delimiter @asset.volume24h } #{ @asset.platform.native_asset.symbol }
+      .col-sm-3.text-center
+        .asset-stat-header Buy Price
+        .asset-stat #{ @asset.buy_price || 'N/A'} #{ @asset.platform.native_asset.symbol }
+      .col-sm-3.text-center
+        .asset-stat-header Sell Price
+        .asset-stat #{ @asset.sell_price || 'N/A'} #{ @asset.platform.native_asset.symbol }
 
 .page_content
   .container

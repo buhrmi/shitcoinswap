@@ -1,25 +1,45 @@
-= form_with(model: order, local: true) do |form|
+= form_for(order) do |form|
   - if order.errors.any?
     #error_explanation
       %h2= t '.prohibited_3', :order_errors => (pluralize(order.errors.count, "error") )
       %ul
         - order.errors.full_messages.each do |message|
           %li= message
-  = form.hidden_field :quote_asset_id, value: Asset.eth.id
-  .field
-    = form.label :side
-    = form.select :side, [['Buy', 'buy'], ['Sell', 'sell']]
-  .field
-    = form.label :quantity
-    = form.text_field :quantity
-  .field
-    = form.label :base_asset_id
-    = form.select :base_asset_id, Asset.all.map { |asset| [asset.symbol, asset.id] }
-  .field
-    = form.label :kind
-    = form.select :kind, [['Market', 'market'], ['Limit', 'limit']]
-  .field
-    = form.label :rate
-    = form.text_field :rate
-  .actions
-    = form.submit
+  = form.hidden_field :base_asset_id
+  = form.hidden_field :quote_asset_id
+  .row.form-group
+    = form.label :side, class: 'col-sm-2 col-form-label'
+    .col-sm-10
+      = form.select :side, [['Buy', 'buy'], ['Sell', 'sell']], {}, class: 'form-control', 'v-model' => 'side'
+  .row.form-group
+    = form.label :quantity, class: 'col-sm-2 col-form-label'
+    .col-sm-10
+      = form.text_field :quantity, class: 'form-control', 'v-model' => 'quantity'
+  .row.form-group
+    = form.label :kind, class: 'col-sm-2 col-form-label'
+    .col-sm-10
+      = form.select :kind, [['Market', 'market'], ['Limit', 'limit']], {}, class: 'form-control', 'v-model' => 'kind'
+  .row.form-group
+    = form.label :rate, class: 'col-sm-2 col-form-label'
+    .col-sm-10
+      = form.text_field :rate, class: 'form-control', 'v-model' => 'rate', ':disabled' => 'kind == "market"'
+  .row.form-group
+    .col-sm-2
+    .col-sm-10
+      = form.submit class: 'btn btn-primary', ':disabled' => '!valid'
+
+:coffeescript
+  new Vue
+    el: '#new_order'
+    data: ->
+      quantity: #{ order.quantity || current_user.available_balance(order.base_asset) }
+      side: '#{ order.side || current_user.available_balance(order.base_asset) > 0 ? 'sell' : 'buy' }'
+      kind: '#{ order.kind || "market"}'
+      rate: #{ order.rate || 1}
+      STATE: STATE
+      base_asset_id: #{ @order.base_asset_id }
+      quote_asset_id: #{ @order.quote_asset_id.to_i }
+    computed:
+      valid: ->
+        true
+      

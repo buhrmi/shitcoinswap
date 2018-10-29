@@ -16,17 +16,23 @@
       %meta(name="turbolinks-cache-control" content="no-cache")
     = csrf_meta_tags
     = csp_meta_tag
-    = javascript_tag do
-      __INITIAL_STATE__= {
-      platforms: #{raw Platform.all.to_json(only: [:id], methods: [:name])},
-      authenticity_token: #{raw form_authenticity_token.to_json},
-      - if current_user
-        balances: #{raw current_user.cached_balances_json}
-      }
     - if Rails.env.production?
       = javascript_include_tag "https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.min.js", integrity: 'sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=', crossorigin: 'anonymous'
+      = javascript_include_tag "https://cdn.jsdelivr.net/npm/puex@0.5.2/dist/puex.min.js", integrity: 'sha256-YNGT3dujkbzyCKBf50mkmOYk/BfKBk4mEOUdO5Ve96c=', crossorigin: 'anonymous'
     - else
       = javascript_include_tag "https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"
+      = javascript_include_tag "https://cdn.jsdelivr.net/npm/puex@0.5.2/dist/puex.js"
+    = javascript_tag do
+      var STATE = {
+      authenticity_token: #{raw form_authenticity_token.to_json},
+      - if current_user
+        balances: #{raw current_user.cached_balances_json},
+        - if @asset
+          open_orders: #{raw current_user.orders.open.where(base_asset: @asset).to_json}
+      }
+
+      
+      
     = javascript_include_tag 'application', integrity: true
     = stylesheet_link_tag    'application', media: 'all'
     = content_for :head
@@ -42,6 +48,7 @@
       = link_to image_tag('logo_name.png', height: 19), root_path, class: 'navbar-brand mr-auto'
       - if current_user
         .nav-item= "Logged in as #{current_user.email}"
+        .nav-item= link_to 'My Orders', '/orders', class: 'nav-link'
         .nav-item= link_to 'My Balances', '/cached_balances', class: 'nav-link'
         .nav-item= link_to 'Log Out', logout_path, method: :delete, class: 'nav-link'
       - else

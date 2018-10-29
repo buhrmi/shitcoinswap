@@ -19,4 +19,6 @@
                 |  | 
                 = link_to 'Deposit', new_deposit_path(asset_id: balance.asset.id)
                 |  |
+                = link_to 'New Order', new_order_path(order: {base_asset_id: balance.asset.id})
+                |  |
                 = link_to 'History', balance_adjustments_path(asset_id: balance.asset.id)
