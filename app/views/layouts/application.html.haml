@@ -14,6 +14,7 @@
     %meta{content: "#ffffff", name: "theme-color"}
     - if @no_cache
       %meta(name="turbolinks-cache-control" content="no-cache")
+    = content_for :head
     = csrf_meta_tags
     = csp_meta_tag
     - if Rails.env.production?
@@ -22,6 +23,10 @@
     - else
       = javascript_include_tag "https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"
       = javascript_include_tag "https://cdn.jsdelivr.net/npm/puex@0.5.2/dist/puex.js"
+    
+    = javascript_include_tag 'application', integrity: true
+    = stylesheet_link_tag    'application', media: 'all'
+    
     = javascript_tag do
       var STATE = {
       authenticity_token: #{raw form_authenticity_token.to_json},
@@ -30,12 +35,14 @@
         - if @asset
           open_orders: #{raw current_user.orders.open.where(base_asset: @asset).to_json}
       }
-
+    
+    - if current_user
+      :coffeescript
+        cable.subscriptions.create 'CachedBalancesChannel', 
+          received: (change) ->
+            console.log(change)
+            STATE.balances = Object.assign({}, STATE.balances, change)
       
-      
-    = javascript_include_tag 'application', integrity: true
-    = stylesheet_link_tag    'application', media: 'all'
-    = content_for :head
     
   %body{class: params[:controller]}
     - if current_user.try(:admin?)

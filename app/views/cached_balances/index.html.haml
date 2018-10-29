@@ -1,6 +1,6 @@
 .container
   %h1.mt-5 My Balances
-  .card
+  .card#balances
     .card-body
       %table.table.table-hover
         %tbody
@@ -12,8 +12,8 @@
           - for balance in @cached_balances
             %tr
               %td= link_to balance.asset.name, balance.asset
-              %td= balance.total
-              %td= balance.available
+              %td {{ STATE.balances[#{balance.asset_id}].total }}
+              %td {{ STATE.balances[#{balance.asset_id}].available }}
               %td
                 = link_to 'Withdraw', new_withdrawal_path(withdrawal: {asset_id: balance.asset.id})
                 |  | 
@@ -22,3 +22,9 @@
                 = link_to 'Trade', new_order_path(order: {base_asset_id: balance.asset.id})
                 |  |
                 = link_to 'History', balance_adjustments_path(asset_id: balance.asset.id)
+
+:coffeescript
+  new Vue
+    el: '#balances'
+    data: ->
+      STATE: STATE

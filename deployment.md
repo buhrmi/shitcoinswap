@@ -21,17 +21,27 @@ SMTP_PASSWORD=123
 - `bundle exec puma -t 5:5 -p ${PORT:-5000} -e production`: Webserver
 - `bundle exec rake deposits`: Deposits scanner background process
 - `bundle exec rake withdrawals`: Withdrawals sender background process
+- `bundle exec rake ticker`: Push price ticker info via websockets
 
 ## Example Deployment with dokku
 
-1. Install Dokku
+1. Install Dokku and required plugins
 
-2. Create app and provision database
+```
+sudo dokku plugin:install https://github.com/dokku/dokku-postgres.git postgres
+sudo dokku plugin:install https://github.com/dokku/dokku-redis.git redis
+```
+
+2. Create app and provision database and redis
 
 ```
 dokku apps:create newart-tech
+
 dokku postgres:create newart-tech
 dokku postgres:link newart-tech newart-tech
+
+dokku redis:create newart-tech
+dokku redis:link newart-tech newart-tech
 ```
 
 3. Provision persistent storage to app container

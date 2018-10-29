@@ -18,13 +18,9 @@ class Order < ActiveRecord::Base
     self.filled_at ||= Time.now if self.filled?
   end
   
-  after_save do
+  after_commit do
     CachedBalance.cache!(user, base_asset)
     CachedBalance.cache!(user, quote_asset)
-  end
-
-  after_commit do
-    # TODO: push realtime updates to users
   end
 
   def validate_asset_available

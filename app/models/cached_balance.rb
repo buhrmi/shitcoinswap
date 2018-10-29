@@ -6,6 +6,10 @@ class CachedBalance < ApplicationRecord
     order('total desc')
   end
 
+  after_commit do
+    CachedBalancesChannel.broadcast_to user, {self.asset_id => {available: available, total: total}}
+  end
+
   def self.cache!(user, asset)
     total = user.asset_balance(asset)
     available = total - user.asset_in_orders(asset)
