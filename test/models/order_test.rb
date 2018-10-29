@@ -130,6 +130,28 @@ class OrderTest < ActiveSupport::TestCase
     assert_equal(bob_jpy_before  + 6, bob.available_balance(jpy))
   end
 
+  test "sell everything at limit and buy from myself" do
+    alice_jpy_before = alice.available_balance(jpy)
+    alice_eth_before = alice.available_balance(eth)
+    bob_jpy_before = bob.available_balance(jpy)
+    bob_eth_before = bob.available_balance(eth)
+
+    order1 = alice.orders.create!(side: 'sell', kind: 'limit', quantity: alice_eth_before, rate: 1, base_asset: eth, quote_asset: jpy)
+    order2 = bob.orders.create!(side: 'buy', kind: 'market', total: 5, base_asset: eth, quote_asset: jpy)
+    
+    assert_equal(alice_jpy_before,    alice.available_balance(jpy))
+    assert_equal(0, alice.available_balance(eth))
+    assert_equal(bob_eth_before,        bob.available_balance(eth))
+    assert_equal(bob_jpy_before - 5, bob.available_balance(jpy))
+
+    order1.process!
+
+    assert_equal(alice_jpy_before + 5, alice.available_balance(jpy))
+    assert_equal(0, alice.available_balance(eth))
+    assert_equal(bob_eth_before + 5, bob.available_balance(eth))
+    assert_equal(bob_jpy_before  - 5, bob.available_balance(jpy))
+  end
+
   def jpy
     assets(:jpy)
   end

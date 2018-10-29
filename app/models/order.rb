@@ -12,7 +12,7 @@ class Order < ActiveRecord::Base
   validates_inclusion_of :quote_asset_id, in: lambda { |order| Asset.quotable_ids }
   
   validate :validate_assets_dont_match
-  validate :validate_asset_available
+  validate :validate_asset_available, on: :create
 
   before_save do
     self.filled_at ||= Time.now if self.filled?
@@ -24,7 +24,6 @@ class Order < ActiveRecord::Base
   end
 
   def validate_asset_available
-    return if cancelled?
     if buy_market?
       errors.add(:total, 'is higher than available balance') if user.available_balance(quote_asset) < total
     elsif buy?
