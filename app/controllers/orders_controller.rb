@@ -8,18 +8,20 @@ class OrdersController < ApplicationController
   def new
     @order = Order.new(order_params)
     @asset = @order.base_asset
+    @open_orders = @asset.orders.open
     @order.quote_asset ||= @asset.platform.native_asset
   end
 
   def create
     @order = Order.new(order_params)
     @asset = @order.base_asset
+    @open_orders = @asset.orders.open
     @order.user = current_user
 
     respond_to do |format|
       if @order.save
         @order.process!
-        format.html { redirect_to orders_path, notice: 'Order was successfully created.' }
+        format.html { redirect_back fallback_location: new_order_path(order: {asset_id: @asset.id}), notice: 'Order was successfully created.' }
         format.json { render :show, status: :created, location: @order }
       else
         format.html { render :new }
@@ -33,7 +35,7 @@ class OrdersController < ApplicationController
     @order.cancel!
 
     respond_to do |format|
-      format.html { redirect_to orders_path, notice: 'Order was successfully cancelled.' }
+      format.html { redirect_back fallback_location: orders_path, notice: 'Order was successfully cancelled.' }
       format.json { render :show, status: :destroyed, location: @order }    
     end
   end

@@ -4,6 +4,7 @@ class Asset < ApplicationRecord
 
   belongs_to :platform
   has_many :balance_adjustments
+  has_many :orders, foreign_key: 'base_asset_id'
   belongs_to :submitter, class_name: 'User', optional: true
 
   validate :check_address

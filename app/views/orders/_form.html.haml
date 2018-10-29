@@ -7,6 +7,8 @@
           %li= message
   = form.hidden_field :base_asset_id
   = form.hidden_field :quote_asset_id
+  = form.hidden_field :side, 'v-model' => 'side'
+  = form.hidden_field :kind, 'v-model' => 'kind'
   .row.form-group
     = form.label :kind, class: 'col-sm-2 col-form-label'
     .col-sm-10

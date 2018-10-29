@@ -6,7 +6,33 @@
   .card
     .card-body
       = render 'form', order: @order
-
+  %h5.mt-3 Open orders
+  .card
+    .card-body
+      %table.table
+        %thead
+          %tr
+            %th Side
+            %th Asset
+            %th Market
+            %th= t '.quantity'
+            %th= t '.rate'
+            %th= t '.filled'
+            %th
+        %tbody
+          - @open_orders.each do |order|
+            %tr
+              %td= order.side
+              %td= link_to order.base_asset.name, order.base_asset
+              %td= order.quote_asset.name
+              %td= order.quantity
+              %td= order.market? ? 'any' : order.rate
+              %td
+                = order.percent_filled
+                \%
+              %td
+                - if order.user == current_user
+                  = link_to (t '.cancel'), order, method: 'delete'
 :coffeescript
   new Vue
     el: '#balance'
