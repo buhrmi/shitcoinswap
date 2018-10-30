@@ -1,7 +1,7 @@
 .container
   %h1.mt-5= t "Orders"
-  %h5 Open Orders
   .card
+    .card-header Open Orders
     .card-body
       %table.table
         %thead
@@ -19,15 +19,19 @@
               %td= order.side
               %td= link_to order.base_asset.name, order.base_asset
               %td= order.quote_asset.name
-              %td= order.quantity
+              %td
+                - if order.buy_market?
+                  #{order.total} #{order.quote_asset.symbol}
+                - else
+                  #{order.quantity} #{order.base_asset.symbol}
               %td= order.market? ? 'any' : order.rate
               %td
                 = order.percent_filled
                 \%
               %td
                 = link_to (t '.cancel'), order, method: 'delete'
-  %h5.mt-3 Past Orders
-  .card
+  .card.mt-3
+    .card-header Closed Orders
     .card-body
       %table.table
         %thead
@@ -45,7 +49,11 @@
               %td= order.side
               %td= link_to order.base_asset.name, order.base_asset
               %td= order.quote_asset.name
-              %td= order.quantity
+              %td
+                - if order.buy_market?
+                  #{order.total} #{order.quote_asset.symbol}
+                - else
+                  #{order.quantity} #{order.base_asset.symbol}
               %td= order.market? ? 'any' : order.rate
               %td
                 = order.percent_filled
