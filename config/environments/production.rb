@@ -100,7 +100,7 @@ Rails.application.configure do
   config.middleware.use ExceptionNotification::Rack,
     email: {
       sender_address: '"NewArt Tech Notifier" <notifier@newart-tech.com>',
-      exception_recipients: %w{stefan@newart-tech.com}
+      exception_recipients: %w{stefan@newart-tech.com yanlinaung@blueinternet-mm.com}
     }
   ExceptionNotifier::Rake.configure
 end
