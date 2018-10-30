@@ -1,22 +1,22 @@
 // A super dumb native array extension to add db-like functionality
 
 Array.prototype.deleteBy = function(field, value) {
-  for (let index = 0; index < this.length; index++) {
-    const element = this[index];
+  for (var index = 0; index < this.length; index++) {
+    var element = this[index];
     if (element[field] == value) this.splice(index, 1)
   }
 }
 
 Array.prototype.replaceBy = function(field, value, newData) {
-  for (let index = 0; index < this.length; index++) {
-    const element = this[index];
+  for (var index = 0; index < this.length; index++) {
+    var element = this[index];
     if (element[field] == value) this.splice(index, 1, newData);
   }
 }
 
 Array.prototype.upsertBy = function(field, value, newData) {
-  for (let index = 0; index < this.length; index++) {
-    const element = this[index];
+  for (var index = 0; index < this.length; index++) {
+    var element = this[index];
     if (element[field] == value) {
       this.splice(index, 1, newData);
       return
@@ -43,7 +43,7 @@ Array.prototype.upsert = function(record) {
 }
 
 Array.prototype.orderBy = function(field, dir) {
-  let multi = {asc: 1, desc: -1}
+  var multi = {asc: 1, desc: -1}
   return this.slice(0).sort(function(a, b) {
     return a[field] < b[field] ? multi[dir] * -1 : multi[dir]
   })

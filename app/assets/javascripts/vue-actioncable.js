@@ -1,24 +1,24 @@
-const cable = ActionCable.createConsumer()
+var cable = ActionCable.createConsumer()
 
-const plugin = {
-  install(Vue, cable) {
+var plugin = {
+  install: function(Vue, cable) {
     Vue.mixin({
-      destroyed() {
+      destroyed: function() {
         if (!this._subscriptions) return
-        Object.keys(this._subscriptions).map((key) => {
+        Object.keys(this._subscriptions).map(function(key) {
           this._subscriptions[key].unsubscribe()
         })
       },
-      mounted() {
+      mounted: function() {
         this.$cable = cable
-        let subscriptionsOptions = this.$options.subscriptions
+        var subscriptionsOptions = this.$options.subscriptions
         if (!subscriptionsOptions) return
         this._subscriptions = {}
         if (typeof subscriptionsOptions == 'function') subscriptionsOptions = subscriptionsOptions()
-        Object.keys(subscriptionsOptions).map((channelName) => {
-          let subOptions = subscriptionsOptions[channelName]
+        Object.keys(subscriptionsOptions).map(function(channelName) {
+          var subOptions = subscriptionsOptions[channelName]
           if (!subOptions.params) subOptions.params = {}
-          let paramsFn = subOptions.params
+          var paramsFn = subOptions.params
           if (typeof paramsFn !== 'function') {
             paramsFn = function() { return subOptions.params }
           }
