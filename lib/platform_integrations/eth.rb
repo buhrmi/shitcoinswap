@@ -215,7 +215,7 @@ module PlatformIntegrations::ETH
       address = Address.where(module: self.module, address: to_address.downcase).first
       if address
         # create asset if it doesnt exist
-        asset = Asset.where(module: self.module, address: contract.downcase).first_or_create!
+        asset = Asset.where(platform: self.id, address: contract.downcase).first_or_create!
         hash = transaction['transactionHash']
         amount = transaction['data'].last(64).to_i(16).to_f / asset.unit
         address.with_lock do
