@@ -1,0 +1,13 @@
+-# %h1 Change Email
+
+-# = render 'form'
+
+-# = link_to 'Show', @user
+-# \|
+-# = link_to 'Back', users_path
+
+.container
+  %h1.mt-5= t '.change_email'
+  .card
+    .card-body
+      = render 'form', user: @user

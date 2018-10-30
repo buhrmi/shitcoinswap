@@ -1,0 +1,13 @@
+= form_for @user do |f|
+  - if @user.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@user.errors.count, "error")} prohibited this user from being saved:"
+      %ul
+        - @user.errors.full_messages.each do |message|
+          %li= message
+  %br/
+  .row.form-group
+    .col-sm-4
+      = f.email_field :email, :placeholder =>:email, :required => true, class: "form-control", type: "email"
+    .col-sm-3
+      = f.submit 'Save', class: 'btn btn-primary'

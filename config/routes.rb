@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :users, only:[:update, :edit]
   resources :pictures
   namespace :admin do
     resources :balance_adjustments
@@ -6,7 +7,7 @@ Rails.application.routes.draw do
     resources :withdrawals
     resources :assets
   end
-  
+
   resources :orders
   resources :withdrawals
   resources :deposits
@@ -23,6 +24,8 @@ Rails.application.routes.draw do
 
   get '/login'     => 'authorization_codes#new'
   delete '/logout' => 'access_tokens#destroy'
-  
+
+  get '/users/edit' => 'users#edit'
+
   root to: 'pages#welcome'
 end
