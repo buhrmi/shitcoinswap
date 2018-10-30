@@ -12,10 +12,9 @@
 //
 //= require jquery3
 //= require rails-ujs
-//= require activestorage
+//// require activestorage
+//= require action_cable
 //= require turbolinks
 //= require popper
 //= require bootstrap-sprockets
 //= require_tree .
-
-cable = ActionCable.createConsumer()

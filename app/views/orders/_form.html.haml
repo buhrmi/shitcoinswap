@@ -1,4 +1,4 @@
-= form_for(order) do |form|
+= form_for(order, remote: true) do |form|
   - if order.errors.any?
     #error_explanation
       %h2= t '.prohibited_3', :order_errors => (pluralize(order.errors.count, "error") )

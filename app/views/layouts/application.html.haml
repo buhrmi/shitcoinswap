@@ -19,10 +19,8 @@
     = csp_meta_tag
     - if Rails.env.production?
       = javascript_include_tag "https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.min.js", integrity: 'sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=', crossorigin: 'anonymous'
-      = javascript_include_tag "https://cdn.jsdelivr.net/npm/puex@0.5.2/dist/puex.min.js", integrity: 'sha256-YNGT3dujkbzyCKBf50mkmOYk/BfKBk4mEOUdO5Ve96c=', crossorigin: 'anonymous'
     - else
       = javascript_include_tag "https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"
-      = javascript_include_tag "https://cdn.jsdelivr.net/npm/puex@0.5.2/dist/puex.js"
     
     = javascript_include_tag 'application', integrity: true
     = stylesheet_link_tag    'application', media: 'all'
@@ -33,16 +31,20 @@
       - if current_user
         balances: #{raw current_user.cached_balances_json},
         - if @asset
-          open_orders: #{raw current_user.orders.open.where(base_asset: @asset).to_json}
+          openOrders: #{raw current_user.orders.open.where(base_asset: @asset).to_json}
       }
     
     - if current_user
       :coffeescript
         cable.subscriptions.create 'CachedBalancesChannel', 
-          received: (change) ->
-            console.log(change)
-            STATE.balances = Object.assign({}, STATE.balances, change)
-      
+          received: (balances) ->
+            STATE.balances = Object.assign({}, STATE.balances, balances)
+        cable.subscriptions.create 'OrdersChannel', 
+          received: (order) ->
+            if (order.cancelled_at || order.filled_at)
+              STATE.openOrders.delete(order)
+            else
+              STATE.openOrders.upsert(order)
     
   %body{class: params[:controller]}
     - if current_user.try(:admin?)
