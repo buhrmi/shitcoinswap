@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :orders
   resources :withdrawals
   resources :deposits
+  resources :trade
   resources :balance_adjustments
   resources :cached_balances
   resources :authorization_codes
