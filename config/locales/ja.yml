@@ -81,7 +81,7 @@ ja:
       submit_token: "トークンを提出する"
       status_1: "状態"
       deposits: "デポジット: %{status_first}"
-      withdrawals_1: "え: %{status_first}"
+      withdrawals_1: "取引: %{status_first}"
     mailer:
       email_styles: "Email styles need to be inline */"
   users:
@@ -150,7 +150,7 @@ ja:
     contact:
       contact_1: "Contact"
       feel_free_to: "Feel free to call us at any time."
-      address: "アドレス"
+      address: "住所"
       f: "F"
       google_maps: "Google Maps"
       phone: "電話"
