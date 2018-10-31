@@ -8,7 +8,7 @@ class BalanceAdjustment < ApplicationRecord
   end
 
   validate do
-    if amount < 0 && user.available_balance(asset) + amount < 0
+    if new_record? && amount < 0 && user.available_balance(asset) + amount < 0
       errors.add(:amount, "would make balance negative")
     end
   end
