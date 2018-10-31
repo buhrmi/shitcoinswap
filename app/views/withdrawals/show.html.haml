@@ -1,24 +1,27 @@
-%p#notice= notice
-%p
-  = t '.asset_4_html', :withdrawal => (@withdrawal.asset_id)
-%p
-  = t '.user_2_html', :withdrawal => (@withdrawal.user_id)
-%p
-  = t '.receiver_1_html', :withdrawal => (@withdrawal.receiver_address)
-%p
-  = t '.transaction_2_html', :withdrawal => (@withdrawal.transaction_id)
-%p
-  = t '.submitted_at_html', :withdrawal => (@withdrawal.submitted_at)
-%p
-  = t '.amount_3_html', :withdrawal => (@withdrawal.amount)
-%p
-  = t '.status_3_html', :withdrawal => (@withdrawal.status)
-%p
-  = t '.tries_html', :withdrawal => (@withdrawal.tries)
-%p
-  = t '.error_1_html', :withdrawal => (@withdrawal.error)
-%p
-  = t '.error_at_html', :withdrawal => (@withdrawal.error_at)
-%p
-  = t '.signed_html', :withdrawal => (@withdrawal.signed_transaction)
-= link_to (t '.back_2'), withdrawals_path
+.container
+  .card
+    .card-header Withdrawal
+    .card-body
+      %p
+        = t '.asset_4_html', :withdrawal => (@withdrawal.asset_id)
+      %p
+        = t '.user_2_html', :withdrawal => (@withdrawal.user_id)
+      %p
+        = t '.receiver_1_html', :withdrawal => (@withdrawal.receiver_address)
+      %p
+        = t '.transaction_2_html', :withdrawal => (@withdrawal.transaction_id)
+      %p
+        = t '.submitted_at_html', :withdrawal => (@withdrawal.submitted_at)
+      %p
+        = t '.amount_3_html', :withdrawal => (@withdrawal.amount)
+      %p
+        = t '.status_3_html', :withdrawal => (@withdrawal.status)
+      %p
+        = t '.tries_html', :withdrawal => (@withdrawal.tries)
+      %p
+        = t '.error_1_html', :withdrawal => (@withdrawal.error)
+      %p
+        = t '.error_at_html', :withdrawal => (@withdrawal.error_at)
+      %p
+        = t '.signed_html', :withdrawal => (@withdrawal.signed_transaction)
+      = link_to (t '.back_2'), withdrawals_path

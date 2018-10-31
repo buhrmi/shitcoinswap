@@ -21,10 +21,11 @@ class OrdersController < ApplicationController
     respond_to do |format|
       if @order.save
         @order.process!
-        format.js {  } # TODO: render a "order created" popup
+        format.js { render js: "alert('#{t('.order_created')}')" } # TODO: render a "order created" popup
         format.html { redirect_back fallback_location: new_order_path(order: {asset_id: @asset.id}), notice: 'Order was successfully created.' }
         format.json { render :show, status: :created, location: @order }
       else
+        format.js { render js: "alert('#{@order.errors.to_s}')" } # TODO: render a "error" popup
         format.html { render :new }
         format.json { render json: @order.errors, status: :unprocessable_entity }
       end
@@ -36,7 +37,7 @@ class OrdersController < ApplicationController
     @order.cancel!
 
     respond_to do |format|
-      format.js {  } # TODO: render a "order cancelled" popup
+      format.js { render js: "alert('#{t('.order_cancelled')}')" } # TODO: render a "order cancelled" popup
       format.html { redirect_back fallback_location: orders_path, notice: 'Order was successfully cancelled.' }
       format.json { render :show, status: :destroyed, location: @order }    
     end

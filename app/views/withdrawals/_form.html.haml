@@ -5,6 +5,7 @@
       %ul
         - withdrawal.errors.full_messages.each do |message|
           %li= message
+  = form.hidden_field :asset_id
   .row.form-group
     = form.label :asset_id, class: 'col-sm-2 col-form-label'
     .col-sm-10
