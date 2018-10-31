@@ -1,49 +1,46 @@
 = form_for(order, remote: true) do |form|
-  - if order.errors.any?
-    #error_explanation
-      %h2= t '.prohibited_3', :order_errors => (pluralize(order.errors.count, "error") )
-      %ul
-        - order.errors.full_messages.each do |message|
-          %li= message
+
   = form.hidden_field :base_asset_id
   = form.hidden_field :quote_asset_id
   = form.hidden_field :side, 'v-model' => 'side'
   = form.hidden_field :kind, 'v-model' => 'kind'
-  .row.form-group
-    = form.label :kind, class: 'col-sm-2 col-form-label'
-    .col-sm-10
-      .btn-group.btn-group-toggle
-        .btn.btn-secondary(:class="{active: kind == 'limit'}" v-on:click="kind='limit'") Limit
-        .btn.btn-secondary(:class="{active: kind == 'market'}" v-on:click="kind='market'") Market
-  .row.form-group
-    = form.label :side, class: 'col-sm-2 col-form-label'
-    .col-sm-10
-      .btn-group.btn-group-toggle
-        .btn.btn-secondary(:class="{active: side == 'sell'}" v-on:click="side='sell'") Sell
-        .btn.btn-secondary(:class="{active: side == 'buy'}" v-on:click="side='buy'") Buy
-          
-  .row.form-group(v-if="side == 'buy' && kind == 'market'")
-    = form.label :total, class: 'col-sm-2 col-form-label'
-    .col-sm-10
-      .input-group
-        = form.text_field :total, class: 'form-control', 'v-model' => 'total'
-        .input-group-append
-          .input-group-text #{ order.quote_asset.symbol }
-  .row.form-group(v-else)
-    = form.label :quantity, class: 'col-sm-2 col-form-label'
-    .col-sm-10
-      .input-group
-        = form.text_field :quantity, class: 'form-control', 'v-model' => 'quantity'
-        .input-group-append
-          .input-group-text #{ order.base_asset.symbol }
-  .row.form-group
-    = form.label :rate, class: 'col-sm-2 col-form-label'
-    .col-sm-10
-      = form.text_field :rate, class: 'form-control', 'v-model' => 'rate', ':disabled' => 'kind == "market"'
-  .row.form-group
-    .col-sm-2
-    .col-sm-10
-      = form.submit class: 'btn btn-primary', ':disabled' => '!valid'
+  .card-header
+    .nav.nav-tabs.card-header-tabs
+      .nav-item
+        .nav-link(:class="{active: kind == 'limit'}" v-on:click="kind='limit'") Limit
+      .nav-item
+        .nav-link(:class="{active: kind == 'market'}" v-on:click="kind='market'") Market
+  
+  .card-body
+    .row.form-group
+      = form.label :side, class: 'col-sm-2 col-form-label'
+      .col-sm-10
+        .btn-group.btn-group-toggle
+          .btn.btn-secondary(:class="{active: side == 'sell'}" v-on:click="side='sell'") Sell
+          .btn.btn-secondary(:class="{active: side == 'buy'}" v-on:click="side='buy'") Buy
+            
+    .row.form-group(v-if="side == 'buy' && kind == 'market'")
+      = form.label :total, class: 'col-sm-2 col-form-label'
+      .col-sm-10
+        .input-group
+          = form.text_field :total, class: 'form-control', 'v-model' => 'total'
+          .input-group-append
+            .input-group-text #{ order.quote_asset.symbol }
+    .row.form-group(v-else)
+      = form.label :quantity, class: 'col-sm-2 col-form-label'
+      .col-sm-10
+        .input-group
+          = form.text_field :quantity, class: 'form-control', 'v-model' => 'quantity'
+          .input-group-append
+            .input-group-text #{ order.base_asset.symbol }
+    .row.form-group
+      = form.label :rate, class: 'col-sm-2 col-form-label'
+      .col-sm-10
+        = form.text_field :rate, class: 'form-control', 'v-model' => 'rate', ':disabled' => 'kind == "market"'
+    .row.form-group
+      .col-sm-2
+      .col-sm-10
+        = form.submit class: 'btn btn-primary', ':disabled' => '!valid'
 
 :coffeescript
   new Vue

@@ -3,11 +3,10 @@
   #balances
     %p Available #{ @order.base_asset.symbol }: {{ STATE.balances[baseAssetId] ? STATE.balances[baseAssetId].available : 0.0 }}
     %p Available #{ @order.quote_asset.symbol }: {{ STATE.balances[quoteAssetId] ? STATE.balances[quoteAssetId].available : 0.0 }}
-  .card.mb-3
-    .card-body
+  .card-deck.mb-3
+    .card
       = render 'form', order: @order
-  
-  .card-deck
+
     .card#open_orders
       .card-header Order book
       .card-body
@@ -26,25 +25,29 @@
               -# %td {{ order.filled_percent }}%
               %td
 
-    .card#my_orders
-      .card-header My open orders
-      .card-body
-        %table.table
-          %thead
-            %tr
-              %th Type
-              %th= t '.amount_left'
-              %th= t '.filled'
-              %th
-          %tbody
-            %tr(v-for="order in STATE.openOrders.orderBy('rate')")
-              %td {{ order.side }} @ {{ order.kind == 'market' ? 'market' : order.rate }}
-              %td(v-if="order.kind == 'market' && order.side == 'buy'") {{ order.total - order.total_used }}
-              %td(v-else) {{ order.quantity - order.quantity_filled }}
-              %td(v-if="order.kind == 'market' && order.side == 'buy'") {{ Math.floor(100 * order.total_used / order.total) }}%
-              %td(v-else) {{ Math.floor(100 * order.quantity_filled / order.quantity) }}%
-              %td
-                %a(:href="`/orders/${order.id}`" data-method="delete" data-remote="true" rel="no-follow") Cancel
+  .card.mb-3
+    .card-body
+      #chart
+
+  .card#my_orders
+    .card-header My open orders
+    .card-body
+      %table.table
+        %thead
+          %tr
+            %th Type
+            %th= t '.amount_left'
+            %th= t '.filled'
+            %th
+        %tbody
+          %tr(v-for="order in STATE.openOrders.orderBy('rate')")
+            %td {{ order.side }} @ {{ order.kind == 'market' ? 'market' : order.rate }}
+            %td(v-if="order.kind == 'market' && order.side == 'buy'") {{ order.total - order.total_used }}
+            %td(v-else) {{ order.quantity - order.quantity_filled }}
+            %td(v-if="order.kind == 'market' && order.side == 'buy'") {{ Math.floor(100 * order.total_used / order.total) }}%
+            %td(v-else) {{ Math.floor(100 * order.quantity_filled / order.quantity) }}%
+            %td
+              %a(:href="`/orders/${order.id}`" data-method="delete" data-remote="true" rel="no-follow") Cancel
 
 :coffeescript
   new Vue

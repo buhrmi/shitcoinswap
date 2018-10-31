@@ -17,4 +17,8 @@
 //= require turbolinks
 //= require popper
 //= require bootstrap-sprockets
-//= require_tree .
+//= require ./arraydb
+//= require ./redactor
+//= require ./vue-actioncable
+//= require ./amcharts
+
