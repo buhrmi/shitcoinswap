@@ -10,6 +10,7 @@ var plugin = {
         })
       },
       mounted: function() {
+        var $vm = this
         this.$cable = cable
         var subscriptionsOptions = this.$options.subscriptions
         if (!subscriptionsOptions) return
@@ -22,11 +23,11 @@ var plugin = {
           if (typeof paramsFn !== 'function') {
             paramsFn = function() { return subOptions.params }
           }
-          this.$watch(paramsFn, function(params) {
-            if (this._subscriptions[channelName]) this._subscriptions[channelName].unsubscribe()
+          $vm.$watch(paramsFn, function(params) {
+            if ($vm._subscriptions[channelName]) $vm._subscriptions[channelName].unsubscribe()
             params.channel = channelName
-            this._subscriptions[channelName] = this.$cable.subscriptions.create(params, {
-              received: subOptions.received.bind(this)
+            $vm._subscriptions[channelName] = $vm.$cable.subscriptions.create(params, {
+              received: subOptions.received.bind($vm)
             })
           }, {
             immediate: true

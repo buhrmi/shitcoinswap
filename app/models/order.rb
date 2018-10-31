@@ -21,8 +21,12 @@ class Order < ActiveRecord::Base
   after_commit do
     CachedBalance.cache!(user, base_asset)
     CachedBalance.cache!(user, quote_asset)
-    OrdersChannel.broadcast_to user, as_json
+    ActionCable.server.broadcast 'orders', self
   end
+
+  # def serializable_hash(options = {})
+  
+  # end
 
   def validate_asset_available
     if buy_market?
