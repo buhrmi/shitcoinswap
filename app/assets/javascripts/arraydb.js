@@ -43,6 +43,7 @@ Array.prototype.upsert = function(record) {
 }
 
 Array.prototype.orderBy = function(field, dir) {
+  if (typeof(dir) == 'undefined') dir = 'asc'
   var multi = {asc: 1, desc: -1}
   return this.slice(0).sort(function(a, b) {
     return a[field] < b[field] ? multi[dir] * -1 : multi[dir]
