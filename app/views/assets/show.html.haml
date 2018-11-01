@@ -28,7 +28,12 @@
       .col-sm-3.text-center
         .asset-stat-header Sell Price
         .asset-stat #{ @asset.sell_price || 'N/A'} #{ @asset.platform.native_asset.symbol }
-
+    .card.mb-3.mt-5
+      .card-header Price development
+      .card-body
+        #chart
+        :coffeescript
+          stockChart('chart', #{raw @asset.price_chart_data(@asset.platform.native_asset).to_json})
 .page_content
   .container
     - if @asset.page_content
