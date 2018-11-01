@@ -7,8 +7,8 @@
 function stockChart(elId, data) {
   var el = document.getElementById(elId);
   if (!el) return;
-  for (let index = 0; index < data.length; index++) {
-    const element = data[index]
+  for (var index = 0; index < data.length; index++) {
+    var element = data[index]
     element.date = Date.parse(element.period)
     element.value = parseFloat(element.avg)
     element.low = parseFloat(element.low)
