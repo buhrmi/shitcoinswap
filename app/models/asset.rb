@@ -5,6 +5,7 @@ class Asset < ApplicationRecord
   belongs_to :platform
   has_many :balance_adjustments
   has_many :orders, foreign_key: 'base_asset_id'
+  has_many :base_trades, class_name: 'Trade', foreign_key: 'base_asset_id'
   belongs_to :submitter, class_name: 'User', optional: true
 
   validate :check_address
@@ -132,5 +133,10 @@ class Asset < ApplicationRecord
 
   def to_param
     "#{id}-#{name.parameterize}"
+  end
+
+  def price_chart_data quote_asset_id
+    # TODO: show open/close rates instead average rates
+    charts = base_trades.where(quote_asset_id: quote_asset_id).select('max(rate) as high, min(rate) as low, avg(rate), sum(rate * amount) as volume').group_by_day(:created_at)
   end
 end

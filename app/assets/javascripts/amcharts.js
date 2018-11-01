@@ -4,58 +4,21 @@
 //= require amcharts/plugins/export/export.min
 //= require amcharts/themes/light
 
-var chartData = [];
-
-function generateChartData() {
-  var firstDate = new Date();
-  firstDate.setHours( 0, 0, 0, 0 );
-  firstDate.setDate( firstDate.getDate() - 2000 );
-
-  for ( var i = 0; i < 2000; i++ ) {
-    var newDate = new Date( firstDate );
-
-    newDate.setDate( newDate.getDate() + i );
-
-    var open = Math.round( Math.random() * ( 30 ) + 100 );
-    var close = open + Math.round( Math.random() * ( 15 ) - Math.random() * 10 );
-
-    var low;
-    if ( open < close ) {
-      low = open - Math.round( Math.random() * 5 );
-    } else {
-      low = close - Math.round( Math.random() * 5 );
-    }
-
-    var high;
-    if ( open < close ) {
-      high = close + Math.round( Math.random() * 5 );
-    } else {
-      high = open + Math.round( Math.random() * 5 );
-    }
-
-    var volume = Math.round( Math.random() * ( 1000 + i ) ) + 100 + i;
-
-
-    chartData[ i ] = ( {
-      "date": newDate,
-      "open": open,
-      "close": close,
-      "high": high,
-      "low": low,
-      "volume": volume
-    } );
-  }
-}
-
-generateChartData();
-
-document.addEventListener("turbolinks:load", function() {
-  var el = document.getElementById("chart");
+function stockChart(elId, data) {
+  var el = document.getElementById(elId);
   if (!el) return;
-  var chart = AmCharts.makeChart( "chart", {
+  for (let index = 0; index < data.length; index++) {
+    const element = data[index]
+    element.date = Date.parse(element.period)
+    element.value = parseFloat(element.avg)
+    element.low = parseFloat(element.low)
+    element.high = parseFloat(element.high)
+    element.open = element.low
+    element.close = element.high
+  }
+  var chart = AmCharts.makeChart(elId, {
     "type": "stock",
     "theme": "light",
-    "mouseWheelZoomEnabled": true,
     "dataSets": [ {
       "fieldMappings": [ {
         "fromField": "open",
@@ -76,16 +39,17 @@ document.addEventListener("turbolinks:load", function() {
         "fromField": "value",
         "toField": "value"
       } ],
-      "color": "#7f8da9",
-      "dataProvider": chartData,
+      "dataProvider": data,
       "categoryField": "date"
     } ],
     "balloon": {
       "horizontalPadding": 13
     },
     "panels": [ {
-      "title": "Value",
-      "stockGraphs": [ {
+      "title": "Price",
+      "showCategoryAxis": false,
+      "percentHeight": 70,
+      "stockGraphs": [{
         "id": "g1",
         "type": "candlestick",
         "openField": "open",
@@ -100,32 +64,52 @@ document.addEventListener("turbolinks:load", function() {
         "fillAlphas": 1,
         "balloonText": "open:<b>[[open]]</b><br>close:<b>[[close]]</b><br>low:<b>[[low]]</b><br>high:<b>[[high]]</b>",
         "useDataSetColors": false
-      } ]
+      },{ 
+        "id": "g2",
+        "valueField": "value",
+        "type": "smoothedLine",
+        "lineThickness": 2,
+        "bullet": "round",
+        "lineColor": "#b0de09",
+        "bulletColor": "#b0de09",
+        "balloonText": "average: <b>[[value]]",
+        "useDataSetColors": false
+        }]
+    },{
+      "title": "Volume",
+      "percentHeight": 30,
+      "stockGraphs": [ {
+        "valueField": "volume",
+        "type": "column",
+        "cornerRadiusTop": 2,
+        "fillAlphas": 1
+      } ],
+      "stockLegend": {
+        "valueTextRegular": " ",
+        "markerType": "none"
+      }
     } ],
     "pathToImages": "/amcharts/", // required for grips
-    // "chartScrollbar": {
-    //   "enabled": false,
-    //   "graphType": "line",
-    //   "scrollbarHeight": 30,
-    //   "updateOnReleaseOnly": false
-    // },
+    "chartScrollbarSettings": {
+      "graph": "g1",
+      "usePeriod": "10mm",
+      "position": "top"
+    },
     "panelsSettings": {
       "panEventsEnabled": true
     },
     "cursorSettings": {
-      "valueBalloonsEnabled": true,
-      "valueLineBalloonEnabled": true,
-      "valueLineEnabled": true
+      "valueBalloonsEnabled": true
     },
     "periodSelector": {
       "position": "top",
       "periods": [ {
         "period": "DD",
         "count": 10,
+        "selected": true,
         "label": "10 days"
       }, {
         "period": "MM",
-        "selected": true,
         "count": 1,
         "label": "1 month"
       }, {
@@ -141,36 +125,4 @@ document.addEventListener("turbolinks:load", function() {
       } ]
     }
   } );
-
-
-  function addPanel() {
-    var chart = AmCharts.charts[ 0 ];
-    if ( chart.panels.length == 1 ) {
-      var newPanel = new AmCharts.StockPanel();
-      newPanel.allowTurningOff = true;
-      newPanel.title = "Volume";
-      newPanel.showCategoryAxis = false;
-
-      var graph = new AmCharts.StockGraph();
-      graph.valueField = "volume";
-      graph.fillAlphas = 0.15;
-      newPanel.addStockGraph( graph );
-
-      var legend = new AmCharts.StockLegend();
-      legend.markerType = "none";
-      legend.markerSize = 0;
-      newPanel.stockLegend = legend;
-
-      chart.addPanelAt( newPanel, 1 );
-      chart.validateNow();
-    }
-  }
-
-  function removePanel() {
-    var chart = AmCharts.charts[ 0 ];
-    if ( chart.panels.length > 1 ) {
-      chart.removePanel( chart.panels[ 1 ] );
-      chart.validateNow();
-    }
-  }
-})
+}

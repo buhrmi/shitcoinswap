@@ -21,6 +21,7 @@ gem 'haml-rails'
 gem 'globalize', git: 'https://github.com/globalize/globalize'
 gem 'activemodel-serializers-xml'
 gem 'redis'
+gem 'groupdate'
 
 gem 'kaminari'
 gem 'bootstrap4-kaminari-views'

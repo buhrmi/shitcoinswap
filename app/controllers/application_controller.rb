@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   # Make the current_user method available to views also, not just controllers:
-  helper_method :current_user
+  helper_method :current_user, :current_quote_asset
 
   # Define the current_user method:
   def current_user
@@ -18,6 +18,15 @@ class ApplicationController < ActionController::Base
 
   def current_access_token
     @current_access_token ||= AccessToken.active.joins(:user).lock.find_by(token: cookies[:access_token])
+  end
+
+  def current_quote_asset
+    cookies[:quote_asset_id] = params[:quote_asset_id] if params[:quote_asset_id]
+    if cookies[:quote_asset_id]
+      Asset.find(cookies[:quote_asset_id])
+    else
+      Rails.env.production? ? Asset.eth : Asset.rinkeby
+    end
   end
 
   # authroize method redirects user to login page if not logged in:
