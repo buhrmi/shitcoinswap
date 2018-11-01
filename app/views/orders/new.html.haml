@@ -29,7 +29,7 @@
     .card-body
       #chart
       :coffeescript
-        stockChart('chart', #{raw @asset.price_chart_data(current_quote_asset).to_json})
+        stockChart('chart', #{raw @asset.price_chart_data(@asset.platform.native_asset).to_json})
 
   .card#my_orders
     .card-header My open orders
