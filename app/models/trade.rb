@@ -3,7 +3,7 @@ class Trade < ApplicationRecord
   belongs_to :seller, class_name: 'User'
   belongs_to :buy_order, class_name: 'Order'
   belongs_to :sell_order, class_name: 'Order'
-  belongs_to :base_asset, class_name: 'Asset', inverse_of: :base_trade
+  belongs_to :base_asset, class_name: 'Asset', inverse_of: :base_trades
   belongs_to :quote_asset, class_name: 'Asset'
   has_many :balance_adjustments, as: :change
 
