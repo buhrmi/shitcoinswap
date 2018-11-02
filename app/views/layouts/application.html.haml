@@ -58,7 +58,7 @@
         = link_to image_tag('logo_name.png', height: 19), root_path, class: 'd-inline-block'
 
       - if current_user
-        .d-inline-block#top_balance(data-turbolinks-permanent)
+        .d-inline-block#top_balance
           Balance: {{ STATE.balances["#{current_quote_asset.id}"] ? STATE.balances["#{current_quote_asset.id}"].available : 0 }}
         .dropdown.d-inline-block
           %a#dropdownMenuButton.nav-link.dropdown-toggle{"href" => "#", "aria-haspopup" => "true", "data-toggle" => "dropdown"}
