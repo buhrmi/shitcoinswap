@@ -52,7 +52,7 @@ Array.prototype.orderBy = function(field, dir) {
 
 Array.prototype.where = function(filter) {
   return this.filter(function(el) {
-    for (const key in filter) {
+    for (var key in filter) {
       if (filter.hasOwnProperty(key)) {
         if (el[key] != filter[key]) return false
       }
