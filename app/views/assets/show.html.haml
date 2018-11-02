@@ -21,19 +21,19 @@
         .asset-stat #{ number_with_delimiter @asset.total_supply } #{ @asset.symbol }
       .col-sm-3.text-center
         .asset-stat-header 24h Volume
-        .asset-stat #{ number_with_delimiter @asset.volume24h } #{ @asset.platform.native_asset.symbol }
+        .asset-stat #{ number_with_delimiter @asset.volume24h(current_quote_asset) } #{ current_quote_asset.symbol }
       .col-sm-3.text-center
         .asset-stat-header Buy Price
-        .asset-stat #{ @asset.buy_price || 'N/A'} #{ @asset.platform.native_asset.symbol }
+        .asset-stat #{ @asset.buy_price(current_quote_asset) || 'N/A'} #{ current_quote_asset.symbol }
       .col-sm-3.text-center
         .asset-stat-header Sell Price
-        .asset-stat #{ @asset.sell_price || 'N/A'} #{ @asset.platform.native_asset.symbol }
+        .asset-stat #{ @asset.sell_price(current_quote_asset) || 'N/A'} #{ current_quote_asset.symbol }
     .card.mb-3.mt-5
       .card-header Price development
       .card-body
         #chart
         :coffeescript
-          stockChart('chart', #{raw @asset.price_chart_data(@asset.platform.native_asset).to_json})
+          stockChart('chart', #{raw @asset.price_chart_data(current_quote_asset).to_json})
 .page_content
   .container
     - if @asset.page_content

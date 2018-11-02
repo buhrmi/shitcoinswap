@@ -34,7 +34,11 @@ class Asset < ApplicationRecord
   end
 
   def self.quotable_ids
-    where(native_symbol: ['ETH', 'JPY', 'ETH(rinkeby)']).pluck(:id)
+    quotable.pluck(:id)
+  end
+
+  def self.quotable
+    where(native_symbol: ['ETH', 'JPY', 'ETH(rinkeby)'])
   end
 
   # This is the fee paid in native platform shitasset, for example gas price for transfering erc20 tokens
@@ -107,8 +111,8 @@ class Asset < ApplicationRecord
     platform_data['symbol']
   end
 
-  def volume24h
-    Trade.where(base_asset: self).where('created_at > ?', 24.hours.ago).sum('amount * rate')
+  def volume24h quote_asset = platform.native_asset
+    Trade.where(base_asset: self, quote_asset: quote_asset).where('created_at > ?', 24.hours.ago).sum('amount * rate')
   end
 
   def buy_price quote_asset = platform.native_asset

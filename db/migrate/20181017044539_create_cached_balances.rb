@@ -4,8 +4,8 @@ class CreateCachedBalances < ActiveRecord::Migration[5.2]
       t.integer :user_id
       t.integer :asset_id
 
-      t.decimal :total
-      t.decimal :available
+      t.decimal :total, default: 0
+      t.decimal :available, default: 0
 
       t.timestamps
 

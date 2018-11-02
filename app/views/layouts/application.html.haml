@@ -12,8 +12,8 @@
     %link{color: "#bb0000", href: "/safari-pinned-tab.svg", rel: "mask-icon"}
     %meta{content: "#bb0000", name: "msapplication-TileColor"}
     %meta{content: "#ffffff", name: "theme-color"}
-    - if @no_cache
-      %meta(name="turbolinks-cache-control" content="no-cache")
+    
+    %meta(name="turbolinks-cache-control" content="no-cache")
     = content_for :head
     = csrf_meta_tags
     = csp_meta_tag
@@ -54,14 +54,35 @@
         .nav-item= link_to 'Withdrawals', admin_withdrawals_path
         .nav-item= link_to 'Assets', admin_assets_path
     %nav.navbar.sticky-top.navbar-light.bg-white.border-bottom.navbar-expand-lg
-      = link_to image_tag('logo_name.png', height: 19), root_path, class: 'navbar-brand mr-auto'
+      .navbar-brand.mr-auto
+        = link_to image_tag('logo_name.png', height: 19), root_path, class: 'd-inline-block'
+
       - if current_user
-        .nav-item= "Logged in as #{current_user.email}"
+        .d-inline-block#top_balance(data-turbolinks-permanent)
+          Balance: {{ STATE.balances["#{current_quote_asset.id}"] ? STATE.balances["#{current_quote_asset.id}"].available : 0 }}
+        .dropdown.d-inline-block
+          %a#dropdownMenuButton.nav-link.dropdown-toggle{"href" => "#", "aria-haspopup" => "true", "data-toggle" => "dropdown"}
+            = current_quote_asset.symbol
+          .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "dropdownMenuButton"}
+            - for asset in Asset.quotable
+              = link_to asset.symbol, {quote_asset_id: asset.id}, class: 'dropdown-item'
+        :coffeescript
+          new Vue
+            data: ->
+              STATE: STATE
+            el: '#top_balance'
+        .nav-item= link_to 'Deposit/Withdraw', '/cached_balances', class: 'nav-link'
         .nav-item= link_to 'My Orders', '/orders', class: 'nav-link'
-        .nav-item= link_to 'My Balances', '/cached_balances', class: 'nav-link'
+        .nav-item= "Logged in as #{current_user.email}"
         .nav-item= link_to 'Log Out', logout_path, method: :delete, class: 'nav-link'
       - else
         / not logged in
+        .dropdown.d-inline-block
+          %a#dropdownMenuButton.nav-link.dropdown-toggle{"href" => "#", "aria-haspopup" => "true", "data-toggle" => "dropdown"}
+            = current_quote_asset.symbol
+          .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "dropdownMenuButton"}
+            - for asset in Asset.quotable
+              = link_to asset.symbol, {quote_asset_id: asset.id}, class: 'dropdown-item'
         .nav-item= link_to (t '.log_in'), login_path
       .dropdown.nav-item
         %a#dropdownMenuButton.nav-link.dropdown-toggle{"href" => "#", "aria-haspopup" => "true", "data-toggle" => "dropdown"}
@@ -69,6 +90,7 @@
         .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "dropdownMenuButton"}
           = link_to (t '.english'), {locale: 'en'}, class: 'dropdown-item'
           = link_to (t '.japanese'), {locale: 'ja'}, class: 'dropdown-item'
+
     .container
       - if notice
         .alert.alert-success= notice

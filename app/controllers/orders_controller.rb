@@ -8,14 +8,16 @@ class OrdersController < ApplicationController
   def new
     @order = Order.new(order_params)
     @asset = @order.base_asset
-    @open_orders = @asset.orders.open # TODO: replace with vue-actioncable orderbook subscription
-    @order.quote_asset ||= @asset.platform.native_asset
+    @order.quote_asset ||= current_quote_asset
+    # TODO: make a new orderbook endpoint instead of listing orders
+    @open_orders = @asset.orders.open.where(quote_asset_id: current_quote_asset.id)
   end
 
   def create
     @order = Order.new(order_params)
     @asset = @order.base_asset
-    @open_orders = @asset.orders.open # TODO: replace with vue-actioncable orderbook subscription
+    # TODO: make a new orderbook endpoint instead of listing orders
+    @open_orders = @asset.orders.open.where(quote_asset_id: current_quote_asset.id)
     @order.user = current_user
 
     respond_to do |format|

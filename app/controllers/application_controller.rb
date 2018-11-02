@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :check_auth_code
   before_action :require_user
   before_action :set_locale
+  before_action :set_quote_asset
 
   protect_from_forgery with: :exception
 
@@ -20,12 +21,19 @@ class ApplicationController < ActionController::Base
     @current_access_token ||= AccessToken.active.joins(:user).lock.find_by(token: cookies[:access_token])
   end
 
+  def set_quote_asset
+    if params[:quote_asset_id]
+      cookies[:quote_asset_id] = params[:quote_asset_id]
+      return redirect_back fallback_location: root_url
+    end
+    current_user.cached_balances.find_or_create_by(asset_id: current_quote_asset.id) if current_user
+  end 
+
   def current_quote_asset
-    cookies[:quote_asset_id] = params[:quote_asset_id] if params[:quote_asset_id]
     if cookies[:quote_asset_id]
-      Asset.find(cookies[:quote_asset_id])
+      @current_quote_asset ||= Asset.find(cookies[:quote_asset_id])
     else
-      Rails.env.production? ? Asset.eth : Asset.rinkeby
+      @current_quote_asset ||= Rails.env.production? ? Asset.eth : Asset.rinkeby
     end
   end
 

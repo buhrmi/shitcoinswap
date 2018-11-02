@@ -139,7 +139,7 @@ ja:
   pages:
     welcome:
       welcome_to: "NewArt Technologyへようこそ"
-      24hvolume: "最近２４時間以内、私たちのパートナーのため、%{amount} の資産を処理しました。"
+      24hvolume: "Total 24h volume: %{amount}."
       submit_existing: "存在のトークンを提出する"
       sounds_good: パートナーになる！
       create_token: トークン作成

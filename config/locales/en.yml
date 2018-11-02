@@ -139,7 +139,7 @@ en:
   pages:
     welcome:
       welcome_to: "Welcome to NewArt Technology"
-      24hvolume: "In the last 24 hours, we have moved %{amount} worth of assets for our partners."
+      24hvolume: "Total 24h volume: %{amount}."
       submit_existing: "submit existing token"
       sounds_good: Become our partner!
       create_token: Create Token
