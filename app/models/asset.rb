@@ -108,7 +108,7 @@ class Asset < ApplicationRecord
   end
   
   def symbol
-    platform_data['symbol']
+    native_symbol || platform_data['symbol']
   end
 
   def volume24h quote_asset = platform.native_asset

@@ -2,6 +2,10 @@ eth:
   name: Ethereum
   native_symbol: ETH
 
+ethr:
+  name: Ethereum
+  native_symbol: ETH(rinkeby)
+
 jpy:
   name: Japanese Yen
   native_symbol: JPY
