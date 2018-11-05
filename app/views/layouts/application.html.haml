@@ -57,39 +57,45 @@
       .navbar-brand.mr-auto
         = link_to image_tag('logo_name.png', height: 19), root_path, class: 'd-inline-block'
 
-      - if current_user
-        .d-inline-block#top_balance
-          Balance: {{ STATE.balances["#{current_quote_asset.id}"] ? STATE.balances["#{current_quote_asset.id}"].available : 0 }}
-        .dropdown.d-inline-block
-          %a#dropdownMenuButton.nav-link.dropdown-toggle{"href" => "#", "aria-haspopup" => "true", "data-toggle" => "dropdown"}
-            = current_quote_asset.symbol
-          .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "dropdownMenuButton"}
-            - for asset in Asset.quotable
-              = link_to asset.symbol, {quote_asset_id: asset.id}, class: 'dropdown-item'
-        :coffeescript
-          new Vue
-            data: ->
-              STATE: STATE
-            el: '#top_balance'
-        .nav-item= link_to 'Deposit/Withdraw', '/cached_balances', class: 'nav-link'
-        .nav-item= link_to 'My Orders', '/orders', class: 'nav-link'
-        .nav-item= "Logged in as #{current_user.email}"
-        .nav-item= link_to 'Log Out', logout_path, method: :delete, class: 'nav-link'
-      - else
-        / not logged in
-        .dropdown.d-inline-block
-          %a#dropdownMenuButton.nav-link.dropdown-toggle{"href" => "#", "aria-haspopup" => "true", "data-toggle" => "dropdown"}
-            = current_quote_asset.symbol
-          .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "dropdownMenuButton"}
-            - for asset in Asset.quotable
-              = link_to asset.symbol, {quote_asset_id: asset.id}, class: 'dropdown-item'
-        .nav-item= link_to (t '.log_in'), login_path
-      .dropdown.nav-item
-        %a#dropdownMenuButton.nav-link.dropdown-toggle{"href" => "#", "aria-haspopup" => "true", "data-toggle" => "dropdown"}
-          = I18n.locale
-        .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "dropdownMenuButton"}
-          = link_to (t '.english'), {locale: 'en'}, class: 'dropdown-item'
-          = link_to (t '.japanese'), {locale: 'ja'}, class: 'dropdown-item'
+      %button.navbar-toggler{"type"=>"button", "data-toggle"=>"collapse","data-target"=>"#navbarNav","aria-controls"=>"navbarNav","aria-expanded"=>"false", "aria-label"=>"Toggle navigation"}
+        %span.navbar-toggler-icon
+      %div.collapse.navbar-collapse#navbarNav
+        %ul.navbar-nav.ml-auto
+          - if current_user
+            %li.nav-item.d-inline-block#top_balance
+              Balance: {{ STATE.balances["#{current_quote_asset.id}"] ? STATE.balances["#{current_quote_asset.id}"].available : 0 }}
+              .dropdown.d-inline-block
+                %a#dropdownMenuButton.nav-link.dropdown-toggle{"href" => "#", "aria-haspopup" => "true", "data-toggle" => "dropdown"}
+                  = current_quote_asset.symbol
+                .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "dropdownMenuButton"}
+                  - for asset in Asset.quotable
+                    = link_to asset.symbol, {quote_asset_id: asset.id}, class: 'dropdown-item'
+            :coffeescript
+              new Vue
+                data: ->
+                  STATE: STATE
+                el: '#top_balance'
+            %li.nav-item= link_to 'Deposit/Withdraw', '/cached_balances', class: 'nav-link'
+            %li.nav-item= link_to 'My Orders', '/orders', class: 'nav-link'
+            %li.nav-item.d-inline-block
+              %span Logged in as 
+              %span.d-inline-block.nav-link #{current_user.email}
+            %li.nav-item= link_to 'Log Out', logout_path, method: :delete, class: 'nav-link'
+          - else
+            / not logged in
+            .dropdown.d-inline-block
+              %a#dropdownMenuButton.nav-link.dropdown-toggle{"href" => "#", "aria-haspopup" => "true", "data-toggle" => "dropdown"}
+                = current_quote_asset.symbol
+              .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "dropdownMenuButton"}
+                - for asset in Asset.quotable
+                  = link_to asset.symbol, {quote_asset_id: asset.id}, class: 'dropdown-item'
+            .nav-item.nav-link= link_to (t '.log_in'), login_path
+          .dropdown.nav-item
+            %a#dropdownMenuButton.d-inline-block.nav-link.dropdown-toggle{"href" => "#", "aria-haspopup" => "true", "data-toggle" => "dropdown"}
+              = I18n.locale
+            .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "dropdownMenuButton"}
+              = link_to (t '.english'), {locale: 'en'}, class: 'dropdown-item'
+              = link_to (t '.japanese'), {locale: 'ja'}, class: 'dropdown-item'
 
     .container
       - if notice
