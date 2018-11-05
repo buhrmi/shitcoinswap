@@ -21,4 +21,5 @@
 //= require ./redactor
 //= require ./vue-actioncable
 //= require ./amcharts
+//= require big
 

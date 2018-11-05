@@ -1,5 +1,16 @@
 .container
-  - @assets.each do |asset|
-    .asset
-      %td= link_to asset.name, asset
-    
+  %h1.mt-5 All assets
+  %p Sorted by 24h volume
+  .card
+    .card-body
+      %table.table
+        %tr
+          %th Asset
+          %th 24h volume
+        - @assets.each do |asset|
+          %tr
+            %td= link_to asset.name, asset
+            %td
+              = asset.volume24h(current_quote_asset)
+              = current_quote_asset.symbol
+  

@@ -20,8 +20,8 @@
           %tbody
             %tr(v-for="order in openOrders.orderBy('rate')")
               %td {{ order.side }} @ {{ order.kind == 'market' ? 'market' : order.rate }}
-              %td(v-if="order.kind == 'market' && order.side == 'buy'") {{ order.total - order.total_used }}
-              %td(v-else) {{ order.quantity - order.quantity_filled }}
+              %td(v-if="order.kind == 'market' && order.side == 'buy'") {{ big(order.total).minus(order.total_used).toString() }}
+              %td(v-else) {{ big(order.quantity).minus(order.quantity_filled).toString() }}
               -# %td {{ order.filled_percent }}%
               %td
 
@@ -60,6 +60,9 @@
       quoteAssetId: #{ @order.quote_asset_id.to_i }
   new Vue
     el: '#open_orders'
+    methods:
+      big: (num) ->
+        new Big(num)
     subscriptions:
       OrdersChannel:
         params: ->

@@ -3,6 +3,7 @@ class Asset < ApplicationRecord
   translates :page_content
 
   belongs_to :platform
+  has_many :cached_volumes, foreign_key: 'base_asset_id'
   has_many :balance_adjustments
   has_many :orders, foreign_key: 'base_asset_id'
   has_many :base_trades, class_name: 'Trade', foreign_key: 'base_asset_id'
