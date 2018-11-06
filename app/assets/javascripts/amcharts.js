@@ -21,10 +21,10 @@ function stockChart(elId, data) {
     "theme": "light",
     "dataSets": [ {
       "fieldMappings": [ {
-        "fromField": "open",
+        "fromField": "first",
         "toField": "open"
       }, {
-        "fromField": "close",
+        "fromField": "last",
         "toField": "close"
       }, {
         "fromField": "high",
@@ -64,17 +64,19 @@ function stockChart(elId, data) {
         "fillAlphas": 1,
         "balloonText": "open:<b>[[open]]</b><br>close:<b>[[close]]</b><br>low:<b>[[low]]</b><br>high:<b>[[high]]</b>",
         "useDataSetColors": false
-      },{ 
-        "id": "g2",
-        "valueField": "value",
-        "type": "smoothedLine",
-        "lineThickness": 2,
-        "bullet": "round",
-        "lineColor": "#b0de09",
-        "bulletColor": "#b0de09",
-        "balloonText": "average: <b>[[value]]",
-        "useDataSetColors": false
-        }]
+      }
+      // ,{ 
+      //   "id": "g2",
+      //   "valueField": "value",
+      //   "type": "smoothedLine",
+      //   "lineThickness": 2,
+      //   "bullet": "round",
+      //   "lineColor": "#b0de09",
+      //   "bulletColor": "#b0de09",
+      //   "balloonText": "average: <b>[[value]]",
+      //   "useDataSetColors": false
+      //   }
+      ]
     },{
       "title": "Volume",
       "percentHeight": 30,
