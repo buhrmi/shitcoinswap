@@ -1,9 +1,9 @@
 .container
   %h1.mt-5 Balance History
   %p Displaying your balance history for #{@asset.name} (#{@asset.symbol})
-  = paginate @balance_adjustments, theme: 'twitter-bootstrap-4'
   .card
     .card-body
+      = paginate @balance_adjustments, theme: 'twitter-bootstrap-4'
       %table.table.table-hover
         %thead
           %tr
@@ -22,4 +22,4 @@
               %td= balance_adjustment.memo
               %td= balance_adjustment.amount
               %td= link_to (t '.check'), balance_adjustment.transaction_url, target: '_blank' if balance_adjustment.transaction_url
-  = paginate @balance_adjustments, theme: 'twitter-bootstrap-4'
+      = paginate @balance_adjustments, theme: 'twitter-bootstrap-4'

@@ -1,8 +1,11 @@
 class OrdersController < ApplicationController
 
   def index
-    @open_orders = current_user.orders.open
-    @past_orders = current_user.orders.closed
+    if params[:closed]
+      @orders = current_user.orders.closed.page(params[:page])
+    else
+      @orders = current_user.orders.open.page(params[:page])
+    end
   end
 
   def new

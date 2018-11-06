@@ -1,8 +1,12 @@
 .container
   %h1.mt-5= t "Orders"
   .card
-    .card-header Open Orders
+    .card-header
+      .nav.nav-tabs.card-header-tabs
+        .nav-item= link_to t('.open'), orders_path, class: "nav-link #{'active' unless params[:closed]}" 
+        .nav-item= link_to t('.closed'), orders_path(closed: true), class: "nav-link #{'active' if params[:closed]}"
     .card-body
+      = paginate @orders, theme: 'twitter-bootstrap-4'
       %table.table
         %thead
           %tr
@@ -14,7 +18,7 @@
             %th= t '.filled'
             %th
         %tbody
-          - @open_orders.each do |order|
+          - @orders.each do |order|
             %tr
               %td= order.side
               %td= link_to order.base_asset.name, order.base_asset
@@ -29,33 +33,6 @@
                 = order.percent_filled
                 \%
               %td
-                = link_to (t '.cancel'), order, method: 'delete'
-  .card.mt-3
-    .card-header Closed Orders
-    .card-body
-      %table.table
-        %thead
-          %tr
-            %th Side
-            %th Asset
-            %th Market
-            %th= t '.quantity'
-            %th= t '.rate'
-            %th= t '.filled'
-            %th
-        %tbody
-          - @past_orders.each do |order|
-            %tr
-              %td= order.side
-              %td= link_to order.base_asset.name, order.base_asset
-              %td= order.quote_asset.name
-              %td
-                - if order.buy_market?
-                  #{order.total} #{order.quote_asset.symbol}
-                - else
-                  #{order.quantity} #{order.base_asset.symbol}
-              %td= order.market? ? 'any' : order.rate
-              %td
-                = order.percent_filled
-                \%
-              %td
+                - if order.open?
+                  = link_to (t '.cancel'), order, method: 'delete'
+      = paginate @orders, theme: 'twitter-bootstrap-4'
