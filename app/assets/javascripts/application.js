@@ -20,6 +20,8 @@
 //= require ./arraydb
 //= require ./redactor
 //= require ./vue-actioncable
+//= require chartkick
 //= require ./amcharts
+//= require highcharts/highcharts
 //= require big
 
