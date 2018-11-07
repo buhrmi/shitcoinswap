@@ -6,8 +6,7 @@ task caches: [:environment] do
     for base_asset in assets
       for quote_asset in Asset.quotable
         volume = base_asset.volume24h(quote_asset)
-        cached_volume = CachedVolume.create!(base_asset: base_asset, quote_asset: quote_asset, period: '24h', sum_trades: volume)
-        base_asset.update(last_cached_volume: cached_volume)
+        CachedVolume.create!(base_asset: base_asset, quote_asset: quote_asset, period: '24h', sum_trades: volume)
       end
     end
     # wait 5 minutes before running again
