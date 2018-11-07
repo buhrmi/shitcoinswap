@@ -4,6 +4,8 @@ class Asset < ApplicationRecord
 
   belongs_to :platform
   has_many :cached_volumes, foreign_key: 'base_asset_id'
+  belongs_to :last_cached_volume, class_name: 'CachedVolume'
+
   has_many :balance_adjustments
   has_many :orders, foreign_key: 'base_asset_id'
   has_many :base_trades, class_name: 'Trade', foreign_key: 'base_asset_id'
@@ -28,6 +30,10 @@ class Asset < ApplicationRecord
   
   def self.eth
     find_by(native_symbol: 'ETH')
+  end
+
+  def self.with_24h_volume_cache(quote_asset_id)
+    joins("inner join cached_volumes on base_asset_id = assets.id and cached_volumes.id = (select id from cached_volumes where base_asset_id = assets.id and period = '24h' and quote_asset_id = #{quote_asset_id} order by created_at desc limit 1)")
   end
 
   def self.rinkeby
@@ -146,6 +152,6 @@ class Asset < ApplicationRecord
   end
 
   def hourly_prices_24h quote_asset_id
-    base_trades.where('created_at > ?', 24.hours.ago).where(quote_asset_id: quote_asset_id).group_by_hour(:created_at).average(:rate)
+    base_trades.where(quote_asset_id: quote_asset_id).group_by_hour(:created_at).average(:rate)
   end
 end

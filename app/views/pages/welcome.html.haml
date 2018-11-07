@@ -5,6 +5,27 @@
       -# %p.lead= t '.24hvolume', amount: Trade.volume(Asset.eth, 24.hours).to_s + ' ETH'
       %p.lead= t '.24hvolume', amount: Trade.volume(current_quote_asset, 24.hours).to_s + ' ' + current_quote_asset.symbol
       %p #{ t('.sounds_good') } #{ link_to t('.create_token'), '/pages/token_studio', class: 'btn btn-lg btn-outline-primary' } or #{ link_to t('.submit_existing'), new_asset_path }
+%section.top
+  .container.py-3.pt-md-5.pb-md-4.mx-auto
+    %h1.display-4.text-center Top assets
+    .card
+      .card-body
+        %table.table
+          %tr
+            %th Asset
+            %th 24h volume
+            %th Price chart (last 24 hours)
+          - @top_assets.each do |asset|
+            - cache asset do
+              %tr
+                %td= link_to asset.name, asset
+                %td
+                  = asset.volume24h(current_quote_asset)
+                  = current_quote_asset.symbol
+                %td
+                  = line_chart asset.hourly_prices_24h(current_quote_asset), height: '66px', width: '320px'
+
+
 %section.featured
   .container.py-3.pt-md-5.pb-md-4.mx-auto
     %h1.display-4.text-center= t '.featured'

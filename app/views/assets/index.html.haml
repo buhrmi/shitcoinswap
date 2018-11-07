@@ -3,17 +3,18 @@
   %p Sorted by 24h volume
   .card
     .card-body
+      = paginate @assets
       %table.table
         %tr
           %th Asset
           %th 24h volume
           %th 24h pricing
         - @assets.each do |asset|
-          %tr
-            %td= link_to asset.name, asset
-            %td
-              = asset.volume24h(current_quote_asset)
-              = current_quote_asset.symbol
-            %td
-              - cache asset do
+          - cache asset do
+            %tr
+              %td= link_to asset.name, asset
+              %td
+                = asset.volume24h(current_quote_asset)
+                = current_quote_asset.symbol
+              %td
                 = line_chart asset.hourly_prices_24h(current_quote_asset), height: '66px', width: '320px'

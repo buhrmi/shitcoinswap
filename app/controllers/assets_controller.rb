@@ -44,7 +44,7 @@ class AssetsController < ApplicationController
   end
 
   def index
-    @assets = Asset.joins(:cached_volumes).where(cached_volumes: {quote_asset_id: current_quote_asset}).order('cached_volumes.created_at DESC, sum_trades DESC').uniq
+    @assets = Asset.with_24h_volume_cache(current_quote_asset.id).order('sum_trades desc').page(params[:page])
   end
 
   def show
