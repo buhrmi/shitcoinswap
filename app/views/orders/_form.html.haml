@@ -16,8 +16,8 @@
       = form.label :side, class: 'col-sm-2 col-form-label'
       .col-sm-10
         .btn-group.btn-group-toggle
-          .btn.btn-secondary(:class="{active: side == 'sell'}" v-on:click="side='sell'") Sell
-          .btn.btn-secondary(:class="{active: side == 'buy'}" v-on:click="side='buy'") Buy
+          .btn.btn-secondary(:class="{active: side == 'sell'}" v-on:click="side='sell'") Sell #{ order.base_asset.symbol }
+          .btn.btn-secondary(:class="{active: side == 'buy'}" v-on:click="side='buy'") Buy #{ order.base_asset.symbol }
     
     .row.form-group
       = form.label :rate, class: 'col-sm-2 col-form-label'
