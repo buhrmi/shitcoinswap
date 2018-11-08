@@ -69,7 +69,7 @@
                   = current_quote_asset.symbol
                 .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "dropdownMenuButton"}
                   - for asset in Asset.quotable
-                    = link_to asset.symbol, {quote_asset_id: asset.id}, class: 'dropdown-item'
+                    = link_to asset.symbol, params.to_unsafe_h.merge(quote_asset_id: asset.id), class: 'dropdown-item'
             :coffeescript
               new Vue
                 data: ->

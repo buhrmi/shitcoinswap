@@ -22,10 +22,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_quote_asset
-    if params[:quote_asset_id]
-      cookies[:quote_asset_id] = params[:quote_asset_id]
-      return redirect_back fallback_location: root_url
-    end
+    cookies[:quote_asset_id] = params[:quote_asset_id] if params[:quote_asset_id]
     current_user.cached_balances.find_or_create_by(asset_id: current_quote_asset.id) if current_user
   end 
 
