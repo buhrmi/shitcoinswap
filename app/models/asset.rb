@@ -148,7 +148,7 @@ class Asset < ApplicationRecord
 
   def price_chart_data quote_asset_id
     # TODO: show open/close rates instead average rates
-    charts = base_trades.where(quote_asset_id: quote_asset_id).select('first(rate), last(rate), max(rate) as high, min(rate) as low, avg(rate) as avg, sum(rate * amount) as volume').group_by_day(:created_at)
+    charts = base_trades.where(quote_asset_id: quote_asset_id).select('first(rate order by created_at), last(rate order by created_at), max(rate) as high, min(rate) as low, avg(rate) as avg, sum(rate * amount) as volume').group_by_day(:created_at)
   end
 
   def hourly_prices_24h quote_asset_id
