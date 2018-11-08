@@ -25,3 +25,16 @@
 //= require highcharts/highcharts
 //= require big
 
+Highcharts.setOptions({
+  xAxis: {
+    visible: false
+  },
+  chart: {
+    // margin: [10, 0, 10, 30]
+  },
+  plotOptions: {
+    series: {
+      connectNulls: true
+    }
+  }
+})

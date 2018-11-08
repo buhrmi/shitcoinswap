@@ -8,7 +8,7 @@
         %tr
           %th Asset
           %th 24h volume
-          %th 24h pricing
+          %th Price chart (last 7 days)
         - @assets.each do |asset|
           - cache asset do
             %tr
@@ -17,4 +17,6 @@
                 = asset.volume24h(current_quote_asset)
                 = current_quote_asset.symbol
               %td
-                = line_chart asset.hourly_prices_24h(current_quote_asset), height: '66px', width: '320px'
+                = line_chart asset.hourly_prices(current_quote_asset), height: '66px', width: '320px'
+                -# = line_chart [["2018-10-29T04:00:00.000Z","1.0"],["2018-10-29T05:00:00.000Z","2.0"],["2018-10-29T06:00:00.000Z","3.0"],["2018-10-29T07:00:00.000Z","2.0"],["2018-10-29T08:00:00.000Z",nil],["2018-10-29T09:00:00.000Z","3.0"]], height: '66px', width: '320px', spanGaps: true
+                
