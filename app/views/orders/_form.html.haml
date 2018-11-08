@@ -18,6 +18,15 @@
         .btn-group.btn-group-toggle
           .btn.btn-secondary(:class="{active: side == 'sell'}" v-on:click="side='sell'") Sell
           .btn.btn-secondary(:class="{active: side == 'buy'}" v-on:click="side='buy'") Buy
+    
+    .row.form-group
+      = form.label :rate, class: 'col-sm-2 col-form-label'
+      .col-sm-10
+        .input-group
+          = text_field_tag 'derp','Best Market Price', 'v-if' => 'kind == "market"', class: 'form-control', disabled: true
+          = form.text_field :rate, 'v-else' => '', class: 'form-control', 'v-model' => 'rate'
+          .input-group-append
+            .input-group-text #{ order.quote_asset.symbol }
             
     .row.form-group(v-if="side == 'buy' && kind == 'market'")
       = form.label :total, class: 'col-sm-2 col-form-label'
@@ -34,27 +43,8 @@
           .input-group-append
             .input-group-text #{ order.base_asset.symbol }
     .row.form-group
-      = form.label :rate, class: 'col-sm-2 col-form-label'
-      .col-sm-10
-        = form.text_field :rate, class: 'form-control', 'v-model' => 'rate', ':disabled' => 'kind == "market"'
-    .row.form-group
       .col-sm-2
       .col-sm-10
         = form.submit class: 'btn btn-primary', ':disabled' => '!valid'
 
-:coffeescript
-  new Vue
-    el: '#new_order'
-    data: ->
-      quantity: #{ order.quantity.truth || current_user.available_balance(order.base_asset) }
-      total: #{ order.total.truth || current_user.available_balance(order.quote_asset) }
-      side: '#{ order.side || (current_user.available_balance(order.base_asset) > 0 ? 'sell' : 'buy') }'
-      kind: '#{ order.kind || "market"}'
-      rate: #{ order.rate || 1}
-      STATE: STATE
-      base_asset_id: #{ @order.base_asset_id }
-      quote_asset_id: #{ @order.quote_asset_id.to_i }
-    computed:
-      valid: ->
-        true
       

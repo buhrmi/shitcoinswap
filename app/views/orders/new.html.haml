@@ -3,14 +3,14 @@
   #balances
     %p Available #{ @order.base_asset.symbol }: {{ STATE.balances[baseAssetId] ? STATE.balances[baseAssetId].available : 0.0 }}
     %p Available #{ @order.quote_asset.symbol }: {{ STATE.balances[quoteAssetId] ? STATE.balances[quoteAssetId].available : 0.0 }}
-  .card-deck.mb-3
+  .card-deck.mb-3#newtrade
     .card
       = render 'form', order: @order
 
     .card#open_orders
       .card-header Order book (#{@order.base_asset.symbol}/#{@order.quote_asset.symbol})
       .card-body
-        %table.table
+        %table.table.table-hover
           %thead
             %tr
               %th Type
@@ -18,7 +18,7 @@
               -# %th= t '.filled'
               %th
           %tbody
-            %tr(v-for="order in openOrders.orderBy('rate')")
+            %tr(v-for="order in openOrders.orderBy('rate')" v-on:click="matchOrder(order)")
               %td {{ order.side }} @ {{ order.kind == 'market' ? 'market' : order.rate }}
               %td(v-if="order.kind == 'market' && order.side == 'buy'") {{ big(order.total).minus(order.total_used).toString() }}
               %td(v-else) {{ big(order.quantity).minus(order.quantity_filled).toString() }}
@@ -58,9 +58,17 @@
       STATE: STATE
       baseAssetId: #{ @order.base_asset_id }
       quoteAssetId: #{ @order.quote_asset_id.to_i }
+  
   new Vue
-    el: '#open_orders'
+    el: '#newtrade'
+    computed:
+      valid: ->
+        true
     methods:
+      matchOrder: (order) ->
+        @rate = order.rate
+        @side = if order.side == 'sell' then 'buy' else 'sell'
+        @kind = 'limit'
       big: (num) ->
         new Big(num)
     subscriptions:
@@ -74,6 +82,14 @@
           else
             @openOrders.upsert(message)
     data: ->
+      STATE: STATE
+      quantity: #{ @order.quantity.truth || current_user.available_balance(@order.base_asset) }
+      total: #{ @order.total.truth || current_user.available_balance(@order.quote_asset) }
+      side: '#{ @order.side || (current_user.available_balance(@order.base_asset) > 0 ? 'sell' : 'buy') }'
+      kind: '#{ @order.kind || "market"}'
+      rate: #{ @order.rate || @order.base_asset.buy_price(current_quote_asset) || @order.base_asset.sell_price(current_quote_asset) || 1 }
+      base_asset_id: #{ @order.base_asset_id }
+      quote_asset_id: #{ @order.quote_asset_id.to_i }
       openOrders: #{ raw @open_orders.to_json }
 
   new Vue
