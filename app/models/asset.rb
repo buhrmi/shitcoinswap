@@ -4,7 +4,6 @@ class Asset < ApplicationRecord
 
   belongs_to :platform
   has_many :cached_volumes, foreign_key: 'base_asset_id'
-  belongs_to :last_cached_volume, class_name: 'CachedVolume'
 
   has_many :balance_adjustments
   has_many :orders, foreign_key: 'base_asset_id'
