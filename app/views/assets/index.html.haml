@@ -10,11 +10,12 @@
           %th 24h volume
           %th Price chart (last 7 days)
         - @assets.each do |asset|
-          %tr
-            %td= link_to asset.name, asset
-            %td
-              = asset.volume_24h(current_quote_asset)
-              = current_quote_asset.symbol
-            %td
-              = line_chart asset.hourly_prices(current_quote_asset), height: '66px', width: '320px'
+          - cache asset, expires_in: 1.minute do
+            %tr
+              %td= link_to asset.name, asset
+              %td
+                = asset.volume_24h(current_quote_asset)
+                = current_quote_asset.symbol
+              %td
+                = line_chart asset.hourly_prices(current_quote_asset), height: '66px', width: '320px'
       = paginate @assets, theme: 'twitter-bootstrap-4'

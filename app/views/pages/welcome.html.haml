@@ -16,7 +16,7 @@
             %th 24h volume
             %th Price chart (last 7 days)
           - @top_assets.each do |asset|
-            - cache asset do
+            - cache asset, expires_in: 1.minute do
               %tr
                 %td= link_to asset.name, asset
                 %td
