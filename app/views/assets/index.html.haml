@@ -13,7 +13,7 @@
           %tr
             %td= link_to asset.name, asset
             %td
-              = asset.volume24h(current_quote_asset)
+              = asset.volume_24h(current_quote_asset)
               = current_quote_asset.symbol
             %td
               = line_chart asset.hourly_prices(current_quote_asset), height: '66px', width: '320px'

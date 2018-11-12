@@ -5,7 +5,7 @@ task caches: [:environment] do
     
     for base_asset in assets
       for quote_asset in Asset.quotable
-        volume = base_asset.volume24h(quote_asset)
+        volume = base_asset.volume_24h(quote_asset)
         CachedVolume.create!(base_asset: base_asset, quote_asset: quote_asset, period: '24h', sum_trades: volume)
       end
     end

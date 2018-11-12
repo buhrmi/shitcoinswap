@@ -21,7 +21,7 @@
         .asset-stat #{ number_with_delimiter @asset.total_supply } #{ @asset.symbol }
       .col-sm-3.text-center
         .asset-stat-header 24h Volume
-        .asset-stat #{ number_with_delimiter @asset.volume24h(current_quote_asset) } #{ current_quote_asset.symbol }
+        .asset-stat #{ number_with_delimiter @asset.volume_24h(current_quote_asset) } #{ current_quote_asset.symbol }
       .col-sm-3.text-center
         .asset-stat-header Buy Price
         .asset-stat #{ @asset.buy_price(current_quote_asset) || 'N/A'} #{ current_quote_asset.symbol }

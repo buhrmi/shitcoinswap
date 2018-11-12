@@ -117,7 +117,7 @@ class Asset < ApplicationRecord
     native_symbol || platform_data['symbol']
   end
 
-  def volume24h quote_asset = platform.native_asset
+  def volume_24h quote_asset = platform.native_asset
     Trade.where(base_asset: self, quote_asset: quote_asset).where('created_at > ?', 24.hours.ago).sum('amount * rate')
   end
 
