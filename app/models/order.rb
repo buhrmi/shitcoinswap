@@ -110,14 +110,24 @@ class Order < ActiveRecord::Base
   def fill!(other_order)
     rate = self.market? ? other_order.rate : self.rate
     
-    quantity_to_fill = [self.unfilled_quantity(rate), other_order.unfilled_quantity(rate)].min
+    if self.buy_market?
+      total_to_use = [self.total - self.total_used, (other_order.quantity - other_order.quantity_filled) * rate].min
+
+      sell_order = self.sell? ? self : other_order
+      buy_order  = self.buy?  ? self : other_order
+      
+      base_change  = total_to_use / rate
+      quote_change = total_to_use
+    else
+      quantity_to_fill = [self.quantity - self.quantity_filled, other_order.unfilled_quantity(rate)].min
     
-    sell_order = self.sell? ? self : other_order
-    buy_order  = self.buy?  ? self : other_order
-    
-    base_change  = quantity_to_fill
-    quote_change = quantity_to_fill * rate
-    
+      sell_order = self.sell? ? self : other_order
+      buy_order  = self.buy?  ? self : other_order
+      
+      base_change  = quantity_to_fill
+      quote_change = quantity_to_fill * rate
+    end
+
     sell_order.total_used      += quote_change
     sell_order.quantity_filled += base_change
     buy_order.total_used       += quote_change
