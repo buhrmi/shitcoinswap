@@ -11,7 +11,7 @@ class Deposit < ApplicationRecord
     self.balance_adjustment ||= BalanceAdjustment.new({user: user, asset: asset, amount: amount})
   end
 
-  after_create do
+  after_create_commit do
     UserMailer.with(user: user, deposit: self).deposit_email.deliver_later
   end
 
