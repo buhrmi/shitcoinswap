@@ -29,9 +29,7 @@
                 - else
                   #{order.quantity} #{order.base_asset.symbol}
               %td= order.market? ? 'any' : order.rate
-              %td
-                = order.percent_filled
-                \%
+              %td #{ order.percent_filled.round(1) }%
               %td
                 - if order.open?
                   = link_to (t '.cancel'), order, method: 'delete'
