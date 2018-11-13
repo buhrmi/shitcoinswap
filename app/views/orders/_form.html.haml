@@ -24,7 +24,7 @@
       .col-sm-10
         .input-group
           = text_field_tag 'derp','Best Market Price', 'v-if' => 'kind == "market"', class: 'form-control', disabled: true
-          = form.text_field :rate, 'v-else' => '', class: 'form-control', 'v-model' => 'rate'
+          = form.text_field :rate, 'v-else' => '', class: 'form-control', 'v-model' => 'rate', autocomplete: 'off'
           .input-group-append
             .input-group-text #{ order.quote_asset.symbol }
             
@@ -32,19 +32,20 @@
       = form.label :total, class: 'col-sm-2 col-form-label'
       .col-sm-10
         .input-group
-          = form.text_field :total, class: 'form-control', 'v-model' => 'total'
+          = form.text_field :total, class: 'form-control', 'v-model' => 'total', autocomplete: 'off'
           .input-group-append
             .input-group-text #{ order.quote_asset.symbol }
     .row.form-group(v-else)
       = form.label :quantity, class: 'col-sm-2 col-form-label'
       .col-sm-10
         .input-group
-          = form.text_field :quantity, class: 'form-control', 'v-model' => 'quantity'
+          = form.text_field :quantity, class: 'form-control', 'v-model' => 'quantity', autocomplete: 'off'
           .input-group-append
             .input-group-text #{ order.base_asset.symbol }
     .row.form-group
       .col-sm-2
       .col-sm-10
+        .small.form-text.error-text(v-if="!valid") Minimum value is {{ big(min).toFixed() }}
         = form.submit class: 'btn btn-primary', ':disabled' => '!valid'
 
       

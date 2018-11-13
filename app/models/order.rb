@@ -4,9 +4,9 @@ class Order < ActiveRecord::Base
   belongs_to :base_asset, class_name: 'Asset'
   belongs_to :quote_asset, class_name: 'Asset'
 
-  validates_numericality_of :quantity, greater_than: 0, unless: :buy_market?
-  validates_numericality_of :total, greater_than: 0, if: :buy_market?
-  validates_numericality_of :rate, greater_than: 0, unless: :market?
+  validates_numericality_of :quantity, greater_than: 0.000001, unless: :buy_market?
+  validates_numericality_of :total, greater_than: 0.000001, if: :buy_market?
+  validates_numericality_of :rate, greater_than: 0.000001, unless: :market?
   validates_inclusion_of :kind, in: ['limit', 'market']
   validates_inclusion_of :side, in: ['sell', 'buy']
   validates_inclusion_of :quote_asset_id, in: lambda { |order| Asset.quotable_ids }

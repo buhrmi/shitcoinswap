@@ -63,7 +63,14 @@
     el: '#newtrade'
     computed:
       valid: ->
-        true
+        if this.kind == 'market' && this.side == 'buy'
+          this.total > this.min
+        else
+          this.quantity > this.min
+      max_base: ->
+        if STATE.balances[@base_asset_id] then STATE.balances[@base_asset_id] else 0
+      max_quote: ->
+        if STATE.balances[@quote_asset_id] then STATE.balances[@quote_asset_id] else 0
     methods:
       matchOrder: (order) ->
         @rate = order.rate
@@ -83,6 +90,7 @@
             @openOrders.upsert(message)
     data: ->
       STATE: STATE
+      min: 0.000001
       quantity: #{ @order.quantity.truth || current_user.available_balance(@order.base_asset) }
       total: #{ @order.total.truth || current_user.available_balance(@order.quote_asset) }
       side: '#{ @order.side || (current_user.available_balance(@order.base_asset) > 0 ? 'sell' : 'buy') }'
