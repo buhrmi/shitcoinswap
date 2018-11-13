@@ -1,0 +1,8 @@
+.container.mt-5
+  .card
+    .card-body
+      %h1 Status
+      .deposits
+        #{ t '.deposits' }: #{ Status.first.last_deposits_ran_at > 2.minutes.ago ? 'OK' : 'Stopped' }
+      .withdrawals
+        #{ t '.withdrawals' }:  #{ Status.first.last_withdrawals_ran_at > 2.minutes.ago ? 'OK' : 'Stopped' }

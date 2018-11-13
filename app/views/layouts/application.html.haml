@@ -111,7 +111,7 @@
           .col-md-2.text-center
             = image_tag 'logo.png', class: 'mb-2', width: 24, height: 24
           .col-md-5.text-muted.text-right
+            = link_to (t '.status'), page_url(:status), class: 'text-muted'
+            |
             = link_to (t '.contact'), page_url(:contact), class: 'text-muted'
-            = t '.deposits', :status_first => (Status.first.last_deposits_ran_at > 2.minutes.ago ? 'OK' : 'Stopped')
-            = t '.withdrawals_1', :status_first => (Status.first.last_withdrawals_ran_at > 2.minutes.ago ? 'OK' : 'Stopped')
 
