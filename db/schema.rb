@@ -74,7 +74,7 @@ ActiveRecord::Schema.define(version: 2018_11_05_014508) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "description"
-    t.json "page_content", default: []
+    t.json "page_content"
     t.index ["asset_id"], name: "index_asset_translations_on_asset_id"
     t.index ["locale"], name: "index_asset_translations_on_locale"
   end
@@ -82,18 +82,19 @@ ActiveRecord::Schema.define(version: 2018_11_05_014508) do
   create_table "assets", force: :cascade do |t|
     t.string "name"
     t.string "native_symbol"
+    t.integer "submitter_id", comment: "User ID of user who submitted this token. He should be made admin of this token."
     t.float "cached_rating", default: 0.0
     t.string "platform_id"
     t.string "address"
     t.json "platform_data", default: {}, comment: "Cached information for the asset. Pulled from the platform upon creation"
     t.datetime "delisted_at"
+    t.datetime "featured_at"
     t.string "logo_uid"
     t.string "logo_name"
+    t.string "brand_color"
+    t.string "website"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "featured_at", precision: 6
-    t.bigint "submitter_id"
-    t.json "page_content", default: []
     t.index ["address", "platform_id"], name: "index_assets_on_address_and_platform_id", unique: true
     t.index ["name"], name: "index_assets_on_name"
   end
@@ -126,8 +127,8 @@ ActiveRecord::Schema.define(version: 2018_11_05_014508) do
   create_table "cached_balances", force: :cascade do |t|
     t.integer "user_id"
     t.integer "asset_id"
-    t.decimal "total"
-    t.decimal "available"
+    t.decimal "total", default: "0.0"
+    t.decimal "available", default: "0.0"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["asset_id"], name: "index_cached_balances_on_asset_id"
@@ -142,6 +143,12 @@ ActiveRecord::Schema.define(version: 2018_11_05_014508) do
     t.decimal "sum_trades"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["base_asset_id"], name: "index_cached_volumes_on_base_asset_id"
+    t.index ["created_at"], name: "index_cached_volumes_on_created_at"
+    t.index ["period"], name: "index_cached_volumes_on_period"
+    t.index ["quote_asset_id", "period"], name: "index_cached_volumes_on_quote_asset_id_and_period"
+    t.index ["quote_asset_id"], name: "index_cached_volumes_on_quote_asset_id"
+    t.index ["sum_trades"], name: "index_cached_volumes_on_sum_trades"
   end
 
   create_table "deposits", force: :cascade do |t|
@@ -197,8 +204,8 @@ ActiveRecord::Schema.define(version: 2018_11_05_014508) do
   end
 
   create_table "statuses", force: :cascade do |t|
-    t.datetime "last_deposits_ran_at", default: "2018-10-19 06:52:41"
-    t.datetime "last_withdrawals_ran_at", default: "2018-10-19 06:52:41"
+    t.datetime "last_deposits_ran_at", default: "2018-11-13 01:34:52"
+    t.datetime "last_withdrawals_ran_at", default: "2018-11-13 01:34:52"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -224,10 +231,10 @@ ActiveRecord::Schema.define(version: 2018_11_05_014508) do
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "password_digest"
+    t.string "preferred_locale"
+    t.boolean "admin"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "preferred_locale", limit: 255
-    t.boolean "admin"
   end
 
   create_table "withdrawals", force: :cascade do |t|
