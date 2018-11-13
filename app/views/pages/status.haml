@@ -6,3 +6,10 @@
         #{ t '.deposits' }: #{ Status.first.last_deposits_ran_at > 2.minutes.ago ? 'OK' : 'Stopped' }
       .withdrawals
         #{ t '.withdrawals' }:  #{ Status.first.last_withdrawals_ran_at > 2.minutes.ago ? 'OK' : 'Stopped' }
+  .card
+    .card-header Rescan block
+    .card-body
+      = form_for Deposit.new do
+        = collection_select nil, :platform_id, Platform.all, :id, :name
+        = text_field_tag :block, nil, placeholder: 0
+        = button_tag 'Rescan'

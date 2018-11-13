@@ -59,12 +59,15 @@ module PlatformIntegrations::ETH
     jsonrpc('eth_getBlockByNumber', params)['result']
   end
 
-  def scan_for_deposits!
+  def scan_for_deposits!(from = nil, to = nil)
     latest_block = get_block_number - REQUIRED_CONFIRMATIONS
     self.last_scanned_block ||= latest_block
     
+    from = last_scanned_block + 1 unless from
+    to = latest_block unless to
+
     # SCAN EACH BLOCK INDIVIDUALLY FOR ETH DEPOSITS
-    for block in (last_scanned_block + 1 .. latest_block)
+    for block in (from .. to)
       block_hex = '0x' + block.to_s(16)
       transactions = fetch_block(block_hex)['transactions']
       puts "\nFETCHING BLOCK "+block.to_s
@@ -72,10 +75,10 @@ module PlatformIntegrations::ETH
     end
     
     # SCAN FOR TOKENS
-    from_block = '0x' + (last_scanned_block + 1).to_s(16)
-    to_block = '0x' + latest_block.to_s(16)
-    puts "\nSEARCHING TOKEN TRANSFERS FROM " + (last_scanned_block + 1).to_s + " TO " + latest_block.to_s
-    new_transactions = fetch_new_transfers(from_block, to_block)
+    from_hex = '0x' + from.to_s(16)
+    to_hex = '0x' + to.to_s(16)
+    puts "\nSEARCHING TOKEN TRANSFERS FROM " + (from).to_s + " TO " + to.to_s
+    new_transactions = fetch_new_transfers(from_hex, to_hex)
     check_transfers_for_deposits(new_transactions)
 
     self.last_scanned_block = latest_block
