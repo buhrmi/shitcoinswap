@@ -81,7 +81,7 @@
     subscriptions:
       OrdersChannel:
         params: ->
-          base_asset_id: #{ @order.base_asset_id }
+          base_asset_ids: [#{ @order.base_asset_id }]
           quote_asset_id: #{ @order.quote_asset_id }
         received: (message) ->
           if (message.cancelled_at || message.filled_at)
