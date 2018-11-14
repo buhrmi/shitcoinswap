@@ -138,8 +138,8 @@ en:
       edit: "Edit"
   pages:
     welcome:
-      welcome_to: "Welcome to NewArt Technology"
-      24hvolume: "Total 24h volume: %{amount}."
+      welcome_to: "We help you attach monetary value to your crypto-tokens."
+      24hvolume: "%{amount} volume in the last 24h."
       submit_existing: "submit existing token"
       sounds_good: Become our partner!
       create_token: Create Token
