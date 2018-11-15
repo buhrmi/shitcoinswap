@@ -138,7 +138,7 @@ en:
       edit: "Edit"
   pages:
     welcome:
-      welcome_to: "We help you attach monetary value to your crypto-tokens."
+      welcome_to: "We help to attach monetary value to crypto-tokens."
       24hvolume: "%{amount} volume in the last 24h."
       submit_existing: "submit existing token"
       sounds_good: Become our partner!
