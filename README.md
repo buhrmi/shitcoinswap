@@ -39,11 +39,3 @@ If you need help with something please open a GitHub issue.
 ## Copyright
 
 Copyright (C) 2018 NewArt Technology
-
-## License
-
-License is hereby granted to study, use, modify and redistribute this work under the following condition:
-
-- If a vulnerability is discovered, you report it to the original author and neither exploit nor disclose the vulnerability to a third-party before it is fixed. Confirmed vulnerabilities are eligible for a monetary reward.
-
-TokenStudio depends on other open-source software subject to their individual licenses. The list of dependencies can be found in the [Gemfile](https://github.com/newart-tech/tokenstudio/blob/develop/Gemfile) and [package.json](https://github.com/newart-tech/tokenstudio/blob/develop/package.json).
