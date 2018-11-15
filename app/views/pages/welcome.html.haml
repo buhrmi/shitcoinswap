@@ -2,7 +2,7 @@
   .container
     .text-center
       %h1.display-4= t '.welcome_to'
-      %p Together we #BUIDL new worlds. Transparent, open, reliable.
+      %p We back your crypto-tokens with real money.
       -# %p.lead= t '.24hvolume', amount: Trade.volume(Asset.eth, 24.hours).to_s + ' ETH'
       %p.lead= t '.24hvolume', amount: Trade.volume(current_quote_asset, 24.hours).to_s + ' ' + current_quote_asset.symbol
       %p #{ link_to t('.create_token'), '/pages/token_studio', class: 'btn btn-lg btn-outline-primary' } or #{ link_to t('.submit_existing'), new_asset_path }
