@@ -11,7 +11,7 @@ TokenStudio automates every aspect of your ICO, ITO or STO across many supported
 * [x] Deposits / Withdrawals
 * [x] Easily rebrandable
 * [x] I18n
-* [ ] Integrated trading engine (WIP)
+* [x] Integrated trading engine
 * [ ] Soft tokens (tokens that are not yet deployed to a platform)
 * [ ] Token Sites (Summary, SNS Widgets, Team, Roadmap, Video, News, etc.)
 * [ ] Automated community engagement features
@@ -36,6 +36,3 @@ _Soon..._
 
 If you need help with something please open a GitHub issue.
 
-## Copyright
-
-Copyright (C) 2018 NewArt Technology
