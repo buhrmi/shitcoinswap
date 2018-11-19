@@ -6,7 +6,7 @@ class Order < ActiveRecord::Base
 
   validates_numericality_of :quantity, greater_than: 0.000001, unless: :buy_market?
   validates_numericality_of :total, greater_than: 0.000001, if: :buy_market?
-  validates_numericality_of :rate, greater_than: 0.000001, unless: :market?
+  validates_numericality_of :price, greater_than: 0.000001, unless: :market?
   validates_inclusion_of :kind, in: ['limit', 'market']
   validates_inclusion_of :side, in: ['sell', 'buy']
   validates_inclusion_of :quote_asset_id, in: lambda { |order| Asset.quotable_ids }
@@ -32,7 +32,7 @@ class Order < ActiveRecord::Base
     if buy_market?
       errors.add(:total, 'is higher than available balance') if user.available_balance(quote_asset) < total
     elsif buy?
-      errors.add(:quantity, 'is higher than available balance') if user.available_balance(quote_asset) < quantity * rate
+      errors.add(:quantity, 'is higher than available balance') if user.available_balance(quote_asset) < quantity * price
     else
       errors.add(:quantity, 'is higher than available balance') if user.available_balance(base_asset) < quantity
     end
@@ -60,11 +60,11 @@ class Order < ActiveRecord::Base
     orders = orders.where(kind: order.matching_kinds)
     
     if order.sell?
-      orders = orders.where(side: 'buy').order('rate DESC')
-      orders = orders.where("rate >= ? or kind = ?", order.rate, 'market') if order.limit?
+      orders = orders.where(side: 'buy').order('price DESC')
+      orders = orders.where("price >= ? or kind = ?", order.price, 'market') if order.limit?
     else
-      orders = orders.where(side: 'sell').order('rate ASC')
-      orders = orders.where("rate <= ? or kind = ?", order.rate, 'market') if order.limit?
+      orders = orders.where(side: 'sell').order('price ASC')
+      orders = orders.where("price <= ? or kind = ?", order.price, 'market') if order.limit?
     end
     
     return orders
@@ -91,9 +91,9 @@ class Order < ActiveRecord::Base
     end
   end
   
-  def unfilled_quantity(rate)
+  def unfilled_quantity(price)
     if self.buy_market?
-      (self.total - self.total_used) / rate
+      (self.total - self.total_used) / price
     else
       self.quantity - self.quantity_filled
     end
@@ -108,24 +108,24 @@ class Order < ActiveRecord::Base
   end
   
   def fill!(other_order)
-    rate = self.market? ? other_order.rate : self.rate
+    price = self.market? ? other_order.price : self.price
     
     if self.buy_market?
-      total_to_use = [self.total - self.total_used, (other_order.quantity - other_order.quantity_filled) * rate].min
+      total_to_use = [self.total - self.total_used, (other_order.quantity - other_order.quantity_filled) * price].min
 
       sell_order = self.sell? ? self : other_order
       buy_order  = self.buy?  ? self : other_order
       
-      base_change  = total_to_use / rate
+      base_change  = total_to_use / price
       quote_change = total_to_use
     else
-      quantity_to_fill = [self.quantity - self.quantity_filled, other_order.unfilled_quantity(rate)].min
+      quantity_to_fill = [self.quantity - self.quantity_filled, other_order.unfilled_quantity(price)].min
     
       sell_order = self.sell? ? self : other_order
       buy_order  = self.buy?  ? self : other_order
       
       base_change  = quantity_to_fill
-      quote_change = quantity_to_fill * rate
+      quote_change = quantity_to_fill * price
     end
 
     sell_order.total_used      += quote_change
@@ -136,7 +136,7 @@ class Order < ActiveRecord::Base
     other_order.save!
     self.save!
 
-    trade = Trade.create!(quote_asset: quote_asset, base_asset: base_asset, buy_order: buy_order, sell_order: sell_order, buyer: buy_order.user, seller: sell_order.user, amount: quantity_to_fill, rate: rate)
+    trade = Trade.create!(quote_asset: quote_asset, base_asset: base_asset, buy_order: buy_order, sell_order: sell_order, buyer: buy_order.user, seller: sell_order.user, amount: quantity_to_fill, price: price)
     
     # Adjust balances
     trade.balance_adjustments.create!(user: buy_order.user, asset: base_asset, amount: base_change)

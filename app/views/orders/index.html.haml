@@ -14,7 +14,7 @@
             %th Asset
             %th Market
             %th= t '.quantity'
-            %th= t '.rate'
+            %th= t '.price'
             %th= t '.filled'
             %th
         %tbody
@@ -28,7 +28,7 @@
                   #{order.total} #{order.quote_asset.symbol}
                 - else
                   #{order.quantity} #{order.base_asset.symbol}
-              %td= order.market? ? 'any' : order.rate
+              %td= order.market? ? 'any' : order.price
               %td #{ order.percent_filled.round(1) }%
               %td
                 - if order.open?

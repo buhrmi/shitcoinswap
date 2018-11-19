@@ -127,7 +127,7 @@ en:
       buying_asset: "Buying Asset"
       selling_asset: "Selling Asset"
       quantity: "Quantity"
-      rate: "Rate"
+      price: "price"
       filled: "Filled"
       cancel: "Cancel"
       new_order: "New Order"

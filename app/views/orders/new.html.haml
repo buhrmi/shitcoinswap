@@ -18,8 +18,8 @@
               -# %th= t '.filled'
               %th
           %tbody
-            %tr(v-for="order in openOrders.orderBy('rate')" v-on:click="matchOrder(order)")
-              %td {{ order.side }} @ {{ order.kind == 'market' ? 'market' : order.rate }}
+            %tr(v-for="order in openOrders.orderBy('price')" v-on:click="matchOrder(order)")
+              %td {{ order.side }} @ {{ order.kind == 'market' ? 'market' : order.price }}
               %td(v-if="order.kind == 'market' && order.side == 'buy'") {{ big(order.total).minus(order.total_used).toFixed() }}
               %td(v-else) {{ big(order.quantity).minus(order.quantity_filled).toFixed() }}
               -# %td {{ order.filled_percent }}%
@@ -42,8 +42,8 @@
             %th= t '.filled'
             %th
         %tbody
-          %tr(v-for="order in STATE.openOrders.where({base_asset_id: #{@order.base_asset_id}, quote_asset_id: #{@order.quote_asset_id}}).orderBy('rate')")
-            %td {{ order.side }} @ {{ order.kind == 'market' ? 'market' : order.rate }}
+          %tr(v-for="order in STATE.openOrders.where({base_asset_id: #{@order.base_asset_id}, quote_asset_id: #{@order.quote_asset_id}}).orderBy('price')")
+            %td {{ order.side }} @ {{ order.kind == 'market' ? 'market' : order.price }}
             %td(v-if="order.kind == 'market' && order.side == 'buy'") {{ big(order.total).minus(order.total_used).toFixed() }}
             %td(v-else) {{ big(order.quantity).minus(order.quantity_filled).toFixed() }}
             %td(v-if="order.kind == 'market' && order.side == 'buy'") {{ Math.floor(1000 * order.total_used / order.total) / 10 }}%
@@ -73,7 +73,7 @@
         if STATE.balances[@quote_asset_id] then STATE.balances[@quote_asset_id] else 0
     methods:
       matchOrder: (order) ->
-        @rate = order.rate
+        @price = order.price
         @side = if order.side == 'sell' then 'buy' else 'sell'
         @kind = 'limit'
       big: (num) ->
@@ -95,7 +95,7 @@
       total: #{ @order.total.truth || current_user.available_balance(@order.quote_asset) }
       side: '#{ @order.side || (current_user.available_balance(@order.base_asset) > 0 ? 'sell' : 'buy') }'
       kind: '#{ @order.kind || "market"}'
-      rate: #{ @order.rate || @order.base_asset.buy_price(current_quote_asset) || @order.base_asset.sell_price(current_quote_asset) || 1 }
+      price: #{ @order.price || @order.base_asset.buy_price(current_quote_asset) || @order.base_asset.sell_price(current_quote_asset) || 1 }
       base_asset_id: #{ @order.base_asset_id }
       quote_asset_id: #{ @order.quote_asset_id.to_i }
       openOrders: #{ raw @open_orders.to_json }

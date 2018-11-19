@@ -118,15 +118,15 @@ class Asset < ApplicationRecord
   end
 
   def volume_24h quote_asset = platform.native_asset
-    Trade.where(base_asset: self, quote_asset: quote_asset).where('created_at > ?', 24.hours.ago).sum('amount * rate')
+    Trade.where(base_asset: self, quote_asset: quote_asset).where('created_at > ?', 24.hours.ago).sum('amount * price')
   end
 
   def buy_price quote_asset = platform.native_asset
-    Order.open.where(base_asset: self, quote_asset: quote_asset, side: 'sell', kind: 'limit').order('rate asc').first.try(:rate)
+    Order.open.where(base_asset: self, quote_asset: quote_asset, side: 'sell', kind: 'limit').order('price asc').first.try(:price)
   end
 
   def sell_price quote_asset = platform.native_asset
-    Order.open.where(base_asset: self, quote_asset: quote_asset, side: 'buy', kind: 'limit').order('rate desc').first.try(:rate)
+    Order.open.where(base_asset: self, quote_asset: quote_asset, side: 'buy', kind: 'limit').order('price desc').first.try(:price)
   end
 
   def unit
@@ -146,11 +146,11 @@ class Asset < ApplicationRecord
   end
 
   def price_chart_data quote_asset_id
-    # TODO: show open/close rates instead average rates
-    charts = base_trades.where(quote_asset_id: quote_asset_id).select('first(rate order by created_at), last(rate order by created_at), max(rate) as high, min(rate) as low, avg(rate) as avg, sum(rate * amount) as volume').group_by_day(:created_at)
+    # TODO: show open/close prices instead average prices
+    charts = base_trades.where(quote_asset_id: quote_asset_id).select('first(price order by created_at), last(price order by created_at), max(price) as high, min(price) as low, avg(price) as avg, sum(price * amount) as volume').group_by_day(:created_at)
   end
 
   def hourly_prices(quote_asset_id, since = 7.days.ago)
-    base_trades.where(quote_asset_id: quote_asset_id).group_by_hour(:created_at).where('created_at > ?', since).average(:rate)
+    base_trades.where(quote_asset_id: quote_asset_id).group_by_hour(:created_at).where('created_at > ?', since).average(:price)
   end
 end

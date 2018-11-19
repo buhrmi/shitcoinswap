@@ -16,6 +16,6 @@ class Trade < ApplicationRecord
   end
 
   def self.volume(asset, timespan)
-    where(quote_asset: asset).where('created_at > ?', timespan.ago).sum('amount * rate')
+    where(quote_asset: asset).where('created_at > ?', timespan.ago).sum('amount * price')
   end
 end

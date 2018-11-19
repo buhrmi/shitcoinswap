@@ -30,7 +30,7 @@ class User < ApplicationRecord
     pending_sell = orders.open.where(side: 'sell', base_asset: asset).sum('quantity - quantity_filled')
 
     # Pending buy limit orders
-    pending_buy_limit = orders.open.where(kind: 'limit', side: 'buy', quote_asset: asset).sum('(quantity - quantity_filled) * rate')
+    pending_buy_limit = orders.open.where(kind: 'limit', side: 'buy', quote_asset: asset).sum('(quantity - quantity_filled) * price')
     
     # Pending buy market orders
     pending_buy_market = orders.open.where(kind: 'market', side: 'buy', quote_asset: asset).sum('total - total_used')

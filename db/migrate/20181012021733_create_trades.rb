@@ -8,7 +8,7 @@ class CreateTrades < ActiveRecord::Migration[5.2]
       t.integer :base_asset_id
       t.integer :quote_asset_id
       t.decimal :amount, precision: 50, scale: 20
-      t.decimal :rate, precision: 50, scale: 20
+      t.decimal :price, precision: 50, scale: 20
 
       t.index :seller_id
       t.index :buyer_id

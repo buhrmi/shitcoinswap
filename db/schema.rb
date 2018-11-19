@@ -169,7 +169,7 @@ ActiveRecord::Schema.define(version: 2018_11_05_014508) do
     t.integer "quote_asset_id"
     t.string "kind", comment: "\"limit\" or \"market\""
     t.string "side", comment: "\"buy\" or \"sell\""
-    t.decimal "rate", precision: 50, scale: 20, comment: "The exchange rate (1 BASE = X QUOTE) to use for this order"
+    t.decimal "price", precision: 50, scale: 20, comment: "The exchange price (1 BASE = X QUOTE) to use for this order"
     t.decimal "quantity", precision: 50, scale: 20, default: "0.0", comment: "The quantity (number of units) of the asset to purchase for limit or sell-market orders (buy-market orders use the \"total\" field instead)"
     t.decimal "quantity_filled", precision: 50, scale: 20, default: "0.0", comment: "How many units have been filled."
     t.decimal "total", precision: 50, scale: 20, default: "0.0", comment: "Only used for buy-market orders. The total amount of quote asset to use."
@@ -181,8 +181,8 @@ ActiveRecord::Schema.define(version: 2018_11_05_014508) do
     t.index ["base_asset_id"], name: "index_orders_on_base_asset_id"
     t.index ["cancelled_at"], name: "index_orders_on_cancelled_at"
     t.index ["filled_at"], name: "index_orders_on_filled_at"
+    t.index ["price"], name: "index_orders_on_price"
     t.index ["quote_asset_id"], name: "index_orders_on_quote_asset_id"
-    t.index ["rate"], name: "index_orders_on_rate"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
@@ -204,8 +204,8 @@ ActiveRecord::Schema.define(version: 2018_11_05_014508) do
   end
 
   create_table "statuses", force: :cascade do |t|
-    t.datetime "last_deposits_ran_at", default: "2018-11-13 01:34:52"
-    t.datetime "last_withdrawals_ran_at", default: "2018-11-13 01:34:52"
+    t.datetime "last_deposits_ran_at", default: "2018-11-19 01:23:41"
+    t.datetime "last_withdrawals_ran_at", default: "2018-11-19 01:23:41"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -218,7 +218,7 @@ ActiveRecord::Schema.define(version: 2018_11_05_014508) do
     t.integer "base_asset_id"
     t.integer "quote_asset_id"
     t.decimal "amount", precision: 50, scale: 20
-    t.decimal "rate", precision: 50, scale: 20
+    t.decimal "price", precision: 50, scale: 20
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["base_asset_id"], name: "index_trades_on_base_asset_id"

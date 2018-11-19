@@ -127,7 +127,7 @@ ja:
       buying_asset: "資産を購入する"
       selling_asset: "資産を販売する"
       quantity: "数量"
-      rate: "レート"
+      price: "値段"
       filled: "Filled"
       cancel: "キャンセル"
       new_order: "新しい受注"

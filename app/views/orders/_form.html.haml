@@ -20,11 +20,11 @@
           .btn.btn-secondary(:class="{active: side == 'buy'}" v-on:click="side='buy'") Buy #{ order.base_asset.symbol }
     
     .row.form-group
-      = form.label :rate, class: 'col-sm-2 col-form-label'
+      = form.label :price, class: 'col-sm-2 col-form-label'
       .col-sm-10
         .input-group
           = text_field_tag 'derp','Best Market Price', 'v-if' => 'kind == "market"', class: 'form-control', disabled: true
-          = form.text_field :rate, 'v-else' => '', class: 'form-control', 'v-model' => 'rate', autocomplete: 'off'
+          = form.text_field :price, 'v-else' => '', class: 'form-control', 'v-model' => 'price', autocomplete: 'off'
           .input-group-append
             .input-group-text #{ order.quote_asset.symbol }
             

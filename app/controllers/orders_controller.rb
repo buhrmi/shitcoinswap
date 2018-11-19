@@ -51,6 +51,6 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(:base_asset_id, :quote_asset_id, :side, :kind, :quantity, :rate, :total)
+    params.require(:order).permit(:base_asset_id, :quote_asset_id, :side, :kind, :quantity, :price, :total)
   end
 end
