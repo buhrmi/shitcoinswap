@@ -14,10 +14,12 @@
           %thead
             %tr
               %th Type
-              %th= t '.amount_left'
+              -# %th= t '.amount_left'
               -# %th= t '.filled'
               %th
           %tbody
+            %tr
+              %td= @order.base_asset.order_book(current_quote_asset)
             %tr(v-for="order in openOrders.orderBy('price')" v-on:click="matchOrder(order)")
               %td {{ order.side }} @ {{ order.kind == 'market' ? 'market' : order.price }}
               %td(v-if="order.kind == 'market' && order.side == 'buy'") {{ big(order.total).minus(order.total_used).toFixed() }}

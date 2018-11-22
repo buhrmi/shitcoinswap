@@ -146,11 +146,19 @@ class Asset < ApplicationRecord
   end
 
   def price_chart_data quote_asset_id
-    # TODO: show open/close prices instead average prices
     charts = base_trades.where(quote_asset_id: quote_asset_id).select('first(price order by created_at), last(price order by created_at), max(price) as high, min(price) as low, avg(price) as avg, sum(price * amount) as volume').group_by_day(:created_at)
   end
 
   def hourly_prices(quote_asset_id, since = 7.days.ago)
     base_trades.where(quote_asset_id: quote_asset_id).group_by_hour(:created_at).where('created_at > ?', since).average(:price)
+  end
+
+  def order_book(quote_asset_id)
+    sells = Order.open.where(base_asset: self, quote_asset: quote_asset_id, side: 'sell', kind: 'limit').group(:price).sum(:quantity)
+    buys = Order.open.where(base_asset: self, quote_asset: quote_asset_id, side: 'buy', kind: 'limit').group(:price).sum(:quantity)
+    return {
+      sells: sells.as_json,
+      buys: buys.as_json
+    }
   end
 end
