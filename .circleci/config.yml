@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/tokenstudio
     docker:
-      - image: circleci/ruby:2.5.1-node
+      - image: circleci/ruby:2.5.3-node
         environment:
           RAILS_ENV: test
           DATABASE_URL: postgresql://circleci:circleci@127.0.0.1:5432/circleci
