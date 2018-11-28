@@ -32,6 +32,8 @@ TokenStudio automates every aspect of your ICO, ITO or STO across many supported
 
 _Soon..._
 
+For deployment notes, see [deployment.md](https://github.com/newart-tech/tokenstudio/blob/develop/deployment.md)
+
 ## Support
 
 If you need help with something please open a GitHub issue.
