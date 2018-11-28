@@ -12,7 +12,7 @@ TokenStudio automates every aspect of your ICO, ITO or STO across many supported
 * [x] Easily rebrandable
 * [x] I18n
 * [x] Integrated trading engine
-* [ ] Soft tokens (tokens that are not yet deployed to a platform)
+* [ ] SAFT offerings (tokens that are not yet bound to a specific platform)
 * [ ] Token Sites (Summary, SNS Widgets, Team, Roadmap, Video, News, etc.)
 * [ ] Automated community engagement features
 * [ ] Private sales dashboard
