@@ -1,6 +1,6 @@
 # TokenStudio
 
-<a href="https://circleci.com/gh/newart-tech/tokenstudio/tree/develop" alt="Build Status"><img src="https://img.shields.io/circleci/project/github/newart-tech/tokenstudio/develop.svg" /></a>
+<a href="https://circleci.com/gh/newart-tech/tokenstudio/tree/develop" alt="Build Status"><img src="https://circleci.com/gh/newart-tech/tokenstudio/tree/develop.svg?style=svg" /></a>
 
 TokenStudio automates every aspect of your ICO, ITO or STO across many supported platforms. It comes complete with an integrated trading engine, so you can instantly list your token and start generating volume.
 
