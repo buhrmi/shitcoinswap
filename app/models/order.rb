@@ -22,6 +22,8 @@ class Order < ActiveRecord::Base
     CachedBalance.cache!(user, base_asset)
     CachedBalance.cache!(user, quote_asset)
     ActionCable.server.broadcast 'orders', self
+    # TODO: dont trigger the sending here. do it in a background job periodically.
+    ActionCable.server.broadcast "order_book_#{base_asset_id}_#{quote_asset_id}", base_asset.order_book(quote_asset)
   end
 
   # def serializable_hash(options = {})

@@ -154,8 +154,8 @@ class Asset < ApplicationRecord
   end
 
   def order_book(quote_asset_id)
-    sells = Order.open.where(base_asset: self, quote_asset: quote_asset_id, side: 'sell', kind: 'limit').group(:price).sum(:quantity)
-    buys = Order.open.where(base_asset: self, quote_asset: quote_asset_id, side: 'buy', kind: 'limit').group(:price).sum(:quantity)
+    sells = Order.open.where(base_asset: self, quote_asset: quote_asset_id, side: 'sell', kind: 'limit').order('price asc').group(:price).sum(:quantity)
+    buys = Order.open.where(base_asset: self, quote_asset: quote_asset_id, side: 'buy', kind: 'limit').order('price desc').group(:price).sum(:quantity)
     return {
       sells: sells.as_json,
       buys: buys.as_json

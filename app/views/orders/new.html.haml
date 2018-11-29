@@ -9,23 +9,39 @@
 
     .card#open_orders
       .card-header Order book (#{@order.base_asset.symbol}/#{@order.quote_asset.symbol})
-      .card-body
-        %table.table.table-hover
-          %thead
-            %tr
-              %th Type
-              -# %th= t '.amount_left'
-              -# %th= t '.filled'
-              %th
-          %tbody
-            %tr
-              %td= @order.base_asset.order_book(current_quote_asset)
-            %tr(v-for="order in openOrders.orderBy('price')" v-on:click="matchOrder(order)")
-              %td {{ order.side }} @ {{ order.kind == 'market' ? 'market' : order.price }}
-              %td(v-if="order.kind == 'market' && order.side == 'buy'") {{ big(order.total).minus(order.total_used).toFixed() }}
-              %td(v-else) {{ big(order.quantity).minus(order.quantity_filled).toFixed() }}
-              -# %td {{ order.filled_percent }}%
-              %td
+      %table.table
+        %thead
+          %tr
+            %th Selling
+            %th Buying
+        %tbody
+          %tr
+            %td
+              %table.table.table-hover
+                %thead
+                  %tr
+                    %th Amount
+                    %th Price
+                %tbody
+                  %tr(v-on:click="matchOrder({price: price, side: 'sell'})" v-for="(amount, price) in orderBookData.sells")
+                    %td {{ amount }}
+                    %td {{ price }}
+            %td
+              %table.table.table-hover
+                %thead
+                  %tr
+                    %th Amount
+                    %th Price
+                %tbody
+                  %tr(v-on:click="matchOrder({price: price, side: 'buy'})" v-for="(amount, price) in orderBookData.buys")
+                    %td {{ amount }}
+                    %td {{ price }}
+          -# %tr(v-for="order in openOrders.orderBy('price')" v-on:click="matchOrder(order)")
+          -#   %td {{ order.side }} @ {{ order.kind == 'market' ? 'market' : order.price }}
+          -#   %td(v-if="order.kind == 'market' && order.side == 'buy'") {{ big(order.total).minus(order.total_used).toFixed() }}
+          -#   %td(v-else) {{ big(order.quantity).minus(order.quantity_filled).toFixed() }}
+          -#   -# %td {{ order.filled_percent }}%
+          -#   %td
 
   .card.mb-3
     .card-body
@@ -81,15 +97,12 @@
       big: (num) ->
         new Big(num)
     subscriptions:
-      OrdersChannel:
+      OrderBookChannel:
         params: ->
-          base_asset_ids: [#{ @order.base_asset_id }]
+          base_asset_id: #{ @order.base_asset_id }
           quote_asset_id: #{ @order.quote_asset_id }
         received: (message) ->
-          if (message.cancelled_at || message.filled_at)
-            @openOrders.delete(message)
-          else
-            @openOrders.upsert(message)
+          @orderBookData = message
     data: ->
       STATE: STATE
       min: 0.000001
@@ -101,6 +114,7 @@
       base_asset_id: #{ @order.base_asset_id }
       quote_asset_id: #{ @order.quote_asset_id.to_i }
       openOrders: #{ raw @open_orders.to_json }
+      orderBookData: #{ raw @order.base_asset.order_book(current_quote_asset).to_json }
 
   new Vue
     el: '#my_orders'

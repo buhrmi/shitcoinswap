@@ -45,7 +45,7 @@
     .row.form-group
       .col-sm-2
       .col-sm-10
-        .small.form-text.error-text(v-if="!valid") Minimum value is {{ big(min).toFixed() }}
+        .small.form-text.error-text(v-if="!valid") Minimum quantity is {{ big(min).toFixed() }}
         = form.submit class: 'btn btn-primary', ':disabled' => '!valid'
 
       
