@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'trades/index'
   namespace :admin do
     resources :brandings
     resources :balance_adjustments

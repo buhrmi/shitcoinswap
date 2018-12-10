@@ -1,0 +1,33 @@
+.container
+  %h1.mt-5 TRADE HISTORY (#{@asset.name})
+  / %p Sorted by 24h volume
+  .card
+    .card-body
+      = paginate @trades, theme: 'twitter-bootstrap-4'
+      %table.table
+        %tr
+          %th Trade id
+          %th Buy Order
+          %th Trade Amount (Base)
+          %th Trade Amount (Quote)
+          %th Sell Order
+        - @trades.each do |trade|
+          - cache trade, expires_in: 1.minute do
+            %tr
+              %td= trade.id
+              %td
+                = simple_format(h trade.buy_order_)
+                = trade.buy_order_percentage
+                = '% Filled'
+                = trade.buy_order_status
+              %td
+                = trade.transaction_base
+                = trade.base_asset_name
+              %td
+                = trade.transaction_base * trade.transaction_price
+                = trade.quote_asset_name
+              %td
+                = simple_format(h trade.sell_order_)
+                = trade.sell_order_percentage
+                = trade.sell_order_status
+      = paginate @trades, theme: 'twitter-bootstrap-4'
