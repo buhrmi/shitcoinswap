@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   namespace :admin do
+    resources :brandings
     resources :balance_adjustments
     resources :platforms
     resources :withdrawals

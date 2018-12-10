@@ -74,5 +74,24 @@ end
 
 for asset_info in supported_assets
   asset_info[:address].downcase!
-  Asset.where(asset_info).first_or_create!
+  Asset.where(address: asset_info[:address]).first_or_create!(asset_info)
 end
+
+
+### Brandings
+
+Branding.where(domain: 'shitcoins.jp').first_or_create!(name: 'Shitcoin World', options: {
+  SMTP_SERVER: 'smtp.mailtrap.io',
+  SMTP_PORT: 465,
+  SMTP_USER: 'cee18296dec751',
+  SMTP_PASSWORD: '9ccbbab5d9973a',
+  company_name: 'NewArt Technology Co., Ltd.'
+})
+
+Branding.where(domain: 'localhost').first_or_create!(name: 'Localshit', options: {
+  SMTP_SERVER: 'smtp.mailtrap.io',
+  SMTP_PORT: 465,
+  SMTP_USER: 'cee18296dec751',
+  SMTP_PASSWORD: '9ccbbab5d9973a',
+  company_name: 'Localshit Co., Ltd.'
+})

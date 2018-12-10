@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_05_014508) do
+ActiveRecord::Schema.define(version: 2018_12_10_063719) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -124,6 +124,14 @@ ActiveRecord::Schema.define(version: 2018_11_05_014508) do
     t.index ["user_id"], name: "index_balance_adjustments_on_user_id"
   end
 
+  create_table "brandings", force: :cascade do |t|
+    t.string "name"
+    t.string "domain"
+    t.json "options"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "cached_balances", force: :cascade do |t|
     t.integer "user_id"
     t.integer "asset_id"
@@ -204,8 +212,8 @@ ActiveRecord::Schema.define(version: 2018_11_05_014508) do
   end
 
   create_table "statuses", force: :cascade do |t|
-    t.datetime "last_deposits_ran_at", default: "2018-11-19 01:23:41"
-    t.datetime "last_withdrawals_ran_at", default: "2018-11-19 01:23:41"
+    t.datetime "last_deposits_ran_at", default: "2018-11-22 04:15:48"
+    t.datetime "last_withdrawals_ran_at", default: "2018-11-22 04:15:48"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
