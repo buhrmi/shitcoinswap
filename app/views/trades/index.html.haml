@@ -18,9 +18,11 @@
               %td
                 = trade.created_at
               %td
+                = trade.base_type
                 = trade.transaction_base
                 = trade.base_asset_name
               %td
+                = trade.quote_type
                 = trade.transaction_base * trade.transaction_price
                 = trade.quote_asset_name
               %td

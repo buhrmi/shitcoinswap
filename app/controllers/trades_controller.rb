@@ -11,7 +11,10 @@ class TradesController < ApplicationController
 						    base_assets.name as base_asset_name,
 						    quote_assets.name as quote_asset_name,
 						    trades.created_at,
-						    trades.price")
+						    trades.price,
+						    CASE WHEN trades.seller_id = trades.buyer_id THEN '' WHEN buy_orders.user_id != trades.seller_id THEN '+ ' ELSE '- ' END AS base_type,
+						    CASE WHEN trades.seller_id = trades.buyer_id THEN '' WHEN sell_orders.user_id != trades.buyer_id THEN '- ' ELSE '+ ' END AS quote_type")
+    .where("trades.seller_id = :userId OR trades.buyer_id = :userId", {userId:current_user.id})
     .order('trades.id desc')
     if params[:asset_id]
       @trades = @trades.where(["trades.base_asset_id = :assetId", {assetId:params[:asset_id]}])
