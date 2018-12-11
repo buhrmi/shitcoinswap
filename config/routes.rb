@@ -1,13 +1,13 @@
 Rails.application.routes.draw do
   get 'trades/index'
   namespace :admin do
-    resources :brandings
     resources :balance_adjustments
     resources :platforms
     resources :withdrawals
     resources :assets
   end
-
+  
+  resources :brandings
   resources :users, only:[:update, :edit]
   resources :pictures
   resources :orders

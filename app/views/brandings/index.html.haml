@@ -1,25 +1,29 @@
-%h1 Listing brandings
+.container
+.container
+  .card
+    .card-header Listing brandings
+    .card-body
 
-%table
-  %thead
-    %tr
-      %th Name
-      %th Domain
-      %th Options
-      %th
-      %th
-      %th
+      %table.table
+        %thead
+          %tr
+            %th Name
+            %th Domain
+            %th Options
+            %th
+            %th
+            %th
 
-  %tbody
-    - @brandings.each do |branding|
-      %tr
-        %td= branding.name
-        %td= branding.domain
-        %td= branding.options
-        %td= link_to 'Show', branding
-        %td= link_to 'Edit', edit_branding_path(branding)
-        %td= link_to 'Destroy', branding, method: :delete, data: { confirm: 'Are you sure?' }
+        %tbody
+          - @brandings.each do |branding|
+            %tr
+              %td= branding.name
+              %td= branding.domain
+              %td= branding.options
+              %td= link_to 'Show', branding
+              %td= link_to 'Edit', edit_branding_path(branding)
+              %td= link_to 'Destroy', branding, method: :delete, data: { confirm: 'Are you sure?' }
 
-%br
+      %br
 
-= link_to 'New Branding', new_branding_path
+      = link_to 'New Branding', new_branding_path

@@ -14,6 +14,9 @@
     = f.text_field :domain
   .field
     = f.label :options
-    = f.text_field :options
+    = f.text_area :options
+  .field
+    = f.label :logo
+    = f.file_field :logo
   .actions
     = f.submit 'Save'

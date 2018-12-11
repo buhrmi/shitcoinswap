@@ -73,7 +73,7 @@ ja:
       account: "アカウント履歴"
       log_out: "Log Out"
       log_in: "Log In"
-      coypright_2018: "© 2018 NewArt Technology Co., Ltd."
+      copright: "© %{year} %{company}"
       company: "会社"
       contact: "Contact"
       resources: "リソース"

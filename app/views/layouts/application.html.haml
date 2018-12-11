@@ -107,7 +107,7 @@
       %footer.pt-4.my-md-5.pt-md-5.border-top
         .row
           .col-md-5.text-muted.text-left
-            = t '.coypright_2018', brand: current_branding.name
+            = t '.copyright', year: Time.now.year, company: current_branding.options['company_name']
           .col-md-2.text-center
             = image_tag 'logo.png', class: 'mb-2', width: 24, height: 24
           .col-md-5.text-muted.text-right

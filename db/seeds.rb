@@ -80,18 +80,10 @@ end
 
 ### Brandings
 
-Branding.where(domain: 'shitcoins.jp').first_or_create!(name: 'Shitcoin World', options: {
+Branding.where(id:1).first_or_initialize.update_attributes(domain: 'localhost', name: 'Testing', options: {
   SMTP_SERVER: 'smtp.mailtrap.io',
   SMTP_PORT: 465,
   SMTP_USER: 'cee18296dec751',
   SMTP_PASSWORD: '9ccbbab5d9973a',
-  company_name: 'NewArt Technology Co., Ltd.'
-})
-
-Branding.where(domain: 'localhost').first_or_create!(name: 'Localshit', options: {
-  SMTP_SERVER: 'smtp.mailtrap.io',
-  SMTP_PORT: 465,
-  SMTP_USER: 'cee18296dec751',
-  SMTP_PASSWORD: '9ccbbab5d9973a',
-  company_name: 'Localshit Co., Ltd.'
+  company_name: 'Testing Inc'
 })
