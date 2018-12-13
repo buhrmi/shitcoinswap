@@ -1,5 +1,11 @@
 .container
-  %h1.mt-5 TRADE HISTORY (#{@asset.name})
+  %h1.mt-5 Trade History
+  %p 
+    Showing history for 
+    - if @asset
+      = @asset.name
+    - else
+      All trades
   / %p Sorted by 24h volume
   .card
     .card-body

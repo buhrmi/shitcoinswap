@@ -1,13 +1,14 @@
 class TradesController < ApplicationController
   before_action :require_user
   def index
+    # XXX: remove plaintext query as much as possible and use activerecord
     @trades = Trade.joins("Inner join orders as buy_orders on buy_orders.id = trades.buy_order_id
 							Inner join orders as sell_orders on sell_orders.id = trades.sell_order_id
 							Inner join assets as base_assets on base_assets.id = buy_orders.base_asset_id
 							Inner join assets as quote_assets on quote_assets.id = sell_orders.quote_asset_id")
     .select("trades.id,
-							LEAST(trades.amount, sell_orders.quantity_filled, buy_orders.quantity_filled) as transaction_base,
-							LEAST(sell_orders.price, buy_orders.price) as transaction_price,
+							trades.amount as transaction_base,
+							trades.price as transaction_price,
 						    base_assets.name as base_asset_name,
 						    quote_assets.name as quote_asset_name,
 						    trades.created_at,

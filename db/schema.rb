@@ -212,8 +212,8 @@ ActiveRecord::Schema.define(version: 2018_12_10_063719) do
   end
 
   create_table "statuses", force: :cascade do |t|
-    t.datetime "last_deposits_ran_at", default: "2018-11-22 04:15:48"
-    t.datetime "last_withdrawals_ran_at", default: "2018-11-22 04:15:48"
+    t.datetime "last_deposits_ran_at", default: "2018-12-13 01:23:12"
+    t.datetime "last_withdrawals_ran_at", default: "2018-12-13 01:23:12"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -240,6 +240,7 @@ ActiveRecord::Schema.define(version: 2018_12_10_063719) do
     t.string "email"
     t.string "password_digest"
     t.string "preferred_locale"
+    t.integer "branding_id", comment: "The branding ID the user used to sign up"
     t.boolean "admin"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

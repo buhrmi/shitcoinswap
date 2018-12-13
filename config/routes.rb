@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   resources :pages
   resources :airdrops
   
-  resources :trade do
+  resources :trades do
     # Render json data for amcharts.js stock graph
     get 'chart', on: :collection
   end
