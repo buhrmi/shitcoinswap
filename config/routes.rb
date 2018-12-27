@@ -7,7 +7,6 @@ Rails.application.routes.draw do
     resources :assets
   end
   
-  resources :brandings
   resources :users, only:[:update, :edit]
   resources :pictures
   resources :orders

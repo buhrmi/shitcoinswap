@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   # Make the current_user method available to views also, not just controllers:
-  helper_method :current_user, :current_quote_asset, :current_branding
+  helper_method :current_user, :current_quote_asset
 
   # Define the current_user method:
   def current_user
@@ -19,10 +19,6 @@ class ApplicationController < ActionController::Base
 
   def current_access_token
     @current_access_token ||= AccessToken.active.joins(:user).lock.find_by(token: cookies[:access_token])
-  end
-
-  def current_branding
-    @current_branding ||= Branding.find_by(domain: request.host) || Branding.default
   end
 
   def set_quote_asset

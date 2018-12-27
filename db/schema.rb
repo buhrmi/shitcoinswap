@@ -124,14 +124,6 @@ ActiveRecord::Schema.define(version: 2018_12_10_063719) do
     t.index ["user_id"], name: "index_balance_adjustments_on_user_id"
   end
 
-  create_table "brandings", force: :cascade do |t|
-    t.string "name"
-    t.string "domain"
-    t.json "options"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "cached_balances", force: :cascade do |t|
     t.integer "user_id"
     t.integer "asset_id"
@@ -240,7 +232,6 @@ ActiveRecord::Schema.define(version: 2018_12_10_063719) do
     t.string "email"
     t.string "password_digest"
     t.string "preferred_locale"
-    t.integer "branding_id", comment: "The branding ID the user used to sign up"
     t.boolean "admin"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

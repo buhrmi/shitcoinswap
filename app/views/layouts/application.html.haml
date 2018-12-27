@@ -2,16 +2,9 @@
 %html
   %head
     %meta{content: "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
-    %title= t 'app_name'
+    %title Shitcoin Japan
     %meta{charset: "utf-8"}
     %meta{content: "width=device-width, initial-scale=1, shrink-to-fit=no", name: "viewport"}
-    %link{href: "/apple-touch-icon.png", rel: "apple-touch-icon", sizes: "76x76"}
-    %link{href: "/favicon-32x32.png", rel: "icon", sizes: "32x32", type: "image/png"}
-    %link{href: "/favicon-16x16.png", rel: "icon", sizes: "16x16", type: "image/png"}
-    %link{href: "/site.webmanifest", rel: "manifest"}
-    %link{color: "#bb0000", href: "/safari-pinned-tab.svg", rel: "mask-icon"}
-    %meta{content: "#bb0000", name: "msapplication-TileColor"}
-    %meta{content: "#ffffff", name: "theme-color"}
     
     %meta(name="turbolinks-cache-control" content="no-cache")
     = content_for :head
@@ -55,7 +48,8 @@
         .nav-item= link_to 'Assets', admin_assets_path
     %nav.navbar.sticky-top.navbar-light.bg-white.border-bottom.navbar-expand-lg
       .navbar-brand.mr-auto
-        = link_to image_tag('logo_name.png', height: 19), root_path, class: 'd-inline-block'
+        -# = link_to image_tag('logo_name.png', height: 19), root_path, class: 'd-inline-block'
+        = link_to 'Shitcoin Japan', root_path, class: 'd-inline-block'
 
       %button.navbar-toggler{"type"=>"button", "data-toggle"=>"collapse","data-target"=>"#navbarNav","aria-controls"=>"navbarNav","aria-expanded"=>"false", "aria-label"=>"Toggle navigation"}
         %span.navbar-toggler-icon
@@ -107,7 +101,7 @@
       %footer.pt-4.my-md-5.pt-md-5.border-top
         .row
           .col-md-5.text-muted.text-left
-            = t '.copyright', year: Time.now.year, company: current_branding.options['company_name']
+            = t '.copyright', year: Time.now.year
           .col-md-2.text-center
             = image_tag 'logo.png', class: 'mb-2', width: 24, height: 24
           .col-md-5.text-muted.text-right

@@ -73,7 +73,7 @@ en:
       account: "Account History"
       log_out: "Log Out"
       log_in: "Log In"
-      copyright: "© %{year} %{company}"
+      copyright: "© %{year} Shitcoin Japan"
       company: "Company"
       contact: "Contact"
       resources: "Resources"
@@ -144,9 +144,9 @@ en:
       sounds_good: Become our partner!
       create_token: Create Token
       or: or
-      featured: "Featured Projects"
+      featured: "Featured"
       view_details: "View details »"
-      browse_all: "Browse all projects"
+      browse_all: "Browse all"
     contact:
       contact_1: "Contact"
       feel_free_to: "Feel free to call us at any time."

@@ -73,7 +73,7 @@ ja:
       account: "アカウント履歴"
       log_out: "Log Out"
       log_in: "Log In"
-      copright: "© %{year} %{company}"
+      copright: "© %{year} Shitcoin Japan"
       company: "会社"
       contact: "Contact"
       resources: "リソース"
@@ -144,9 +144,9 @@ ja:
       sounds_good: パートナーになる！
       create_token: トークン作成
       or: or
-      featured: "Featured Assets"
+      featured: "Featured"
       view_details: "明細 »"
-      browse_all: "すべての資産"
+      browse_all: "Browse all"
     contact:
       contact_1: "Contact"
       feel_free_to: "Feel free to call us at any time."

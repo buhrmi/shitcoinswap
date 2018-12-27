@@ -76,14 +76,3 @@ for asset_info in supported_assets
   asset_info[:address].downcase!
   Asset.where(address: asset_info[:address]).first_or_create!(asset_info)
 end
-
-
-### Brandings
-
-Branding.where(id:1).first_or_initialize.update_attributes(domain: 'localhost', name: 'Testing', options: {
-  SMTP_SERVER: 'smtp.mailtrap.io',
-  SMTP_PORT: 465,
-  SMTP_USER: 'cee18296dec751',
-  SMTP_PASSWORD: '9ccbbab5d9973a',
-  company_name: 'Testing Inc'
-})
