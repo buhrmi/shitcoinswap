@@ -1,6 +1,4 @@
 en:
-  app_name: "NewArt Technology"
-  from_mail: "NewArt Technology <support@newart-tech.com>"
   user_mailer:
     deposit_email:
       subject: "New Deposit: %{amount} %{asset_name} have been deposited"

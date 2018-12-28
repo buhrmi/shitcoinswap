@@ -3,7 +3,6 @@ class AuthorizationCode < ApplicationRecord
 
   before_create do
     self.code = random = SecureRandom.hex(32)
-    UserMailer.with(user: user, auth_code: random).authorization_code.deliver_now
   end
 
   def expired?

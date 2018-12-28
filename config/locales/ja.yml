@@ -1,6 +1,4 @@
 ja:
-  app_name: "NewArt Technology"
-  from_mail: "NewArt Technology <support@newart-tech.com>"
   user_mailer:
     deposit_email:
       subject: "新しいデポジット: %{amount} %{asset_name}は預けられました"
@@ -138,7 +136,6 @@ ja:
       edit: "変更"
   pages:
     welcome:
-      welcome_to: "NewArt Technologyへようこそ"
       24hvolume: "Total 24h volume: %{amount}."
       submit_existing: "存在のトークンを提出する"
       sounds_good: パートナーになる！

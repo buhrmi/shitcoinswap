@@ -10,7 +10,8 @@ class AuthorizationCodesController < ApplicationController
   # POST /authorization_codes.json
   def create
     user = User.find_or_create_by!(email: params[:authorization_code][:email].downcase)
-    AuthorizationCode.create!(user: user)
+    auth = AuthorizationCode.create!(user: user)
+    UserMailer.with(user: user, auth_code: auth.code, branding: current_brand_asset).authorization_code.deliver_now
     redirect_to page_url(:link_sent)
   end
 

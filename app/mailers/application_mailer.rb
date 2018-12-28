@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: I18n.t('from_mail')
+  default from: 'DJ Shitcoin <dj@shitcoin.jp>'
   layout 'mailer'
 end

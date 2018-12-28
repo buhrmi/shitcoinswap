@@ -1,0 +1,11 @@
+Please click the link below to log in:
+
+<% if @branding %>
+<%= root_url(auth_code: @auth_code, host: @branding.domain) %>
+<% else %>
+<%= root_url(auth_code: @auth_code) %>
+<% end %>
+
+This link will expire in two hours.
+
+If you did not request this email, please ignore it.
