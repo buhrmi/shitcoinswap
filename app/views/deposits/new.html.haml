@@ -1,3 +1,6 @@
-%h1= t '.deposit', :asset_name => (@asset.name)
-%p= t '.please_deposit', :asset_symbol => (@asset.symbol), :address => (@address.address)
-= image_tag "https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=#{@address.address}&choe=UTF-8"
+.container
+  %h1.mt-5= t '.deposit', :asset_name => (@asset.name)
+  .card
+    .card-body
+      %p= t '.please_deposit', :asset_symbol => (@asset.symbol), :address => (@address.address)
+      = image_tag "https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=#{@address.address}&choe=UTF-8"

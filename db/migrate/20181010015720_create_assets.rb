@@ -21,6 +21,7 @@ class CreateAssets < ActiveRecord::Migration[5.2]
       
       t.string :brand_color
       t.string :website
+      t.string :domain, comment: 'If set, the app can be made available under this domain and this asset will be used as landing page'
 
       t.timestamps
 

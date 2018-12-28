@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_10_063719) do
+ActiveRecord::Schema.define(version: 2018_11_05_014508) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -93,6 +93,7 @@ ActiveRecord::Schema.define(version: 2018_12_10_063719) do
     t.string "logo_name"
     t.string "brand_color"
     t.string "website"
+    t.string "domain", comment: "If set, the app can be made available under this domain and this asset will be used as landing page"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["address", "platform_id"], name: "index_assets_on_address_and_platform_id", unique: true
@@ -204,8 +205,8 @@ ActiveRecord::Schema.define(version: 2018_12_10_063719) do
   end
 
   create_table "statuses", force: :cascade do |t|
-    t.datetime "last_deposits_ran_at", default: "2018-12-13 01:23:12"
-    t.datetime "last_withdrawals_ran_at", default: "2018-12-13 01:23:12"
+    t.datetime "last_deposits_ran_at", default: "2018-12-28 04:20:07"
+    t.datetime "last_withdrawals_ran_at", default: "2018-12-28 04:20:07"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

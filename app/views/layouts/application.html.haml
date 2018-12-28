@@ -2,7 +2,10 @@
 %html
   %head
     %meta{content: "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
-    %title Shitcoin Japan
+    - if current_brand_asset
+      %title= current_brand_asset.name
+    - else
+      %title Shitcoin, Inc
     %meta{charset: "utf-8"}
     %meta{content: "width=device-width, initial-scale=1, shrink-to-fit=no", name: "viewport"}
     
@@ -49,7 +52,7 @@
     %nav.navbar.sticky-top.navbar-light.bg-white.border-bottom.navbar-expand-lg
       .navbar-brand.mr-auto
         -# = link_to image_tag('logo_name.png', height: 19), root_path, class: 'd-inline-block'
-        = link_to 'Shitcoin Japan', root_path, class: 'd-inline-block'
+        = link_to current_brand_asset.try(:name) || 'Shitcoin, Inc', root_path, class: 'd-inline-block'
 
       %button.navbar-toggler{"type"=>"button", "data-toggle"=>"collapse","data-target"=>"#navbarNav","aria-controls"=>"navbarNav","aria-expanded"=>"false", "aria-label"=>"Toggle navigation"}
         %span.navbar-toggler-icon
@@ -100,12 +103,14 @@
     .container
       %footer.pt-4.my-md-5.pt-md-5.border-top
         .row
-          .col-md-5.text-muted.text-left
-            = t '.copyright', year: Time.now.year
+          .col-md-5.text-muted.text-left © #{Time.now.year} #{current_brand_asset.try(:name) || 'Shitcoin, Inc'}
           .col-md-2.text-center
-            = image_tag 'logo.png', class: 'mb-2', width: 24, height: 24
+            - if current_brand_asset
+              = image_tag url_for(current_brand_asset.logo), class: 'mb-2', width: 24, height: 24 if current_brand_asset.logo.attached?
+            - else
+              = image_tag 'logo.png', class: 'mb-2', width: 24, height: 24
           .col-md-5.text-muted.text-right
             = link_to (t '.status'), page_url(:status), class: 'text-muted'
-            |
-            = link_to (t '.contact'), page_url(:contact), class: 'text-muted'
+            -# |
+            -# = link_to (t '.contact'), page_url(:contact), class: 'text-muted'
 

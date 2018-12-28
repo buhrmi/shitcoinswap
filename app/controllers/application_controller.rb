@@ -9,12 +9,17 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   # Make the current_user method available to views also, not just controllers:
-  helper_method :current_user, :current_quote_asset
+  helper_method :current_user, :current_quote_asset, :current_brand_asset
 
   # Define the current_user method:
   def current_user
     # Look up the current user based on user_id in the access_token cookie:
     @current_user ||= current_access_token.try(:user)
+  end
+
+  # If the user visits the website using an asset's domain, we will use the assets show page as landing page
+  def current_brand_asset
+    @current_brand_asset ||= Asset.find_by(domain: request.host.split('.').last(2).join)
   end
 
   def current_access_token

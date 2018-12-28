@@ -1,0 +1,14 @@
+Hello,
+
+you have received an airdrop:
+
+Asset: <%= @adjustment.asset.name %> (<%= @adjustment.asset.symbol %>)
+Amount: <%= @adjustment.amount %>
+
+To access your account balance and history, please visit the following the URL:
+<%= balance_adjustments_url(asset_id: @adjustment.asset.id, host: @adjustment.asset.domain) %>
+
+Please let us know if you think you received this email in error.
+
+Best regards,
+Shitcoin, Inc
