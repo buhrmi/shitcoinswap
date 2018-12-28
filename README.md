@@ -1,8 +1,8 @@
-# TokenStudio
+# Shitcoin Exchange
 
 [![CircleCI](https://circleci.com/gh/newart-tech/tokenstudio/tree/develop.svg?style=svg&circle-token=15176affab554db9ab15e2c374994e82c7cc40a4)](https://circleci.com/gh/newart-tech/tokenstudio/tree/develop)
 
-TokenStudio automates every aspect of your ICO, ITO or STO across many supported platforms. It comes complete with an integrated trading engine, so you can instantly list your token and start generating volume.
+Shitcoin Exchange automates many aspects of your ICO, ITO or STO across many supported platforms. It comes complete with an integrated trading engine, so you can instantly list your token and start generating volume.
 
 ## Features
 
@@ -24,7 +24,7 @@ TokenStudio automates every aspect of your ICO, ITO or STO across many supported
 ## Platform Support
 
 * [x] Ethereum (ERC20)
-* [ ] Stellar
+* [ ] Bitcoin
 * [ ] Hedera Hashgraph
 * [ ] _more coming soon..._
 
@@ -32,7 +32,7 @@ TokenStudio automates every aspect of your ICO, ITO or STO across many supported
 
 _Soon..._
 
-For deployment notes, see [deployment.md](https://github.com/newart-tech/tokenstudio/blob/develop/deployment.md)
+For deployment notes, see [deployment.md](https://github.com/djshitcoin/exchange/blob/develop/deployment.md)
 
 ## Support
 
