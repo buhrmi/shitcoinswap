@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
 
   # If the user visits the website using an asset's domain, we will use the assets show page as landing page
   def current_brand_asset
-    @current_brand_asset ||= Asset.find_by(domain: request.host.split('.').last(2).join)
+    @current_brand_asset ||= Asset.find_by(domain: request.host.split('.').last(2).join('.'))
   end
 
   def current_access_token
