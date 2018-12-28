@@ -110,7 +110,10 @@
             - else
               = image_tag 'logo.png', class: 'mb-2', width: 24, height: 24
           .col-md-5.text-muted.text-right
-            = link_to (t '.status'), page_url(:status), class: 'text-muted'
+            - if current_brand_asset
+              Powered by #{link_to 'shitcoins.jp', 'https://shitcoins.jp'}.
+            - else
+              = link_to (t '.status'), page_url(:status), class: 'text-muted'
             -# |
             -# = link_to (t '.contact'), page_url(:contact), class: 'text-muted'
 
