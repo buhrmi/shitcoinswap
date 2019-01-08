@@ -44,7 +44,7 @@ class Asset < ApplicationRecord
   end
 
   def self.quotable
-    where(native_symbol: ['ETH', 'JPY', 'ETH(rinkeby)'])
+    where(native_symbol: ['ETH', 'JPY'])
   end
 
   # This is the fee paid in native platform shitasset, for example gas price for transfering erc20 tokens

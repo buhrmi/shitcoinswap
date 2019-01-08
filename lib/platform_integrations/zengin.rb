@@ -1,0 +1,3 @@
+module PlatformIntegrations::Zengin
+
+end

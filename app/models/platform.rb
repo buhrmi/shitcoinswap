@@ -1,6 +1,6 @@
 class Platform < ApplicationRecord
   after_find do
-    self.extend "PlatformIntegrations::#{self.module}".constantize
+    self.extend "PlatformIntegrations::#{self.module.camelcase}".constantize
   end
 
   def name

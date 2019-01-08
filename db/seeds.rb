@@ -7,9 +7,11 @@ eth_wallet_address = wallet.address
 
 eth_platform_main    = Platform.where(native_symbol: 'ETH').first_or_create!(module: 'ETH', data: {network: 'mainnet', wallet_address: eth_wallet_address, enc_wallet_key: eth_wallet_key})
 eth_platform_classic = Platform.where(native_symbol: 'ETC').first_or_create!(module: 'ETH', data: {network: 'classic', wallet_address: eth_wallet_address, enc_wallet_key: eth_wallet_key})
+zengin = Platform.where(native_symbol: 'JPY').first_or_create!(module: 'zengin', data: {})
 
 eth = Asset.where(native_symbol: 'ETH').first_or_create!(name: 'Ethereum', platform: eth_platform_main, platform_data: {decimals: 18, symbol: 'ETH', name: 'Ethereum'}) 
 etc = Asset.where(native_symbol: 'ETC').first_or_create!(name: 'Ethereum (classic)', platform: eth_platform_classic, platform_data: {decimals: 18, symbol: 'ETC', name: 'Ethereum Classic'})
+jpy = Asset.where(native_symbol: 'JPY').first_or_create!(name: 'Japanese Yen', platform: zengin)
 
 admin = User.where(admin: true, email: 'dj@shitcoin.jp').first_or_create!
 
@@ -76,3 +78,4 @@ for asset_info in supported_assets
   asset_info[:address].downcase!
   Asset.where(address: asset_info[:address]).first_or_create!(asset_info)
 end
+
