@@ -1,6 +1,22 @@
 %section.top
   .container.py-3.pt-md-5.pb-md-4.mx-auto
-    %h1.display-4.text-center Today's Top Assets
+    %h1.display-4.text-center Shitcoin Studio
+    %p.mt-3.text-center The <strike>most idiotic</strike> easiest way to join the crypto world
+    %p.mt-3.text-center #{ link_to t('.create_token'), '/pages/token_studio', class: 'btn btn-lg btn-outline-primary' } or #{ link_to t('.submit_existing'), new_asset_path }
+%section.featured
+  .container.py-3.pt-md-5.pb-md-4.mx-auto
+    %h1.text-center= t '.featured'
+    .card-deck.mb-5
+      - for asset in @featured_assets
+        .card.asset(style="background-position:center;background-size:cover;background-image:url('#{url_for asset.background if asset.background.attached?}')")
+          .card-logo= image_tag(url_for asset.logo) if asset.logo.attached?
+          .card-body
+            %h5.card-title= asset.name
+            %p.card-text.text-justify= asset.description
+          .card-footer
+            %p
+              = link_to (t '.view_details'), asset, class: 'btn btn-block btn-primary'
+  .container.py-3.pt-md-5.pb-md-4.mx-auto
     -# %p.text-center.lead= t '.24hvolume', amount: Trade.volume(current_quote_asset, 24.hours).to_s + ' ' + current_quote_asset.symbol
     .card
       .card-body
@@ -18,20 +34,6 @@
                   = current_quote_asset.symbol
                 %td
                   = line_chart asset.hourly_prices(current_quote_asset), height: '66px', width: '320px'
-    %p.mt-3.text-center #{ link_to t('.create_token'), '/pages/token_studio', class: 'btn btn-lg btn-outline-primary' } or #{ link_to t('.submit_existing'), new_asset_path }
-
-%section.featured
-  .container.py-3.pt-md-5.pb-md-4.mx-auto
-    %h1.display-4.text-center= t '.featured'
-    .card-deck.mb-5
-      - for asset in @featured_assets
-        .card.asset(style="background-position:center;background-size:cover;background-image:url('#{url_for asset.background if asset.background.attached?}')")
-          .card-logo= image_tag(url_for asset.logo) if asset.logo.attached?
-          .card-body
-            %h5.card-title= asset.name
-            %p.card-text.text-justify= asset.description
-          .card-footer
-            %p
-              = link_to (t '.view_details'), asset, class: 'btn btn-block btn-primary'
-    .text-center
+    .text-center.mt-3
       %a.btn.btn-lg.btn-outline-primary{:href => "/assets"}= t '.browse_all'
+

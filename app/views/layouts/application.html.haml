@@ -5,7 +5,7 @@
     - if current_brand_asset
       %title= current_brand_asset.name
     - else
-      %title Shitcoins
+      %title Shitcoin Studio
     %meta{charset: "utf-8"}
     %meta{content: "width=device-width, initial-scale=1, shrink-to-fit=no", name: "viewport"}
     
@@ -52,7 +52,7 @@
     %nav.navbar.sticky-top.navbar-light.bg-white.border-bottom.navbar-expand-lg
       .navbar-brand.mr-auto
         -# = link_to image_tag('logo_name.png', height: 19), root_path, class: 'd-inline-block'
-        = link_to current_brand_asset.try(:name) || 'Shitcoins.jp', root_path, class: 'd-inline-block'
+        = link_to current_brand_asset.try(:name) || 'Shitcoin Studio', root_path, class: 'd-inline-block'
 
       %button.navbar-toggler{"type"=>"button", "data-toggle"=>"collapse","data-target"=>"#navbarNav","aria-controls"=>"navbarNav","aria-expanded"=>"false", "aria-label"=>"Toggle navigation"}
         %span.navbar-toggler-icon
@@ -103,7 +103,7 @@
     .container
       %footer.pt-4.my-md-5.pt-md-5.border-top
         .row
-          .col-md-5.text-muted.text-left © #{Time.now.year} #{current_brand_asset.try(:name) || 'Shitcoins.jp'}
+          .col-md-5.text-muted.text-left © #{Time.now.year} #{current_brand_asset.try(:name) || 'Shitcoin Studio'}
           .col-md-2.text-center
             - if current_brand_asset
               = image_tag url_for(current_brand_asset.logo), class: 'mb-2', width: 24, height: 24 if current_brand_asset.logo.attached?
@@ -111,7 +111,7 @@
               = image_tag 'logo.png', class: 'mb-2', width: 24, height: 24
           .col-md-5.text-muted.text-right
             - if current_brand_asset
-              Powered by #{link_to 'shitcoins.jp', 'https://shitcoins.jp'}.
+              Powered by #{link_to 'Shitcoin Studio', 'https://shitcoins.jp'}.
             - else
               = link_to (t '.status'), page_url(:status), class: 'text-muted'
             -# |
