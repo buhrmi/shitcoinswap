@@ -172,7 +172,7 @@ module PlatformIntegrations::ETH
       tx = Eth::Tx.new({
         data: data,
         # TODO: store limits in platform database row
-        gas_limit: 100_000,
+        gas_limit: 206177, # XXX: calculate better estimate
         gas_price: gas_price,
         nonce: get_nonce(sender_address),
         to: asset.address,
