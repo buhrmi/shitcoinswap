@@ -131,7 +131,7 @@ module PlatformIntegrations::ETH
     if asset == native_asset
       (21000 * gas_price).to_f / native_asset.unit
     else
-      (125000 * gas_price).to_f / native_asset.unit
+      (206177 * gas_price).to_f / native_asset.unit
     end
   end
 
