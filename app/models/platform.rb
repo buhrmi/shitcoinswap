@@ -3,6 +3,10 @@ class Platform < ApplicationRecord
     self.extend "PlatformIntegrations::#{self.module.camelcase}".constantize
   end
 
+  def self.with_token_support
+    [Asset.eth.platform]
+  end
+
   def name
     
   end

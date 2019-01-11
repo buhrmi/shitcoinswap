@@ -257,6 +257,7 @@ module PlatformIntegrations::ETH
       total_supply: eth_result_to_number(JSON.parse(total_supply.response.body)['result']),
       cap: eth_result_to_number(JSON.parse(cap.response.body)['result']),
     }
+    # XXX: this method shouldnt have sideeffects
     asset.platform_data = platform_data
     asset.name = platform_data[:name]
     platform_data

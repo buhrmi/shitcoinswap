@@ -9,7 +9,7 @@
   .row.form-group
     = f.label :platform_id, class: 'col-sm-2 col-form-label'
     .col-sm-10
-      = f.collection_select(:platform_id, Platform.all, :id, :name, {}, class: 'form-control')
+      = f.collection_select(:platform_id, Platform.with_token_support, :id, :name, {}, class: 'form-control')
   .row.form-group
     = f.label :address, class: 'col-sm-2 col-form-label'
     .col-sm-10
