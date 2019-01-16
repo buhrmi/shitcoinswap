@@ -57,6 +57,7 @@ class AssetsController < ApplicationController
 
     @asset.update(update_params)
     @asset.fetch_platform_data
+    @asset.save!
     redirect_to @asset, notice: 'Asset was successfully updated.'
   end
 
