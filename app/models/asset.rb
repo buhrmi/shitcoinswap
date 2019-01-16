@@ -105,6 +105,13 @@ class Asset < ApplicationRecord
     platform.fetch_platform_data_for(self)
   end
 
+  def fetch_platform_data!
+    return unless platform
+    return unless address.present?
+    return if native?
+    platform.fetch_platform_data_for(self)
+  end
+
   def explorer_url
     platform.try(:explorer_url_for, self)
   end

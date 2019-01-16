@@ -56,7 +56,7 @@ class AssetsController < ApplicationController
     raise_not_found unless @asset.managable_by? current_user
 
     @asset.update(update_params)
-    @asset.fetch_platform_data
+    @asset.fetch_platform_data!
     @asset.save!
     redirect_to @asset, notice: 'Asset was successfully updated.'
   end
