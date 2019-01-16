@@ -2,5 +2,11 @@
   %h1.mt-5 Awesomeness awaits
   .card
     .card-body
+      %p We will send you a secret link. 
       = render 'form', authorization_code: @authorization_code
-      %p We will send you a secret link. By requesting an email, you agree to never invest more than you can afford to lose.
+      %p By requesting an email, you agree to the following terms:
+      %ul
+        %li You will never invest more than you can afford to lose.
+        %li You acknowledge that this website is still in development and will change over time.
+        %li You do not hold the operators liable for any hacks or loss of funds.
+        %li If you find a security hole, please contact security@shitcoins.jp and give us some time to fix it. You shall be rewarded.
