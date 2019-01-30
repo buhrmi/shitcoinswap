@@ -1,4 +1,6 @@
-# Shitcoin Exchange
+# Shitcoins.jp
+
+Shitcois.jp is an ICO platform with a built-in trading engine (exchange). It's fully functional, but not as feature-complete as [RubyKube](https://github.com/rubykube).
 
 [![CircleCI](https://circleci.com/gh/djshitcoin/exchange/tree/develop.svg?style=svg&circle-token=15176affab554db9ab15e2c374994e82c7cc40a4)](https://circleci.com/gh/djshitcoin/exchange/tree/develop)
 
