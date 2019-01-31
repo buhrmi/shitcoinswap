@@ -40,7 +40,6 @@ _Soon..._
 
 For deployment notes, see [deployment.md](https://github.com/djshitcoin/exchange/blob/develop/deployment.md)
 
-## Support
+## License
 
-If you need help with something please open a GitHub issue.
-
+Go fuck yourself
