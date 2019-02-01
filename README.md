@@ -42,4 +42,4 @@ For deployment notes, see [deployment.md](https://github.com/djshitcoin/exchange
 
 ## License
 
-Go fuck yourself
+I just pooped my pants lol
