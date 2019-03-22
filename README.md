@@ -29,7 +29,8 @@ Shitcoins is an experimental ICO platform with a built-in trading engine (exchan
 
 ## Platform Support
 
-* [x] Ethereum (ERC20)
+* [x] Ethereum
+* [x] ERC20
 * [ ] Bitcoin
 * [ ] Hedera Hashgraph
 * [ ] _more coming soon..._
