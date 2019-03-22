@@ -1,6 +1,6 @@
 # Shitcoins
 
-Shitcoins is an ICO platform with a built-in trading engine (exchange). It's fully functional, but not as feature-complete as [RubyKube](https://github.com/rubykube).
+Shitcoins is an experimental ICO platform with a built-in trading engine (exchange).
 
 [![CircleCI](https://circleci.com/gh/buhrmi/shitcoins/tree/develop.svg?style=svg&circle-token=15176affab554db9ab15e2c374994e82c7cc40a4)](https://circleci.com/gh/buhrmi/shitcoins/tree/develop)
 
