@@ -43,4 +43,4 @@ For deployment notes, see [deployment.md](https://github.com/djshitcoin/exchange
 
 ## License
 
-I just pooped my pants lol
+This code has been created during my employment at [AI Technology Japan](https://ai-tech.jpn.com). Please consult with them if you would like to use this code.
