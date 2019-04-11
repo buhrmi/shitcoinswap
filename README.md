@@ -14,7 +14,7 @@ Shitcoins is an experimental ICO platform with a built-in trading engine (exchan
 * [x] Deposits / Withdrawals
 * [x] Integrated trading engine
 
-### Roadmap
+### Future ideas
 
 * [ ] SAFT offerings (tokens that are not yet bound to a specific platform)
 * [ ] Token Sites (Summary, SNS Widgets, Team, Roadmap, Video, News, etc.)
@@ -33,11 +33,9 @@ Shitcoins is an experimental ICO platform with a built-in trading engine (exchan
 * [ ] Hedera Hashgraph
 * [ ] _more coming soon..._
 
-## Docs
+## Deployment Guide
 
-_Soon..._
-
-For deployment notes, see [deployment.md](https://github.com/djshitcoin/exchange/blob/develop/deployment.md)
+See [deployment.md](https://github.com/djshitcoin/exchange/blob/develop/deployment.md)
 
 ## License
 
