@@ -1,10 +1,6 @@
-# Shitcoins [![CircleCI](https://circleci.com/gh/buhrmi/shitcoins/tree/develop.svg?style=svg&circle-token=15176affab554db9ab15e2c374994e82c7cc40a4)](https://circleci.com/gh/buhrmi/shitcoins/tree/develop)
+# Shitcoin Swap [![CircleCI](https://circleci.com/gh/buhrmi/shitcoinswap/tree/develop.svg?style=svg&circle-token=15176affab554db9ab15e2c374994e82c7cc40a4)](https://circleci.com/gh/buhrmi/shitcoinswap/tree/develop)
 
-Shitcoins is an experimental ICO platform with a built-in trading engine (exchange).
-
-## Demo
-
-[shitcoins.jp](https://shitcoins.jp)
+Shitcoin Swap is an ICO launching platform with a built-in exchange.
 
 ## Features
 
