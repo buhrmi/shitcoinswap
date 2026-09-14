@@ -1,13 +1,6 @@
 <script>
-  import { currentUser, balances } from "~/lib/stores"
+  import { balances } from "~/lib/stores"
 </script>
-
-<section>
-  <p>
-    Logged in as {$currentUser?.name}
-  </p>
-  <a href="/session" data-method="delete">Log out</a>
-</section>
 
 <section>
   <h2>Balances</h2>

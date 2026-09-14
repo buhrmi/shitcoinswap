@@ -3,26 +3,11 @@
   import Input from '~/components/Input.svelte'
   import Socials from '~/pages/sessions/_socials.svelte'
   
-  import { Tween } from 'svelte/motion';
-  import { cubicOut } from 'svelte/easing';
-  import { slide } from 'svelte/transition';
-
   const { 
     close,
-    ref,
     verification
   } = $props()
   
-  let amount = new Tween(15, {
-    easing: cubicOut,
-    duration: 200
-  })
-
-  let amountConfirmed = $state(false)
-  function confirmAmount() {
-    document.cookie = `amount=${amount.target}; path=/; max-age=31536000`
-    amountConfirmed = true
-  }
 
   $effect(() => page.props.current_user && close(false))
 

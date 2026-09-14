@@ -19,6 +19,13 @@
   
   <aside>
     {#if $currentUser}
+    <section>
+      <p>
+        Logged in as {$currentUser?.name}
+      </p>
+      <a href="/session" data-method="delete">Log out</a>
+    </section>
+
     <Frame src="/user" />
     {:else}
     <Frame src="/user/new" />

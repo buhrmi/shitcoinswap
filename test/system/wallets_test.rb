@@ -20,9 +20,13 @@ class WalletsTest < ApplicationSystemTestCase
     click_on "Deposit"
     assert_text "Waiting..."
 
+    # The address is shown as a QR code, with the copy button below it.
+    assert_selector ".qr"
+    assert_button "Copy address"
+
     # Pay the address the deposit page is showing, the way the chain scan would
     # pick it up.
-    address = page.text[/Deposit address:\s*(\S+)/, 1]
+    address = find("code.address").text
     network = Network::Bitcoin.find(networks(:bitcoin).id)
     network.rpc = FakeBitcoinRpc.new(height: 105 + Deposit::CONFIRMATIONS_NEEDED - 1)
       .with_block(105, paying: address, value: 0.5)
