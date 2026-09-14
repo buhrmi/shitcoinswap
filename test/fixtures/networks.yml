@@ -1,0 +1,4 @@
+# A network is a chain; assets are the tokens on it.
+bitcoin:
+  name: Bitcoin
+  type: Network::Bitcoin

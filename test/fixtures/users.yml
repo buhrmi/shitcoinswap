@@ -1,0 +1,11 @@
+# Wallets belong to a user, so every wallet test needs at least one user.
+one:
+  handle: alice
+  name: Alice
+  email: alice@example.com
+  password_digest: <%= BCrypt::Password.create("password123", cost: 4) %>
+
+# A second user, needed whenever a test wants a second address.
+two:
+  handle: bob
+  name: Bob

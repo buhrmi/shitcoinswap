@@ -1,0 +1,9 @@
+Your email address was changed
+
+Hi <%= @user.name.presence || @user.handle %>,
+
+The email address on your Shitcoin Swap account was changed from
+<%= @previous_email %> to <%= @user.email %>.
+
+If you made this change, you can safely ignore this email. If you didn't,
+please reset your password and contact us right away.

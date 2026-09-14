@@ -1,0 +1,4 @@
+<script>
+  import { router } from 'inertiax-svelte'
+  router.reload()
+</script>
