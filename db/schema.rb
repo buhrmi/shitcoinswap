@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_14_140000) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_14_053236) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
@@ -46,7 +46,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_14_140000) do
   create_table "assets", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name"
-    t.bigint "network_id", null: false
+    t.bigint "network_id"
     t.string "type", default: "Asset"
     t.datetime "updated_at", null: false
     t.index ["network_id"], name: "index_assets_on_network_id"
