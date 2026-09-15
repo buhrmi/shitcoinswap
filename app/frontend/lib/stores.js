@@ -6,11 +6,6 @@ import db from '~/lib/db'
 
 export const userId = toStore(() => page.props.current_user_id)
 
-const props = toStore(() => page.props)
-
-userId.subscribe(($) => console.log('userId', $))
-props.subscribe(($) => console.log('props', $.current_user_id))
-
 /**
  * Like Dexie's `liveQuery`, but the querier receives the current `userId`
  * and the query is re-created whenever `userId` changes.
