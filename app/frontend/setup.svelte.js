@@ -1,6 +1,7 @@
 import { page } from 'inertiax-svelte'
 import { subscribe } from 'dexiecable'
 import db from '~/lib/db'
+import { router } from "inertiax-svelte"
 
 const subscription = subscribe(db)
 
@@ -18,3 +19,9 @@ $effect.root(() => {
   })
 })
 
+// this event is fired from the OAuth popup window
+window.addEventListener('message', function(event) {
+  if (event.data == 'session-created') {
+    router.reload()
+  }
+})

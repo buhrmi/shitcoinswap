@@ -1,4 +1,4 @@
-import { router } from "inertiax-svelte"
+
 
 export function authenticate(provider, flow = "login") {
   const width = 500;
@@ -10,9 +10,3 @@ export function authenticate(provider, flow = "login") {
   window.open(`/session/new?provider=${provider}&flow=${flow}`, '_blank', windowFeatures);
 }
 
-// this event is fired from the OAuth popup window
-window.addEventListener('message', function(event) {
-  if (event.data == 'session-created') {
-    router.reload()
-  }
-})
