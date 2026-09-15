@@ -2,7 +2,7 @@
 
 # Shitcoin Swap
 
-The best place to short your mom's crypto assets
+The best place to bet against your mom's crypto projects.
 
 https://www.shitcoinswap.com
 
