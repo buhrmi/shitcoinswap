@@ -14,11 +14,6 @@ class Identity < ApplicationRecord
         u.handle = auth_hash.info.nickname
         u.bio = auth_hash.info.description
         u.password = u.password_confirmation = SecureRandom.base58(10)
-        if auth_hash.provider == "tiktok-loginkit" && auth_hash.info.nickname
-          u.socials = {
-            tiktok: auth_hash.info.nickname
-          }
-        end
         if auth_hash.provider == "twitter" && auth_hash.info.nickname
           u.socials = {
             x: auth_hash.info.nickname
