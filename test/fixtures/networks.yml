@@ -5,3 +5,8 @@ bitcoin:
   name: Bitcoin
   type: Network::Bitcoin
   config: <%= { chain: "testnet", rpc_url: "https://bitcoin-testnet-rpc.publicnode.com", xpub: "vpub5ZfbdassBjc5xD9jREby9HXNrt5mCxaeeryQ5jN12NJ2rDbzJSiWv1fphutd6DcgSJxfpr1Krp5HE3SFbMV8stLpKiNrcCx7JaxYTHVuWBS" }.to_json %>
+
+tron:
+  name: TRON
+  type: Network::Tron
+  config: <%= { chain: "mainnet", rpc_url: "https://api.trongrid.io", xpub: "xpub6CsgkBLdw19vwe8bYJYdcxD94C7zoQyG1yNeTWikrjuAaUmoHfwiT7KKiYNV2himQmGqi2T4NphEpPR41Hfc75nmeNRRNawuwoDELHoxBjc" }.to_json %>

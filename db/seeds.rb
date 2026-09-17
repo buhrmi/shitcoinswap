@@ -1,5 +1,4 @@
 btc_mainnet = Network::Bitcoin.find_or_initialize_by(name: "Bitcoin")
-tron_mainnet = Network::Tron.find_or_initialize_by(name: "TRON")
 
 btc_mainnet.config = {
   # No xpub: the network on the real chain reads its key from the credentials.
@@ -7,6 +6,15 @@ btc_mainnet.config = {
   rpc_url: "https://bitcoin-rpc.publicnode.com"
 }
 btc_mainnet.save!
+
+tron_mainnet = Network::Tron.find_or_initialize_by(name: "TRON")
+
+tron_mainnet.config = {
+  # No xpub: the network on the real chain reads its key from the credentials.
+  chain: "mainnet",
+  rpc_url: "https://api.trongrid.io"
+}
+tron_mainnet.save!
 
 if Rails.env.development?
   # Testnet as well, so deposits can be played with without spending real coins.
@@ -23,8 +31,9 @@ if Rails.env.development?
 end
 
 btc = Asset::Bitcoin.find_or_create_by!(name: "Bitcoin", network: btc_mainnet)
-usdt = Asset::Trc20.find_or_create_by!(name: "USDT (Tron)", network: tron_mainnet, config: { contract: "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t" })
 
+usdt = Asset::Evm.find_or_create_by!(name: "USDT (Tron)", network: tron_mainnet)
+usdt.config = { contract: "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t", decimals: 6 }
 usdt.description = "An unregulated money-laundering vehicle allegedly pegged to the U.S. dollar"
 usdt.save!
 

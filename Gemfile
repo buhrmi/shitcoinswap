@@ -101,3 +101,7 @@ gem "dexiecable", "~> 2.0"
 # bitcoinrb needs observer, which was removed from the Ruby default gems in 3.4.
 gem "observer"
 gem "bitcoinrb", "~> 1.7", require: "bitcoin"
+
+# Tron and Ethereum addresses are keccak-256 of the public key. Native, but the
+# image already installs build-essential for pg and vips.
+gem "keccak", "~> 1.3", require: "digest/keccak"

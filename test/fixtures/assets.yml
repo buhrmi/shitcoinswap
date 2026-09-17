@@ -1,5 +1,10 @@
-# A Bitcoin asset is all that is needed to derive wallet addresses.
 bitcoin:
   name: Bitcoin
   type: Asset::Bitcoin
   network: bitcoin
+
+usdt:
+  name: USDT (Tron)
+  type: Asset::Evm
+  network: tron
+  config: <%= { contract: "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t", decimals: 6 }.to_json %>

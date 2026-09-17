@@ -2,7 +2,8 @@
 # chain-wide - the node, the scan cursor, and the key addresses are derived from
 # - belongs to Network::Bitcoin, which is why the address is asked for there.
 class Asset::Bitcoin < Asset
-  def assign_wallet_address(wallet)
-    wallet.address = network.derive_address(wallet.user_id, wallet.sequential_id)
+  # A Bitcoin node reports output values in whole coins already.
+  def amount_from(raw)
+    BigDecimal(raw.to_s)
   end
 end
