@@ -1,6 +1,5 @@
-# Ethereum: the same account addresses as Tron, written in hex. Reading deposits
-# here means reading ERC-20 transfer logs, which is not implemented - nothing
-# uses Ethereum yet, so a scan of one raises.
+# Ethereum: the same account addresses as Tron, written in hex. Deposits would be ERC-20
+# transfer logs, which nothing reads yet, so a scan of one raises.
 class Network::Ethereum < Network::Evm
   private
 

@@ -1,7 +1,6 @@
 class Network::Bitcoin < Network
-  # Addresses are handed out by the network, because bitcoinrb keeps the chain
-  # params in a global and they have to be in place both while the key is parsed
-  # and while the address is encoded.
+  # bitcoinrb keeps the chain params in a global, and they have to be in place both while
+  # the key is parsed and while the address is encoded.
   def derive_address(user_id, index)
     with_chain_params { hd_root.derive(user_id).derive(index).addr }
   end
@@ -10,20 +9,8 @@ class Network::Bitcoin < Network
     rpc.getblockcount
   end
 
-  # Kept per instance so one scan reuses a single client; assigning one is also
-  # how tests stub the network.
-  attr_writer :rpc
-
-  def rpc
-    @rpc ||= Rpc.new(rpc_url)
-  end
-
-  def tip_height
-    rpc.getblockcount
-  end
-
-  # Kept per instance so one scan reuses a single client; assigning one is also
-  # how tests stub the network.
+  # Kept per instance so one scan reuses a single client; assigning one is also how tests
+  # stub the network.
   attr_writer :rpc
 
   def rpc

@@ -1,7 +1,6 @@
 class Network::Tron < Network::Evm
-  # Tron makes a block every three seconds, so a first scan has to look much
-  # deeper than on Bitcoin to cover a similar stretch of time. Two hundred blocks
-  # is about ten minutes, and costs two hundred calls on a public node.
+  # Tron makes a block every three seconds, so a first scan looks much deeper than on
+  # Bitcoin to cover a similar stretch of time: 200 blocks is about ten minutes.
   INITIAL_DEPTH = 200
 
   # A Tron address is the 20 bytes Ethereum would write in hex, with Tron's own
@@ -12,8 +11,7 @@ class Network::Tron < Network::Evm
     rpc.getnowblock
   end
 
-  # Kept per instance so one scan reuses a single client; assigning one is also
-  # how tests stub the network.
+  # Kept per instance so a scan reuses one client; assigning one is how tests stub it.
   attr_writer :rpc
 
   def rpc
@@ -25,6 +23,17 @@ class Network::Tron < Network::Evm
   def encode_address(bytes)
     payload = (ADDRESS_PREFIX + bytes).unpack1("H*")
     ::Bitcoin::Base58.encode(payload + ::Bitcoin.calc_checksum(payload))
+  end
+
+  # A base58 address in the node's own hex form, version byte and all.
+  def address_hex(address)
+    ::Bitcoin::Base58.decode(address)[0, 42]
+  end
+
+  # Tron's constant call: the node runs a contract's function for us, which is
+  # where a token's name, symbol and decimals come from.
+  def call_contract(contract, signature)
+    rpc.call_contract(address_hex(contract), signature)
   end
 
   # Tron hands a block over as its transactions, and a token transfer is a
@@ -42,8 +51,7 @@ class Network::Tron < Network::Evm
     end
   end
 
-  # The call a transaction makes to a token contract, or nil when it failed or is
-  # not a contract call at all.
+  # The call a transaction makes to a token contract, or nil when it failed or is not one.
   def token_call_in(tx)
     return unless tx.dig("ret", 0, "contractRet") == "SUCCESS"
 
@@ -62,6 +70,10 @@ class Network::Tron < Network::Evm
     OPEN_TIMEOUT = 5
     READ_TIMEOUT = 60
 
+    # A constant call changes nothing, so nobody has to sign it: the null account stands
+    # in, and the addresses on that call are hex rather than base58.
+    NULL_ADDRESS = "41" + "00" * 20
+
     def initialize(url)
       @uri = URI.parse(url)
     end
@@ -72,6 +84,13 @@ class Network::Tron < Network::Evm
 
     def getblockbynum(num)
       call("getblockbynum", num: num)
+    end
+
+    def call_contract(contract_hex, signature)
+      call(
+        "triggerconstantcontract", visible: false, owner_address: NULL_ADDRESS,
+        contract_address: contract_hex, function_selector: signature, parameter: ""
+      ).dig("constant_result", 0)
     end
 
     private

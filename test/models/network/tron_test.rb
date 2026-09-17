@@ -29,7 +29,7 @@ class Network::TronTest < ActiveSupport::TestCase
 
   test "records a transfer that pays one of our wallets" do
     @network.rpc = FakeTronRpc.new(height: 103)
-      .with_transfer(103, to: @wallet.address, contract: @asset.contract, value: 12_750_000)
+      .with_transfer(103, to: @wallet.address, contract: @asset.contract_address, value: 12_750_000)
 
     report = @network.scan_deposits(depth: 1)
 
@@ -46,13 +46,16 @@ class Network::TronTest < ActiveSupport::TestCase
   test "tells the tokens on the chain apart by their contract" do
     # Every token is paid to the same address, so the contract is what says which
     # asset a transfer belongs to.
-    other = Asset::Evm.create!(name: "Another token", network: @network, config: { contract: "TOtherToken", decimals: 0 })
+    other = Asset::Evm.create!(
+      name: "Another token", symbol: "OTH", network: @network,
+      contract_address: "TOtherToken", decimals: 0
+    )
     other_wallet = Wallet.create!(user: users(:one), asset: other)
 
     assert_equal @wallet.address, other_wallet.address
 
     @network.rpc = FakeTronRpc.new(height: 103)
-      .with_transfer(103, to: @wallet.address, contract: other.contract, value: 5)
+      .with_transfer(103, to: @wallet.address, contract: other.contract_address, value: 5)
 
     @network.scan_deposits(depth: 1)
 
@@ -69,14 +72,14 @@ class Network::TronTest < ActiveSupport::TestCase
 
   test "ignores transfers that did not go through" do
     @network.rpc = FakeTronRpc.new(height: 103)
-      .with_transfer(103, to: @wallet.address, contract: @asset.contract, value: 1, status: "REVERT")
+      .with_transfer(103, to: @wallet.address, contract: @asset.contract_address, value: 1, status: "REVERT")
 
     assert_equal 0, @network.scan_deposits(depth: 1)[:created]
   end
 
   test "ignores transfers that pay somebody else" do
     @network.rpc = FakeTronRpc.new(height: 105)
-      .with_transfer(103, to: @network.derive_address(42, 7), contract: @asset.contract, value: 1)
+      .with_transfer(103, to: @network.derive_address(42, 7), contract: @asset.contract_address, value: 1)
 
     assert_equal 0, @network.scan_deposits(depth: 3)[:created]
     assert_equal 0, @network.deposits.count
@@ -84,7 +87,7 @@ class Network::TronTest < ActiveSupport::TestCase
 
   test "remembers the height it scanned up to" do
     @network.rpc = FakeTronRpc.new(height: 105)
-      .with_transfer(103, to: @wallet.address, contract: @asset.contract, value: 1)
+      .with_transfer(103, to: @wallet.address, contract: @asset.contract_address, value: 1)
 
     @network.scan_deposits(depth: 3)
 
@@ -93,7 +96,7 @@ class Network::TronTest < ActiveSupport::TestCase
 
   test "continues from the last scanned height instead of starting over" do
     client = FakeTronRpc.new(height: 105)
-      .with_transfer(103, to: @wallet.address, contract: @asset.contract, value: 1)
+      .with_transfer(103, to: @wallet.address, contract: @asset.contract_address, value: 1)
     @network.rpc = client
     @network.scan_deposits(depth: 3)
 
@@ -107,7 +110,7 @@ class Network::TronTest < ActiveSupport::TestCase
 
   test "credits the balance once the transfer is confirmed" do
     client = FakeTronRpc.new(height: 104)
-      .with_transfer(104, to: @wallet.address, contract: @asset.contract, value: 12_750_000)
+      .with_transfer(104, to: @wallet.address, contract: @asset.contract_address, value: 12_750_000)
     @network.rpc = client
 
     # One confirmation is not enough to spend yet.

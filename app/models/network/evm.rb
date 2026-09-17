@@ -1,28 +1,54 @@
-# An account-based chain (Tron, Ethereum, ...). A key is an account here, and its
-# address is the last 20 bytes of keccak-256 over the public key. Tron uses the
-# very same addresses as Ethereum and only writes them down differently, so the
-# derivation lives here and a chain only says how to encode the result.
+# An account-based chain (Tron, Ethereum, ...). A key is an account here, and its address
+# is the last 20 bytes of keccak-256 over the public key - the same twenty bytes on both
+# chains, written down differently.
 #
-# Tokens work the same way on both: a transfer is a payment to an address the
-# holder already has, so only the token's contract can tell one token from
-# another. Where a block's transfers have to be read from is the chain's own
-# business (#transfers_in) - Tron hands them over as contract calls, Ethereum
-# keeps them in logs - but what a transfer means is the same everywhere.
+# Only the contract tells one token from another, since a transfer is just a payment to an
+# address the holder already has. Where a block's transfers are read from is the chain's
+# business (#transfers_in): contract calls on Tron, logs on Ethereum.
 class Network::Evm < Network
-  # The first four bytes of keccak-256("transfer(address,uint256)"): the ABI every
-  # token on these chains follows for a transfer.
+  # The first four bytes of keccak-256("transfer(address,uint256)"), the ABI every token on
+  # these chains follows for a transfer.
   TRANSFER_SELECTOR = "a9059cbb"
 
-  # The deposit address of a user's nth wallet. The key sits at the account level
-  # of the BIP44 path, so the account index is the user and the address index is
-  # the wallet within it - the same shape as on Bitcoin.
+  # The deposit address of a user's nth wallet: the account index is the user, the address
+  # index the wallet within it - the same shape as on Bitcoin.
   def derive_address(user_id, index)
     with_chain_params do
       encode_address(account_address(hd_root.derive(user_id).derive(index).pub))
     end
   end
 
+  # What a contract says about itself: the three things every token on these chains knows.
+  def token_metadata(contract)
+    {
+      "name" => string_return(call_contract(contract, "name()")),
+      "symbol" => string_return(call_contract(contract, "symbol()")),
+      "decimals" => uint_return(call_contract(contract, "decimals()"))
+    }.compact
+  end
+
   private
+
+  # Reads a contract function without changing anything. The answer is ABI-encoded the same
+  # way on every chain, so only the call itself is the chain's business.
+  def call_contract(contract, signature)
+    raise NotImplementedError, "#{self.class} does not implement #call_contract"
+  end
+
+  # A string comes back as an offset, its length, and then the bytes themselves.
+  def string_return(hex)
+    return if hex.nil?
+
+    length = hex[64, 64].to_i(16)
+    return if length.zero?
+
+    [ hex[128, length * 2] ].pack("H*").force_encoding(Encoding::UTF_8)
+  end
+
+  # A number is a single 32 byte word.
+  def uint_return(hex)
+    hex&.to_i(16)
+  end
 
   # Records a deposit for every transfer in the block that pays one of our
   # wallets through the contract of an asset we track.
@@ -47,7 +73,7 @@ class Network::Evm < Network
   # A transfer belongs to the asset whose contract was called, and one address can
   # hold several tokens at once.
   def wallets_for(transfer)
-    wallets_by_address[transfer[:to]].to_a.select { |wallet| wallet.asset.contract == transfer[:contract] }
+    wallets_by_address[transfer[:to]].to_a.select { |wallet| wallet.asset.contract_address == transfer[:contract] }
   end
 
   # Reads the recipient and the amount out of transfer(address,uint256) calldata,

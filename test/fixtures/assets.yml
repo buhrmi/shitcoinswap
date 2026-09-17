@@ -1,10 +1,13 @@
 bitcoin:
   name: Bitcoin
+  symbol: BTC
   type: Asset::Bitcoin
   network: bitcoin
 
 usdt:
   name: USDT (Tron)
+  symbol: USDT
   type: Asset::Evm
   network: tron
-  config: <%= { contract: "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t", decimals: 6 }.to_json %>
+  contract_address: TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t
+  decimals: 6

@@ -1,6 +1,6 @@
 class Asset < ApplicationRecord
   JSON_OPTIONS = {
-    only: [ :id, :name, :type ]
+    only: [ :id, :name, :symbol, :type ]
   }
 
   belongs_to :network, optional: true
@@ -8,19 +8,16 @@ class Asset < ApplicationRecord
   has_many :wallets, dependent: :destroy
   has_many :deposits, dependent: :destroy
 
-  # A wallet's address belongs to the chain the deposits arrive on, so the network
-  # hands it out: the account index is the user and the address index is the wallet
-  # within it. Every kind of chain works that way, which is why this is not left to
-  # the subclasses.
+  # The address belongs to the chain, so the network hands it out: the account index is the
+  # user, the address index the wallet within it.
   def assign_wallet_address(wallet)
     network or raise "#{name} is on no network, so it has no address to give a wallet"
 
     wallet.address = network.derive_address(wallet.user_id, wallet.sequential_id)
   end
 
-  # What a chain's raw value means in this asset's units: a Bitcoin node reports
-  # coins, while a token reports whole numbers in its smallest unit. That does
-  # differ per chain, so it stays with the subclass.
+  # What a chain's raw value means in this asset's units: whole coins from a Bitcoin node,
+  # an integer in the smallest unit from a token.
   def amount_from(raw)
     raise NoMethodError, "#{self.class.name} must implement the #amount_from method"
   end

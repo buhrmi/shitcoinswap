@@ -27,13 +27,21 @@ if Rails.env.development?
   }
   btc_testnet.save!
 
-  Asset::Bitcoin.find_or_create_by!(name: "test-btc", network: btc_testnet)
+  # Assets are looked up by their ticker, and a Bitcoin asset has no contract to
+  # read one from, so the symbol and the name are both stated here.
+  test_btc = Asset::Bitcoin.find_or_initialize_by(symbol: "TBTC", network: btc_testnet)
+  test_btc.name = "test-btc"
+  test_btc.save!
 end
 
-btc = Asset::Bitcoin.find_or_create_by!(name: "Bitcoin", network: btc_mainnet)
+btc = Asset::Bitcoin.find_or_initialize_by(symbol: "BTC", network: btc_mainnet)
+btc.name = "Bitcoin"
+btc.save!
 
-usdt = Asset::Evm.find_or_create_by!(name: "USDT (Tron)", network: tron_mainnet)
-usdt.config = { contract: "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t", decimals: 6 }
+# A token is found by the contract it lives in, and its name, symbol and decimals are
+# read from that contract when the row is created - so there is nothing else to say
+# about it here.
+usdt = Asset::Evm.find_or_initialize_by(contract_address: "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t", network: tron_mainnet)
 usdt.description = "An unregulated money-laundering vehicle allegedly pegged to the U.S. dollar"
 usdt.save!
 
