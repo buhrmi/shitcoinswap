@@ -45,6 +45,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_14_053236) do
 
   create_table "assets", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.string "description"
     t.string "name"
     t.bigint "network_id"
     t.string "type", default: "Asset"
@@ -94,6 +95,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_14_053236) do
   end
 
   create_table "networks", force: :cascade do |t|
+    t.jsonb "config", default: {}, null: false
     t.datetime "created_at", null: false
     t.integer "last_scanned_height"
     t.string "name", null: false

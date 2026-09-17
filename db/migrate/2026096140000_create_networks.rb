@@ -6,7 +6,7 @@ class CreateNetworks < ActiveRecord::Migration[8.1]
       t.string :name, null: false
       t.string :type, null: false
       t.integer :last_scanned_height
-
+      t.jsonb :config, null: false, default: {}
       t.timestamps
     end
   end

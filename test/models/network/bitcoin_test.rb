@@ -8,27 +8,40 @@ class Network::BitcoinTest < ActiveSupport::TestCase
     @wallet = Wallet.create!(user: users(:one), asset: @asset)
   end
 
-  test "uses the public node for the chain in use" do
-    assert_equal "https://bitcoin-rpc.publicnode.com", Network::Bitcoin.rpc_url(:mainnet)
-    assert_equal "https://bitcoin-testnet-rpc.publicnode.com", Network::Bitcoin.rpc_url(:testnet)
-    assert_equal "https://bitcoin-signet-rpc.publicnode.com", Network::Bitcoin.rpc_url(:signet)
+  test "reads the chain and the node from its config" do
+    assert_equal "testnet", @network.chain
+    assert_equal "https://bitcoin-testnet-rpc.publicnode.com", @network.rpc_url
   end
 
-  test "follows the configured chain by default" do
-    assert_equal Network::Bitcoin::RPC_URLS.fetch(::Bitcoin.chain_params.network), Network::Bitcoin.rpc_url
-    assert_includes Network::Bitcoin::RPC_URLS.values, Network::Bitcoin.rpc_url
+  test "derives addresses on the chain it is configured for" do
+    # Testnet addresses, because that is the chain this network runs on.
+    assert_match(/\Atb1q/, @wallet.address)
   end
 
-  test "lets BTC_RPC_URL point at another node" do
-    ENV["BTC_RPC_URL"] = "http://user:password@127.0.0.1:8332"
+  test "complains when the config does not say what to use" do
+    bare = Network::Bitcoin.new(name: "Bare")
 
-    assert_equal "http://user:password@127.0.0.1:8332", Network::Bitcoin.rpc_url
-  ensure
-    ENV.delete("BTC_RPC_URL")
+    assert_raises(RuntimeError) { bare.chain }
+    assert_raises(RuntimeError) { bare.rpc_url }
   end
 
-  test "complains about a chain it has no public node for" do
-    assert_raises(KeyError) { Network::Bitcoin.rpc_url(:regtest) }
+  test "reads the key from the credentials when the row does not carry one" do
+    # The row for the real chain keeps no key of its own, so the one the
+    # deployment holds at networks.bitcoin.xpub is used instead.
+    network = Network::Bitcoin.new(name: "Bitcoin")
+
+    assert_nil network.config["xpub"]
+    assert_match(/\A[zx]pub/, network.xpub)
+  end
+
+  test "complains when there is no key to derive addresses from" do
+    # A network that carries no key and finds none in the credentials either.
+    network = Class.new(Network::Bitcoin) do
+      def credential_xpub = nil
+    end.new(name: "Bitcoin")
+    network.type = "Network::Bitcoin"
+
+    assert_raises(RuntimeError) { network.xpub }
   end
 
   test "records an output paying one of our wallets" do

@@ -1,4 +1,7 @@
-# A network is a chain; assets are the tokens on it.
+# A network is a chain; assets are the tokens on it. The chain it runs on lives
+# in the row, and the testnet key here is the throwaway one, so nothing in the
+# test suite goes near the real chain or a real node.
 bitcoin:
   name: Bitcoin
   type: Network::Bitcoin
+  config: <%= { chain: "testnet", rpc_url: "https://bitcoin-testnet-rpc.publicnode.com", xpub: "vpub5ZfbdassBjc5xD9jREby9HXNrt5mCxaeeryQ5jN12NJ2rDbzJSiWv1fphutd6DcgSJxfpr1Krp5HE3SFbMV8stLpKiNrcCx7JaxYTHVuWBS" }.to_json %>

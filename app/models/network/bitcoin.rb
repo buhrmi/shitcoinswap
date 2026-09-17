@@ -3,20 +3,31 @@ class Network::Bitcoin < Network
   # `last_scanned_height`, so once a chain has been picked up nothing is skipped.
   INITIAL_DEPTH = 6
 
-  # Public Bitcoin Core nodes, since this app does not run its own. Point
-  # BTC_RPC_URL at a private node for more headroom (a decoded block is a few
-  # megabytes, and the public ones are rate limited).
-  RPC_URLS = {
-    "mainnet" => "https://bitcoin-rpc.publicnode.com",
-    "testnet" => "https://bitcoin-testnet-rpc.publicnode.com",
-    "signet" => "https://bitcoin-signet-rpc.publicnode.com"
-  }.freeze
+  # Which chain this network is on, and the node it is read from. Both are
+  # deployment configuration and live in `config` (see db/seeds.rb), so the same
+  # code runs against mainnet, testnet or signet without the environment saying
+  # which one.
+  def chain
+    config["chain"] or raise "#{name} has no chain configured"
+  end
 
-  # Follows the chain the app is configured for, so switching `Bitcoin.chain_params`
-  # switches the node along with the keys.
-  def self.rpc_url(chain = ::Bitcoin.chain_params.network)
-    ENV["BTC_RPC_URL"] || RPC_URLS[chain.to_s] ||
-      raise(KeyError, "no public RPC endpoint for #{chain}, set BTC_RPC_URL")
+  def rpc_url
+    config["rpc_url"] or raise "#{name} has no rpc_url configured"
+  end
+
+  # The extended public key addresses are derived from. A network on the real
+  # chain keeps its key out of the database, so it is read from the credentials
+  # the deployment holds instead.
+  def xpub
+    config["xpub"] || credential_xpub ||
+      raise("#{name} has no xpub: set config.xpub, or networks.#{credential_name}.xpub in the credentials")
+  end
+
+  # Addresses are handed out by the network, because bitcoinrb keeps the chain
+  # params in a global and they have to be in place both while the key is parsed
+  # and while the address is encoded.
+  def derive_address(user_id, index)
+    with_chain_params { hd_root.derive(user_id).derive(index).addr }
   end
 
   # Kept per instance so one scan reuses a single client; assigning one is also
@@ -24,7 +35,7 @@ class Network::Bitcoin < Network
   attr_writer :rpc
 
   def rpc
-    @rpc ||= Rpc.new
+    @rpc ||= Rpc.new(rpc_url)
   end
 
   def tip_height
@@ -58,6 +69,30 @@ class Network::Bitcoin < Network
   end
 
   private
+
+  # Credentials name a network by the short name it goes by there, so the key of
+  # Network::Bitcoin lives at networks.bitcoin.xpub.
+  def credential_name
+    type.demodulize.downcase
+  end
+
+  def credential_xpub
+    Rails.application.credentials.dig(:networks, credential_name, :xpub)
+  end
+
+  # The chain params are global in bitcoinrb, so they are applied around the
+  # operations that read them rather than once at boot. Assigning an unknown
+  # chain raises, which is what a bad config should do.
+  def with_chain_params
+    ::Bitcoin.chain_params = chain.to_sym
+    yield
+  end
+
+  # Parsed lazily and remembered: the version bytes of the key are matched
+  # against the chain params, so this only works inside #with_chain_params.
+  def hd_root
+    @hd_root ||= ::Bitcoin::ExtPubkey.from_base58(xpub)
+  end
 
   def scan_block(height, report)
     block_at(height)["tx"].each do |tx|
@@ -124,7 +159,7 @@ class Network::Bitcoin < Network
     OPEN_TIMEOUT = 5
     READ_TIMEOUT = 60
 
-    def initialize(url = Network::Bitcoin.rpc_url)
+    def initialize(url)
       @uri = URI.parse(url)
     end
 

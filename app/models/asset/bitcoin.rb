@@ -1,9 +1,8 @@
-# The Bitcoin token on the Bitcoin network. Addresses are derived from HD_ROOT
-# (see config/initializers/bitcoin.rb); everything chain-wide (RPC, scan cursor)
-# belongs to Network::Bitcoin.
+# The Bitcoin token on a Bitcoin network (mainnet, testnet, ...). Everything
+# chain-wide - the node, the scan cursor, and the key addresses are derived from
+# - belongs to Network::Bitcoin, which is why the address is asked for there.
 class Asset::Bitcoin < Asset
   def assign_wallet_address(wallet)
-    # HD_ROOT is at m/84'/0'/0'
-    wallet.address = HD_ROOT.derive(wallet.user_id).derive(wallet.sequential_id).addr
+    wallet.address = network.derive_address(wallet.user_id, wallet.sequential_id)
   end
 end

@@ -4,6 +4,7 @@ class CreateAssets < ActiveRecord::Migration[8.1]
       t.belongs_to :network, foreign_key: true
       t.string :type, default: "Asset"
       t.string :name
+      t.string :description
 
       t.timestamps
     end
