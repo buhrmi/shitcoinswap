@@ -27,5 +27,5 @@ end
 
 platform = Asset.where(name: "Jeseph's Booking Platform").first_or_create!
 
-platform.description = "Years in the making, Jeseph's platform is breathing new life into the Japanese nightlife industry."
+platform.description = "Years in the making, Jeseph's platform is set to breath new life into the Japanese nightlife industry."
 platform.save!

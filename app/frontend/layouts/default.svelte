@@ -43,6 +43,17 @@
     <Frame src="/user/new" />
     {/if}
   </aside>
+  <footer>
+    <section>
+      <p>
+        Shitcoin Swap is a
+        <a href="https://github.com/buhrmi/shitcoinswap" target="_blank">
+          publicly auditable
+        </a>
+        crypto investment platform.
+      </p>
+    </section>
+  </footer>
 </div>
 
 
@@ -50,11 +61,12 @@
   .layout {
     display: grid;
     height: 100%;
-    grid-template-rows: 1fr auto;
+    grid-template-rows: auto 1fr auto auto;
     grid-template-areas: 
       "header"
       "main"
-      "aside";
+      "aside"
+      "footer";
   }
 
   main {
@@ -73,10 +85,11 @@
       display: grid;
       height: 100%;
       grid-template-columns: 1fr 320px;
-      grid-template-rows: auto 1fr;
+      grid-template-rows: auto 1fr auto;
       grid-template-areas: 
         "header aside"
-        "main aside";
+        "main aside"
+        "footer aside";
     }
     aside {
       border-top: none;
