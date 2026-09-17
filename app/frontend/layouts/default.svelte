@@ -18,15 +18,15 @@
   {@render children?.()}
   
 <header>
-<section>
-  <div class="md:flex items-center">
-    <div class="grow">
-      <img src="~/assets/logo.jpg" class="h-16 inline-block" alt="Shitcoin Swap Logo"/>
-      <img src="~/assets/shitcoinswap.svg" class="h-12 inline-block" alt="Shitcoin Swap Logo"/>
+  <section>
+    <div class="md:flex items-center">
+      <div class="grow">
+        <img src="~/assets/logo.jpg" class="h-16 inline-block" alt="Shitcoin Swap Logo"/>
+        <img src="~/assets/shitcoinswap.svg" class="h-12 inline-block" alt="Shitcoin Swap Logo"/>
+      </div>
+      <p>Delivering Quality since 1982</p>
     </div>
-    <p>Delivering Quality since 1982</p>
-  </div>
-</section>
+  </section>
 </header>
 
   <aside>
@@ -73,6 +73,7 @@
       display: grid;
       height: 100%;
       grid-template-columns: 1fr 320px;
+      grid-template-rows: auto 1fr;
       grid-template-areas: 
         "header aside"
         "main aside";

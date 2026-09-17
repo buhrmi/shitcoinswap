@@ -34,7 +34,7 @@
         Create account
       </h3>
       <p class="text-gray mt-1">
-        The next big short will hit the market soon. Sign up to participate.
+        The next quality short will go live soon. Sign up to participate.
       </p>
       <Form action="/verifications" method="post">
         {#snippet children({ errors })}

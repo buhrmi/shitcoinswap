@@ -4,6 +4,7 @@ class AssetsController < ApplicationController
   end
 
   def show
+    @asset = Asset.find(params[:id])
   end
 
   def new
