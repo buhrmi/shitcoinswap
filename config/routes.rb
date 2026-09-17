@@ -12,7 +12,12 @@ Rails.application.routes.draw do
   resource :user
   resources :verifications
   resources :password_resets
+
   resources :assets
+  resources :networks do
+    resources :assets
+  end
+
   resources :deposits
   resource :session
 

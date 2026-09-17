@@ -53,9 +53,13 @@ class Asset::EvmTest < ActiveSupport::TestCase
     end
   end
 
-  test "a token that does not say how many decimals it has cannot be counted in" do
-    asset = Asset::Evm.new(name: "Half a token", network: @network, contract_address: @contract)
+  test "does not invent decimals a contract does not report" do
+    @network.rpc = FakeTronRpc.new(height: 1)
+      .with_token_metadata(@other_contract, name: "Half a token", symbol: "HALF")
 
-    assert_raises(RuntimeError) { asset.decimals }
+    asset = Asset::Evm.create!(network: @network, contract_address: @other_contract)
+
+    assert_equal "Half a token", asset.name
+    assert_nil asset.decimals
   end
 end

@@ -1,6 +1,8 @@
 class Asset < ApplicationRecord
+  # contract_address and the network's name are what the /assets/:network/:contract path
+  # is built from. The network is included by name only: its config holds keys.
   JSON_OPTIONS = {
-    only: [ :id, :name, :symbol, :type ]
+    only: [ :id, :name, :symbol, :contract_address, :network_id ]
   }
 
   belongs_to :network, optional: true
