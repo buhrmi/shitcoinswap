@@ -23,6 +23,7 @@ class ApplicationController < ActionController::Base
 
   inertia_share do
     {
+      assets: @assets = Asset.all,
       current_user_id: current_user && current_user.id,
       stream_token: current_user && DexieChannel.stream_token_for(current_user)
     }.compact

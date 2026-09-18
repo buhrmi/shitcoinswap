@@ -1,5 +1,5 @@
-# Stands in for TronGrid, so a scan can be driven without a node. Blocks that
-# were not set up come back empty.
+# Stands in for a Tron node, so a scan can be driven without one. Blocks that were not
+# set up come back empty.
 class FakeTronRpc
   attr_accessor :height
 

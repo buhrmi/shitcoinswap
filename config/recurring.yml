@@ -16,4 +16,4 @@ production:
 
   scan_deposits:
     class: ScanDepositsJob
-    schedule: every 1 minutes
+    schedule: every 30 seconds

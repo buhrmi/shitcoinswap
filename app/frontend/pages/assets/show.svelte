@@ -4,15 +4,11 @@
   } = $props()
 </script>
 
+<svelte:head>
+  <title>{asset.name} on Shitcoin Swap</title>
+</svelte:head>
+
 <main>
-  <section>
-    <nav>
-      <a href="/">
-        Assets
-      </a>
-      &RightAngleBracket; {asset.name}
-    </nav>
-  </section>
   <section>
     <h2>{asset.name}</h2>
     <p>{asset.description}</p>

@@ -49,9 +49,9 @@
     <section>
       <p class="text-center text-sm text-gray text-balance mt-4">
         By signing up, you agree to our
-        <a href="/terms" target="_blank">Terms of Service</a>
+        <a href="/terms" data-frame="_top">Terms of Service</a>
         and
-        <a href="/privacy" target="_blank">Privacy Policy</a>.
+        <a href="/privacy" data-frame="_top">Privacy Policy</a>.
       </p>
     </section>
   {/if}

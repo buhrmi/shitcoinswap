@@ -9,4 +9,4 @@ bitcoin:
 tron:
   name: TRON
   type: Network::Tron
-  config: <%= { chain: "mainnet", rpc_url: "https://api.trongrid.io", xpub: "xpub6CsgkBLdw19vwe8bYJYdcxD94C7zoQyG1yNeTWikrjuAaUmoHfwiT7KKiYNV2himQmGqi2T4NphEpPR41Hfc75nmeNRRNawuwoDELHoxBjc" }.to_json %>
+  config: <%= { chain: "mainnet", rpc_url: "https://tron-rpc.publicnode.com", xpub: "xpub6CsgkBLdw19vwe8bYJYdcxD94C7zoQyG1yNeTWikrjuAaUmoHfwiT7KKiYNV2himQmGqi2T4NphEpPR41Hfc75nmeNRRNawuwoDELHoxBjc" }.to_json %>

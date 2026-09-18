@@ -2,7 +2,7 @@
 
 # Shitcoin Swap
 
-The best place to bet against your mom's crypto projects.
+The publicly auditable trading platform for the modern degenerate
 
 https://www.shitcoinswap.com
 

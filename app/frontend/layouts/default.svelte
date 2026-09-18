@@ -1,16 +1,17 @@
 <script>
   import { Frame } from 'inertiax-svelte'
   import { currentUser } from '~/lib/stores'
-  
+  import AssetCard from '~/components/AssetCard.svelte'
   import './default.css'
 
   const {
+    assets,
     children
   } = $props()
 </script>
 
 <svelte:head>
-  <title>Shitcoin Swap</title>
+  <title>Shitcoin Swap - The front page of crypto</title>
 </svelte:head>
 
 <div class="layout">
@@ -20,11 +21,19 @@
 <header>
   <section>
     <div class="md:flex items-center">
-      <div class="grow">
+      <a href="/" class="brand grow">
         <img src="~/assets/logo.jpg" class="h-16 inline-block" alt="Shitcoin Swap Logo"/>
         <img src="~/assets/shitcoinswap.svg" class="h-12 inline-block" alt="Shitcoin Swap Logo"/>
-      </div>
+      </a>
       <p>Delivering Quality since 1982</p>
+    </div>
+  </section>
+    <section>
+    <div class="card-list">
+      {#each assets as asset (asset.id)}
+       <AssetCard {asset} />
+    
+      {/each}
     </div>
   </section>
 </header>
@@ -50,7 +59,7 @@
         <a href="https://github.com/buhrmi/shitcoinswap" target="_blank">
           publicly auditable
         </a>
-        crypto investment platform.
+        trading platform for the modern degenerate.
       </p>
     </section>
   </footer>

@@ -25,6 +25,10 @@ Rails.application.routes.draw do
   get "/auth/:provider/callback", to: "sessions#create"
   get "/auth/failure", to: "sessions#failure"
 
+  # Static routes
+  inertia "/terms" => "static/terms"
+  inertia "/privacy" => "static/privacy"
+
   # Defines the root path route ("/")
   root "assets#index"
 end

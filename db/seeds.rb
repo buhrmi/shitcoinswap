@@ -12,7 +12,7 @@ tron_mainnet = Network::Tron.find_or_initialize_by(name: "TRON")
 tron_mainnet.config = {
   # No xpub: the network on the real chain reads its key from the credentials.
   chain: "mainnet",
-  rpc_url: "https://api.trongrid.io"
+  rpc_url: "https://tron-rpc.publicnode.com"
 }
 tron_mainnet.save!
 

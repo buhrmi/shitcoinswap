@@ -11,6 +11,6 @@ class AssetTest < ActiveSupport::TestCase
     json = assets(:usdt).as_json(Asset::JSON_OPTIONS)
 
     assert_equal assets(:usdt).contract_address, json["contract_address"]
-    assert_equal networks(:tron).name, json["network"]["name"]
+    assert_equal networks(:tron).id, json["network_id"]
   end
 end

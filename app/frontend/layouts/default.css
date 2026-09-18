@@ -176,6 +176,17 @@ section {
   background: var(--color-border);
 }
 
+
+  .card-list {
+   display: flex;
+   gap: 1rem; 
+  }
+  .card {
+    background: #111;
+    padding: 1rem;
+  }
+
+  
 .btn.rainbow {
     /* Layout */
     position: relative;

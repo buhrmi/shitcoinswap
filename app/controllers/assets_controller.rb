@@ -1,6 +1,5 @@
 class AssetsController < ApplicationController
   def index
-    @assets = Asset.all
   end
 
   # Either /assets/:id or /assets/:network/:contract.

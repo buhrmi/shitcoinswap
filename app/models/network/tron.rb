@@ -1,6 +1,7 @@
 class Network::Tron < Network::Evm
   # Tron makes a block every three seconds, so a first scan looks much deeper than on
-  # Bitcoin to cover a similar stretch of time: 200 blocks is about ten minutes.
+  # Bitcoin to cover a similar stretch of time: 200 blocks is about ten minutes, and 200
+  # calls on a shared public node.
   INITIAL_DEPTH = 200
 
   # A Tron address is the 20 bytes Ethereum would write in hex, with Tron's own
@@ -63,9 +64,9 @@ class Network::Tron < Network::Evm
     rpc.getblockbynum(height)
   end
 
-  # Minimal client for the handful of TronGrid calls a scan makes. TronGrid names
-  # the method in the path and takes a plain JSON body, so unlike Bitcoin's node
-  # this is not JSON-RPC. `visible: true` asks for base58 addresses.
+  # Minimal client for the handful of calls a scan makes. A Tron node names the method in
+  # the path and takes a plain JSON body, so unlike Bitcoin's node this is not JSON-RPC.
+  # `visible: true` asks for base58 addresses.
   class Rpc
     OPEN_TIMEOUT = 5
     READ_TIMEOUT = 60

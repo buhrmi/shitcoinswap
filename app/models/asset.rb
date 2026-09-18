@@ -1,6 +1,6 @@
 class Asset < ApplicationRecord
-  # contract_address and the network's name are what the /assets/:network/:contract path
-  # is built from. The network is included by name only: its config holds keys.
+  # contract_address and network_id are what a link to a token is built from. The network
+  # is sent as an id alone: its config holds keys.
   JSON_OPTIONS = {
     only: [ :id, :name, :symbol, :contract_address, :network_id ]
   }
