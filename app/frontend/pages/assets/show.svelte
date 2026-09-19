@@ -1,4 +1,6 @@
 <script>
+  import PriceChart from "~/components/PriceChart.svelte"
+
   const {
     asset
   } = $props()
@@ -25,5 +27,8 @@
         <p>{asset.description}</p>
       </div>
     </div>
+  </section>
+  <section>
+    <PriceChart prices={[]} />
   </section>
 </main>

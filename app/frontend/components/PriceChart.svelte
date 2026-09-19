@@ -1,5 +1,5 @@
 <script>
-  import Highcharts from '~/lib/highcharts'
+  import Highcharts from 'highcharts'
   import { onMount, untrack } from 'svelte';
   import { formatAmount } from '~/lib/format'
 
@@ -249,7 +249,7 @@
       {#if hoverDate}
         {hoverDate}
       {:else}
-        Current Sell Price
+        Current Price
       {/if}
     </div>
     <span class="text-2xl font-semibold">
