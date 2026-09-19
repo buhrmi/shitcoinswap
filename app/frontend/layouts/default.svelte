@@ -4,7 +4,6 @@
   import './default.css'
 
   const {
-    assets,
     children
   } = $props()
 </script>
@@ -21,8 +20,8 @@
   <section>
     <div class="md:flex items-center">
       <a href="/" class="brand grow">
-        <img src="~/assets/logo.jpg" class="h-16 inline-block" alt="Shitcoin Swap Logo"/>
-        <img src="~/assets/shitcoinswap.svg" class="h-12 inline-block" alt="Shitcoin Swap Logo"/>
+        <img src="~/assets/logo.jpg" class="h-10 inline-block" alt="Shitcoin Swap Logo"/>
+        <img src="~/assets/shitcoinswap.svg" class="h-6 inline-block" alt="Shitcoin Swap Logo"/>
       </a>
       <p>Delivering Quality since 1982</p>
     </div>
@@ -83,7 +82,7 @@
   @media (min-width: 760px) {
     .layout {
       display: grid;
-      height: 100%;
+      flex: 1;
       grid-template-columns: 1fr 320px;
       grid-template-rows: auto 1fr auto;
       grid-template-areas: 
@@ -93,6 +92,9 @@
     }
     aside {
       border-top: none;
+      position: sticky;
+      max-height: 100dvh;
+      top: 0;
       border-left: 1px solid var(--color-border);
     }
 
