@@ -21,7 +21,7 @@ $effect.root(() => {
 
 // this event is fired from the OAuth popup window
 window.addEventListener('message', function(event) {
-  if (event.data == 'session-created') {
+  if (event.data == 'identity-connected') {
     router.reload()
   }
 })

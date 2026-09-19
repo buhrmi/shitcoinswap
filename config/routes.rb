@@ -14,10 +14,9 @@ Rails.application.routes.draw do
   resources :password_resets
 
   resources :pairs
-  resources :assets
-  resources :networks do
-    resources :assets
-  end
+
+  resources :identities
+  resources :balances
 
   resources :deposits
   resource :session

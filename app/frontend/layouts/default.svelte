@@ -36,8 +36,9 @@
         </p>
         <a href="/session" data-method="delete" data-frame="user">Log out</a>
       </section>
-
-      <Frame src="/user" id="user" />
+      <a data-frame="user" href="/balances" class="btn">Balances</a>
+      <a data-frame="user" href="/identities" class="btn">Connections</a>
+      <Frame src="/balances" id="user" />
     {:else}
       <Frame src="/user/new" id="user" />
     {/if}

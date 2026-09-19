@@ -30,7 +30,7 @@
 
 <main>
   <section>
-    <a href="/user">Back</a>
+    <a href="/balances">Back</a>
   </section>
   <section>
     <div class="receive">

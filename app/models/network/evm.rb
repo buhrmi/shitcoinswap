@@ -20,11 +20,14 @@ class Network::Evm < Network
 
   # What a contract says about itself: the three things every token on these chains knows.
   def token_metadata(contract)
-    {
+    metadata = {
       "name" => string_return(call_contract(contract, "name()")),
       "symbol" => string_return(call_contract(contract, "symbol()")),
       "decimals" => uint_return(call_contract(contract, "decimals()"))
     }.compact
+    raise "contract does not report token metadata" if metadata.empty?
+
+    metadata
   end
 
   private

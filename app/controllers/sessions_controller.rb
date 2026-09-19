@@ -12,13 +12,17 @@ class SessionsController < ApplicationController
   end
 
   def create_from_email
+    if current_user
+      flash[:alert] = "You are already signed in."
+      redirect_back fallback_location: root_path
+    end
     Current.user = User.authenticate_by(
       email: params[:email].to_s.downcase,
       password: params[:password]
     )
     if Current.user
       session[:user_id] = Current.user.id
-      flash.now[:notice] = "Signed in successfully."
+      flash.now[:notice] = "Successfully logged in."
     else
       flash[:alert] = "Invalid email or password."
       redirect_back fallback_location: new_session_path
@@ -28,7 +32,17 @@ class SessionsController < ApplicationController
   def create_from_omniauth
     auth = request.env["omniauth.auth"]
 
-    identity = Identity.from_omniauth!(auth)
+    identity = Identity.from_omniauth!(auth, current_user)
+
+    if current_user
+      if identity.user != current_user
+        flash[:alert] = "This #{identity.provider} account is already connected to another user."
+        return
+      else
+        flash[:notice] = "Successfully connected your #{identity.provider} account."
+        return
+      end
+    end
 
     session[:user_id] = identity.user_id
 

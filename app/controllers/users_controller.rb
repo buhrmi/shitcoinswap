@@ -22,9 +22,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def show
-  end
-
   # POST /users — final step: the email is verified and the visitor has chosen
   # a password. The account is created from the Verification record.
   def create
