@@ -30,16 +30,16 @@
 
   <aside>
     {#if $currentUser}
-    <section>
-      <p>
-        Logged in as {$currentUser?.name}
-      </p>
-      <a href="/session" data-method="delete">Log out</a>
-    </section>
+      <section>
+        <p>
+          Logged in as {$currentUser?.name}
+        </p>
+        <a href="/session" data-method="delete" data-frame="user">Log out</a>
+      </section>
 
-    <Frame src="/user" />
+      <Frame src="/user" id="user" />
     {:else}
-    <Frame src="/user/new" />
+      <Frame src="/user/new" id="user" />
     {/if}
   </aside>
   <footer>

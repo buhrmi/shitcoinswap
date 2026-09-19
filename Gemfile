@@ -89,6 +89,7 @@ gem "itsi", "~> 0.2.27"
 gem "omniauth-google-oauth2", "~> 1.2"
 
 gem "omniauth-threads-api", "~> 0.1.0"
+gem "omniauth-discord"
 
 gem "sequenced", "~> 4.0"
 
