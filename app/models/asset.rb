@@ -2,13 +2,18 @@ class Asset < ApplicationRecord
   # contract_address and network_id are what a link to a token is built from. The network
   # is sent as an id alone: its config holds keys.
   JSON_OPTIONS = {
-    only: [ :id, :name, :symbol, :contract_address, :network_id ]
+    only: [ :id, :name, :symbol, :contract_address, :network_id, :description ],
+    include: {
+      icon: {}
+    }
   }
 
   belongs_to :network, optional: true
 
   has_many :wallets, dependent: :destroy
   has_many :deposits, dependent: :destroy
+
+  has_one_attached :icon
 
   # The address belongs to the chain, so the network hands it out: the account index is the
   # user, the address index the wallet within it.

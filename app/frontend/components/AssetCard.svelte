@@ -10,7 +10,8 @@
 </script>
 
 <div class="card">
-  <a href={pathFor(asset)}>
+  <a href={pathFor(asset)} class="flex gap-2 items-center p-4">
+    <img src={asset.icon.url} class="h-12 w-12 rounded-full "/>
     {asset.name}
   </a>
 </div>

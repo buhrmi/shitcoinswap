@@ -179,11 +179,13 @@ section {
 
   .card-list {
    display: flex;
-   gap: 1rem; 
+   flex-wrap: wrap;
+   gap: 1rem;
+   /* flex-direction: column;  */
   }
   .card {
-    background: #111;
-    padding: 1rem;
+    background: #181818;
+    border-radius: 12px;
   }
 
   

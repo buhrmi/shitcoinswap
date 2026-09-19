@@ -28,14 +28,6 @@
       <p>Delivering Quality since 1982</p>
     </div>
   </section>
-    <section>
-    <div class="card-list">
-      {#each assets as asset (asset.id)}
-       <AssetCard {asset} />
-    
-      {/each}
-    </div>
-  </section>
 </header>
 
   <aside>

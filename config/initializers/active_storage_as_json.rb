@@ -2,16 +2,8 @@ Rails.application.config.to_prepare do
   class ActiveStorage::Attachment < ActiveStorage::Record
     DEFAULT_OPTIONS = {
       only: [],
-      methods: [ :id, :signed_id, :url, :kind, :name ]
+      methods: [ :id, :signed_id, :url, :name ]
     }
-
-    def kind
-      if content_type&.start_with?("image/")
-        :image
-      elsif content_type&.start_with?("video/")
-        :video
-      end
-    end
 
     # Disk services generate their URLs from ActiveStorage::Current.url_options,
     # which is only set during a request. When the service is a disk service,
@@ -37,12 +29,6 @@ Rails.application.config.to_prepare do
       else
         super(options)
       end
-      # variants = options.delete(:variants) || []
-      # super(options).merge(
-      #   variants: variants.each_with_object({}) do |variant, hash|
-      #     hash[variant] = self.variant(variant).processed.url
-      #   end
-      # )
     end
   end
 end
