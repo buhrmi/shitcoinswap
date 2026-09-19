@@ -34,10 +34,10 @@ unless usdt.icon.attached?
   usdt.icon.attach File.open("db/seeds/assets/usdt.png")
 end
 
-jeseph = Asset.where(name: "Jeseph's Booking Platform").first_or_create!
+jeseph = Asset.find_or_initialize_by(symbol: "jeseph")
 
-jeseph.description = "Built for foreign artists with a desire to perform in Tokyo, Jeseph's booking platform will help you find your path."
-jeseph.symbol = "jeseph"
+jeseph.description = "The easiest way for artists to get booked in Tokyo and beyond."
+jeseph.name = "Jeseph's Booking App"
 jeseph.save!
 
 unless jeseph.icon.attached?
