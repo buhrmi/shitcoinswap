@@ -24,5 +24,8 @@
   "scripts": {
     "build": "vite build && vite build --ssr"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "tippy.js": "^6.3.7"
+  }
 }

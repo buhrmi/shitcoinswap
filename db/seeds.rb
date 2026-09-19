@@ -36,7 +36,7 @@ end
 
 jeseph = Asset.where(name: "Jeseph's Booking Platform").first_or_create!
 
-jeseph.description = "Years in the making, Jeseph's booking platform makes it easy to bring foreign talent to Tokyo."
+jeseph.description = "Built for foreign artists with a desire to perform in Tokyo, Jeseph's booking platform will help you find your path."
 jeseph.symbol = "jeseph"
 jeseph.save!
 
