@@ -1,16 +1,17 @@
 <script>
-  import AssetCard from '~/components/AssetCard.svelte'
+  import PairCard from '~/components/PairCard.svelte'
   const {
-    assets
+    pairs
   } = $props();
 </script>
 
 <main>
 <section>
+  <h2>What's hot right now?</h2>
   <div class="card-list">
-    {#each assets as asset}
+    {#each pairs as pair}
       <div class="card">
-        <AssetCard {asset}/>
+        <PairCard {pair}/>
       </div>
     {/each}
   </div>

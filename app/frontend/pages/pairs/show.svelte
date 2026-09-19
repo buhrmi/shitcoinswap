@@ -2,12 +2,12 @@
   import PriceChart from "~/components/PriceChart.svelte"
 
   const {
-    asset
+    pair
   } = $props()
 </script>
 
 <svelte:head>
-  <title>{asset.name} on Shitcoin Swap</title>
+  <title>Buy {pair.base_asset.name} for {pair.quote_asset.name} on Shitcoin Swap</title>
 </svelte:head>
 
 <main>
@@ -16,19 +16,19 @@
       <a href="/">
         Assets
       </a>
-      &RightAngleBracket; {asset.name}
+      &RightAngleBracket; {pair.base_asset.name}
     </nav>
   </section>
   <section>
     <div class="flex gap-2">
-      <img src={asset.icon.url} class="h-22 w-22 rounded-full" />
+      <img src={pair.base_asset.icon.url} class="h-22 w-22 rounded-full" />
       <div class="info">
-        <h2>{asset.name}</h2>
-        <p>{asset.description}</p>
+        <h2>{pair.base_asset.name}</h2>
+        <p>{pair.base_asset.description}</p>
       </div>
     </div>
   </section>
   <section>
-    <PriceChart prices={[]} />
+    <PriceChart prices={[]} {pair} />
   </section>
 </main>

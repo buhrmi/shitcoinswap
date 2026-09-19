@@ -1,7 +1,6 @@
 <script>
   import { Frame } from 'inertiax-svelte'
   import { currentUser } from '~/lib/stores'
-  import AssetCard from '~/components/AssetCard.svelte'
   import './default.css'
 
   const {

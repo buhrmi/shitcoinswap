@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_14_053236) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_19_031122) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
@@ -109,6 +109,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_14_053236) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "pairs", force: :cascade do |t|
+    t.bigint "base_asset_id", null: false
+    t.datetime "created_at", null: false
+    t.bigint "quote_asset_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["base_asset_id"], name: "index_pairs_on_base_asset_id"
+    t.index ["quote_asset_id"], name: "index_pairs_on_quote_asset_id"
+  end
+
   create_table "password_resets", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "expires_at", null: false
@@ -164,6 +173,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_14_053236) do
   add_foreign_key "deposits", "assets"
   add_foreign_key "deposits", "users"
   add_foreign_key "deposits", "wallets"
+  add_foreign_key "pairs", "assets", column: "base_asset_id"
+  add_foreign_key "pairs", "assets", column: "quote_asset_id"
   add_foreign_key "password_resets", "users"
   add_foreign_key "wallets", "assets"
   add_foreign_key "wallets", "users"

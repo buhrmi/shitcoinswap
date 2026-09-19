@@ -36,7 +36,7 @@ end
 
 jeseph = Asset.where(name: "Jeseph's Booking Platform").first_or_create!
 
-jeseph.description = "Years in the making, Jeseph's platform is set to breathe new life into the Japanese nightlife industry."
+jeseph.description = "Years in the making, Jeseph's booking platform makes it easy to bring foreign talent to Tokyo."
 jeseph.symbol = "jeseph"
 jeseph.save!
 
@@ -67,3 +67,5 @@ if Rails.env.development?
   end
 
 end
+
+jesepthbtc = Pair.where(base_asset: jeseph, quote_asset: btc).first_or_create!

@@ -12,8 +12,8 @@
   })
 
   const {
-    data = [],
-    quote_asset,
+    data = [[new Date().getTime(), 0]],
+    pair,
     ui = true,
     autoExtend = true,
     css
@@ -22,6 +22,7 @@
   let chart = null
   let crosshairLine = null
   let crosshairDot = null
+  let quote_asset = $derived(pair.quote_asset)
 
   let hoverDate = $state('')
   let hoverPrice = $state('')

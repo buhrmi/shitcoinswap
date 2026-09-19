@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :verifications
   resources :password_resets
 
+  resources :pairs
   resources :assets
   resources :networks do
     resources :assets
@@ -30,5 +31,5 @@ Rails.application.routes.draw do
   inertia "/privacy" => "static/privacy"
 
   # Defines the root path route ("/")
-  root "assets#index"
+  root "pairs#index"
 end
